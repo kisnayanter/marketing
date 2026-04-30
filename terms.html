@@ -1,265 +1,267 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#FF6B00" />
   <meta name="description" content="KisanYantra terms and conditions — the rules of the platform for farmers, equipment owners and operators." />
   <title>Terms &amp; Conditions — KisanYantra</title>
 
-  <link rel="icon" type="image/png" href="assets/logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css" />
-  <link rel="stylesheet" href="css/animations.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="tokens.css" />
+
+  <style>
+    body { background: var(--ky-cream); color: var(--ky-ink-2); }
+
+    .ky-nav { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 14px 64px; border-bottom: 1px solid var(--ky-cream-line); background: rgba(253,250,245,0.92); backdrop-filter: blur(10px); gap: 24px; }
+    .ky-nav__brand { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
+    .ky-nav__logo { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 999px; background: var(--ky-saffron); }
+    .ky-nav__wordmark { font-family: var(--f-display); font-weight: 800; font-size: 17px; letter-spacing: -0.01em; color: var(--ky-ink); }
+    .ky-nav__links { display: flex; gap: 2px; align-items: center; flex: 1; justify-content: center; }
+    .ky-nav__links a { padding: 7px 14px; border-radius: 8px; text-decoration: none; font-weight: 500; font-size: 14px; color: var(--ky-ink-3); transition: color .15s, background .15s; }
+    .ky-nav__links a:hover { color: var(--ky-ink); background: var(--ky-cream-deep); }
+    .ky-nav__store { flex-shrink: 0; display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: var(--r-btn); background: var(--ky-ink); color: var(--ky-cream); text-decoration: none; font-size: 13px; font-weight: 600; }
+    @media (max-width: 768px) { .ky-nav { padding: 14px 20px; } .ky-nav__links { display: none; } }
+
+    .legal-hero { padding: 64px 64px 24px; background: radial-gradient(900px 300px at 90% 0%, rgba(255,107,0,0.1), transparent 60%), var(--ky-cream); border-bottom: 1px solid var(--ky-cream-line); }
+    .legal-hero__inner { max-width: 1100px; margin: 0 auto; }
+    .legal-hero__kicker { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: var(--ky-saffron-tint); color: var(--ky-saffron-deep); font-size: 12px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 18px; }
+    .legal-hero h1 { font-family: var(--f-display); font-weight: 800; font-size: clamp(36px, 5vw, 60px); letter-spacing: -0.02em; line-height: 1.05; color: var(--ky-ink); margin: 0; }
+    .legal-hero__meta { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 22px; font-size: 14px; color: var(--ky-ink-3); }
+    .legal-hero__meta strong { color: var(--ky-ink); font-weight: 600; }
+    .legal-warning { max-width: 1100px; margin: 32px auto 0; padding: 18px 22px; background: var(--ky-saffron-tint); border-left: 4px solid var(--ky-saffron); border-radius: 0 var(--r-card) var(--r-card) 0; font-size: 14.5px; line-height: 1.6; color: var(--ky-ink-2); }
+    .legal-warning strong { color: var(--ky-saffron-deep); }
+
+    .legal-grid { max-width: 1100px; margin: 0 auto; padding: 56px 64px 80px; display: grid; grid-template-columns: 220px 1fr; gap: 64px; align-items: start; }
+    @media (max-width: 900px) { .legal-grid { grid-template-columns: 1fr; gap: 32px; padding: 40px 24px; } .legal-hero { padding: 48px 24px 16px; } }
+
+    .legal-toc { position: sticky; top: 84px; align-self: start; }
+    @media (max-width: 900px) { .legal-toc { position: static; } }
+    .legal-toc h4 { font-family: var(--f-display); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ky-ink-3); margin: 0 0 14px; }
+    .legal-toc a { display: block; padding: 7px 0 7px 14px; font-size: 14px; line-height: 1.4; color: var(--ky-ink-3); text-decoration: none; border-left: 2px solid transparent; transition: color .15s, border-color .15s; }
+    .legal-toc a:hover, .legal-toc a.is-active { color: var(--ky-saffron); border-left-color: var(--ky-saffron); }
+
+    .legal-body { max-width: 760px; line-height: 1.7; }
+    .legal-body h2 { font-family: var(--f-display); font-weight: 700; font-size: 28px; letter-spacing: -0.01em; line-height: 1.2; color: var(--ky-ink); margin: 48px 0 14px; scroll-margin-top: 96px; }
+    .legal-body h2:first-child { margin-top: 0; }
+    .legal-body h3 { font-family: var(--f-display); font-weight: 700; font-size: 18px; color: var(--ky-ink); margin: 28px 0 8px; }
+    .legal-body p { margin: 0 0 14px; }
+    .legal-body ul, .legal-body ol { margin: 0 0 14px 22px; padding: 0; }
+    .legal-body li { margin-bottom: 6px; }
+    .legal-body strong { color: var(--ky-ink); font-weight: 600; }
+    .legal-body a { color: var(--ky-saffron-deep); text-decoration: underline; text-decoration-color: rgba(255,107,0,0.4); text-underline-offset: 3px; }
+    .legal-body a:hover { text-decoration-color: var(--ky-saffron); }
+
+    footer.ky-foot { padding: 40px 64px; background: var(--ky-ink); color: rgba(253,250,245,0.65); font-size: 13px; }
+    footer.ky-foot a { color: rgba(253,250,245,0.7); text-decoration: none; }
+    footer.ky-foot a:hover { color: rgba(253,250,245,1); }
+  </style>
 </head>
 <body>
-  <header class="nav" id="nav">
-    <a href="index.html" class="nav__brand">
-      <img src="assets/logo.png" alt="" class="nav__logo" />
-      <span class="nav__wordmark">KisanYantra</span>
+  <nav class="ky-nav">
+    <a href="index.html" class="ky-nav__brand">
+      <span class="ky-nav__logo">
+        <svg width="20" height="20" viewBox="0 0 40 40" aria-hidden>
+          <path d="M20 9 L22 14 L27 13 L24 17 L28 20 L23 22 L25 27 L20 24 L15 27 L17 22 L12 20 L16 17 L13 13 L18 14 Z" fill="#FDFAF5"/>
+          <circle cx="20" cy="20" r="3" fill="#FF6B00"/>
+        </svg>
+      </span>
+      <span class="ky-nav__wordmark">KisanYantra</span>
     </a>
-    <nav class="nav__links" aria-label="Primary">
-      <a href="for-farmers.html">Farmers</a>
-      <a href="for-owners.html">Owners</a>
-      <a href="for-operators.html">Operators</a>
-      <a href="equipment.html">Equipment</a>
-    </nav>
-    <div class="nav__actions">
-      <a href="index.html#download" class="btn btn--gradient btn--small">Download</a>
+    <div class="ky-nav__links">
+      <a href="index.html">Home</a>
+      <a href="farmer.html">Farmers</a>
+      <a href="owner.html">Owners</a>
+      <a href="operator.html">Operators</a>
+      <a href="catalog.html">Equipment</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <a href="index.html#download" class="ky-nav__store">Get the app →</a>
+  </nav>
+
+  <header class="legal-hero">
+    <div class="legal-hero__inner">
+      <span class="legal-hero__kicker">Legal</span>
+      <h1>Terms &amp; Conditions</h1>
+      <div class="legal-hero__meta">
+        <span><strong>Effective:</strong> 30 April 2026</span>
+        <span><strong>Last updated:</strong> 30 April 2026</span>
+        <span><strong>Version:</strong> 1.0</span>
+      </div>
+    </div>
+    <div class="legal-warning">
+      <strong>Template notice:</strong> This document is a starter template intended for review by a qualified Indian legal professional. It outlines KisanYantra's intended commercial terms but is not yet a legally vetted contract. Please consult counsel before relying on it.
     </div>
   </header>
 
-  <main class="legal-page">
-    <div class="container">
-      <header class="legal-page__head">
-        <span class="eyebrow">Legal</span>
-        <h1>Terms &amp; Conditions</h1>
-        <div class="legal-page__meta">
-          <span><strong>Effective:</strong> 30 April 2026</span>
-          <span><strong>Last updated:</strong> 30 April 2026</span>
-          <span><strong>Version:</strong> 1.0</span>
-        </div>
-        <div class="legal-warning">
-          <strong>Template notice:</strong> This document is a starter template intended for review by a qualified Indian legal professional. It outlines KisanYantra's intended commercial terms but is not yet a legally vetted contract. Please consult counsel before relying on it.
-        </div>
-      </header>
+  <section class="legal-grid">
+    <aside class="legal-toc" aria-label="On this page">
+      <h4>On this page</h4>
+      <a href="#acceptance">1. Acceptance</a>
+      <a href="#eligibility">2. Eligibility</a>
+      <a href="#account">3. Your account</a>
+      <a href="#platform-role">4. Our role</a>
+      <a href="#renter">5. Renter terms</a>
+      <a href="#owner">6. Owner terms</a>
+      <a href="#operator">7. Operator terms</a>
+      <a href="#payments">8. Payments</a>
+      <a href="#commission">9. Zero commission</a>
+      <a href="#kyc">10. KYC</a>
+      <a href="#prohibited">11. Prohibited use</a>
+      <a href="#content">12. User content</a>
+      <a href="#ip">13. Intellectual property</a>
+      <a href="#disputes">14. Disputes</a>
+      <a href="#liability">15. Liability</a>
+      <a href="#indemnity">16. Indemnification</a>
+      <a href="#termination">17. Termination</a>
+      <a href="#changes">18. Changes</a>
+      <a href="#governing-law">19. Governing law</a>
+      <a href="#contact">20. Contact</a>
+    </aside>
 
-      <div class="legal-grid">
-        <aside class="legal-toc">
-          <h4>On this page</h4>
-          <a href="#acceptance">1. Acceptance</a>
-          <a href="#eligibility">2. Eligibility</a>
-          <a href="#account">3. Your account</a>
-          <a href="#platform-role">4. Our role</a>
-          <a href="#renter">5. Renter terms</a>
-          <a href="#owner">6. Owner terms</a>
-          <a href="#operator">7. Operator terms</a>
-          <a href="#payments">8. Payments &amp; refunds</a>
-          <a href="#commission">9. Zero commission</a>
-          <a href="#kyc">10. KYC</a>
-          <a href="#prohibited">11. Prohibited use</a>
-          <a href="#content">12. User content</a>
-          <a href="#ip">13. Intellectual property</a>
-          <a href="#disputes">14. Disputes</a>
-          <a href="#liability">15. Liability</a>
-          <a href="#indemnity">16. Indemnification</a>
-          <a href="#termination">17. Termination</a>
-          <a href="#changes">18. Changes</a>
-          <a href="#governing-law">19. Governing law</a>
-          <a href="#contact">20. Contact</a>
-        </aside>
+    <article class="legal-body">
+      <h2 id="acceptance">1. Acceptance of these terms</h2>
+      <p>These Terms &amp; Conditions ("Terms") govern your use of the KisanYantra mobile application, website, and related services (together, the "Platform") operated by KisanYantra ("KisanYantra", "we", "our", "us"). By creating an account or using the Platform you accept these Terms and our <a href="privacy.html">Privacy Policy</a>. If you do not accept, you may not use the Platform.</p>
 
-        <article class="legal-body">
-          <h2 id="acceptance">1. Acceptance of these terms</h2>
-          <p>
-            These Terms &amp; Conditions ("Terms") govern your use of the KisanYantra mobile application, website, and related services (together, the "Platform") operated by KisanYantra ("KisanYantra", "we", "our", "us"). By creating an account or using the Platform you accept these Terms and our <a href="privacy.html">Privacy Policy</a>. If you do not accept, you may not use the Platform.
-          </p>
+      <h2 id="eligibility">2. Eligibility</h2>
+      <ul>
+        <li>You must be at least 18 years old.</li>
+        <li>You must be an Indian resident with a valid mobile number and government-issued ID.</li>
+        <li>You must not be barred from using the Platform under any applicable law or a prior termination by us.</li>
+        <li>You must have legal authority to enter contracts on behalf of any business or HUF you represent.</li>
+      </ul>
 
-          <h2 id="eligibility">2. Eligibility</h2>
-          <p>You may use KisanYantra only if you:</p>
-          <ul>
-            <li>are at least 18 years old;</li>
-            <li>are an Indian resident with a valid mobile number and government-issued ID;</li>
-            <li>are not barred from using the Platform under any applicable law or a prior termination by us;</li>
-            <li>have legal authority to enter contracts on behalf of any business or HUF you represent.</li>
-          </ul>
+      <h2 id="account">3. Your account</h2>
+      <ul>
+        <li>Provide accurate, current information at registration and keep it updated.</li>
+        <li>Safeguard your mobile number and any one-time passwords (OTP) used to log in.</li>
+        <li>Notify us immediately at <a href="mailto:support@kisanyantra.in">support@kisanyantra.in</a> if you suspect unauthorised access.</li>
+        <li>Do not impersonate another person or share your account with anyone else.</li>
+      </ul>
 
-          <h2 id="account">3. Your account</h2>
-          <p>You are responsible for keeping your account secure. You agree to:</p>
-          <ul>
-            <li>provide accurate, current information at registration and keep it updated;</li>
-            <li>safeguard your mobile number and any one-time passwords (OTP) used to log in;</li>
-            <li>notify us immediately at <a href="mailto:support@kisanyantra.app">support@kisanyantra.app</a> if you suspect unauthorised access;</li>
-            <li>not impersonate another person or share your account with anyone else.</li>
-          </ul>
+      <h2 id="platform-role">4. Our role on the Platform</h2>
+      <p>KisanYantra is an <strong>intermediary</strong> as defined under the Information Technology Act, 2000. We provide the technology that lets farmers, equipment owners and operators discover each other and agree on rentals. Each rental contract is a <strong>direct agreement</strong> between the renter, the owner, and (where applicable) the operator. We are not a party to that agreement.</p>
+      <p>We do not own, lease, manufacture, transport, operate, repair or insure the equipment listed on the Platform. We do not employ the operators. <strong>We do not collect or hold money</strong> — payments are settled directly between the parties via cash or UPI, outside the Platform.</p>
 
-          <h2 id="platform-role">4. Our role on the Platform</h2>
-          <p>
-            KisanYantra is an <strong>intermediary</strong> as defined under the Information Technology Act, 2000. We provide the technology that lets farmers, equipment owners and operators discover each other and transact. Each rental contract is a <strong>direct agreement</strong> between the renter, the owner, and (where applicable) the operator. We are not a party to that agreement.
-          </p>
-          <p>
-            We do not own, lease, manufacture, transport, operate, repair or insure the equipment listed on the Platform. We do not employ the operators. We are not a guarantor of any user's identity, financial standing or intent.
-          </p>
+      <h2 id="renter">5. Renter terms</h2>
+      <h3>5.1 Booking and confirmation</h3>
+      <p>A booking is created when you submit a request and the owner accepts. You are committing to pay the agreed amount for the equipment and dates specified.</p>
+      <h3>5.2 Cancellation</h3>
+      <p>You may cancel before the cancellation cut-off shown on each listing (typically 24 hours before start time) without penalty. Cancellations after the cut-off may forfeit any deposit you have agreed with the owner.</p>
+      <h3>5.3 Damage and loss</h3>
+      <p>You are responsible for any damage to or loss of the equipment during the rental period that is caused by your or your operator's negligence or wilful conduct. Normal wear and tear is the owner's responsibility.</p>
+      <h3>5.4 Use restrictions</h3>
+      <p>Use the equipment only for the purpose for which it is designed, in lawful agricultural operations, and only on the property or routes you are authorised to use.</p>
 
-          <h2 id="renter">5. Renter terms</h2>
-          <h3>5.1 Booking and confirmation</h3>
-          <p>A booking is created when you submit a request and the owner accepts. You are committing to pay the agreed amount for the equipment and dates specified.</p>
-          <h3>5.2 Deposit and balance</h3>
-          <p>You will pay a deposit at booking and the balance on or before equipment delivery, per the listing. The owner may waive the deposit at their discretion.</p>
-          <h3>5.3 Cancellation</h3>
-          <p>You may cancel before the cancellation cut-off shown on each listing (typically 24 hours before start time) for a full refund of the deposit. Cancellations after the cut-off may forfeit the deposit at the owner's discretion.</p>
-          <h3>5.4 Damage and loss</h3>
-          <p>You are responsible for any damage to or loss of the equipment during the rental period that is caused by your or your operator's negligence or wilful conduct. Normal wear and tear is the owner's responsibility.</p>
-          <h3>5.5 Use restrictions</h3>
-          <p>You agree to use the equipment only for the purpose for which it is designed, in lawful agricultural operations, and only on the property or routes you are authorised to use.</p>
+      <h2 id="owner">6. Owner terms</h2>
+      <h3>6.1 Listing accuracy</h3>
+      <p>You must list equipment you own or are legally authorised to rent. Photos, brand, model, HP, condition, included implements and pricing must be accurate and current.</p>
+      <h3>6.2 Availability</h3>
+      <p>Once you accept a booking you commit to delivering the equipment on the agreed dates in the condition listed. Repeated last-minute cancellations may result in account suspension.</p>
+      <h3>6.3 Operator</h3>
+      <p>If your listing includes an operator, you remain responsible for the operator's conduct and credentials, even if you sourced them through the Platform.</p>
+      <h3>6.4 Insurance and compliance</h3>
+      <p>You confirm that the equipment carries any insurance and registration required by law (e.g. tractor RC, valid PUC, third-party motor cover where applicable).</p>
+      <h3>6.5 Tax</h3>
+      <p>You are solely responsible for taxes (GST, income tax) on the rentals you earn. KisanYantra does not collect, deduct or remit tax on your behalf.</p>
 
-          <h2 id="owner">6. Owner terms</h2>
-          <h3>6.1 Listing accuracy</h3>
-          <p>You must list equipment you own or are legally authorised to rent. Photos, brand, model, HP, condition, included implements and pricing must be accurate and current.</p>
-          <h3>6.2 Availability</h3>
-          <p>Once you accept a booking you commit to delivering the equipment on the agreed dates in the condition listed. Repeated last-minute cancellations may result in account suspension.</p>
-          <h3>6.3 Operator</h3>
-          <p>If your listing includes an operator, you remain responsible for the operator's conduct and credentials, even if you sourced them through the Platform.</p>
-          <h3>6.4 Insurance and compliance</h3>
-          <p>You confirm that the equipment carries any insurance and registration required by law (e.g. tractor RC, valid PUC, third-party motor cover where applicable).</p>
-          <h3>6.5 Tax</h3>
-          <p>You are solely responsible for taxes (GST, income tax) on the rentals you earn. We do not deduct or withhold tax on your behalf unless required by law (e.g. TDS under Section 194-O for e-commerce operators), in which case we will issue the appropriate certificate.</p>
+      <h2 id="operator">7. Operator terms</h2>
+      <p>Operators agree to hold valid licences and credentials for the equipment they operate, to follow the renter's reasonable instructions within the bounds of safe operation, and to maintain courteous conduct. Operators are independent service providers and are not employees of KisanYantra or, unless separately agreed, of the equipment owner.</p>
 
-          <h2 id="operator">7. Operator terms</h2>
-          <p>
-            Operators agree to hold valid licences and credentials for the equipment they operate, to follow the renter's reasonable instructions within the bounds of safe operation, and to maintain courteous conduct. Operators are independent service providers and are not employees of KisanYantra or, unless separately agreed, of the equipment owner.
-          </p>
+      <h2 id="payments">8. Payments</h2>
+      <p>Payments are settled <strong>outside the Platform</strong>, directly between the renter and the owner, by <strong>cash or UPI</strong>. KisanYantra does not collect, hold or remit money. Receipts and payment status visible in the app are user-recorded — KisanYantra cannot verify or guarantee them.</p>
 
-          <h2 id="payments">8. Payments &amp; refunds</h2>
-          <ul>
-            <li>Payments flow through a regulated UPI / payment gateway. We do not store full card or bank credentials.</li>
-            <li>Refunds for eligible cancellations are initiated within 24 hours; arrival in your account depends on your bank.</li>
-            <li>If a dispute arises, we may temporarily hold funds while we collect statements from both sides.</li>
-            <li>Currency is Indian Rupees (INR) only.</li>
-          </ul>
+      <h2 id="commission">9. Zero-commission promise</h2>
+      <p>KisanYantra <strong>does not charge a commission</strong> to renters, owners, or operators on the rental amount or operator wages. The Platform is provided free at the point of use.</p>
+      <p>We may, in the future, introduce optional add-on services (e.g. insurance products, premium listings, advertising) — these will be clearly priced, opt-in, and subject to a separate agreement. The core rent / list / operate flows will remain commission-free.</p>
 
-          <h2 id="commission">9. Zero-commission promise</h2>
-          <p>
-            KisanYantra <strong>does not charge a commission</strong> to renters, owners, or operators on the rental amount or operator wages. The Platform is provided free at the point of use.
-          </p>
-          <p>
-            We may, in the future, charge for optional add-on services (e.g. insurance products, premium listings, advertising) — these will be clearly priced, opt-in, and subject to a separate agreement. The core rent / list / operate flows will remain commission-free.
-          </p>
+      <h2 id="kyc">10. KYC verification</h2>
+      <p>To list equipment, register as an operator, or transact above thresholds set by us from time to time, you must complete KYC. You authorise us and our KYC partners to verify the documents you submit against the relevant authority. Submitting forged or impersonated documents will result in immediate termination.</p>
 
-          <h2 id="kyc">10. KYC verification</h2>
-          <p>
-            To list equipment, register as an operator, or transact above thresholds set by us from time to time, you must complete KYC. You authorise us and our KYC partners to verify the documents you submit against the relevant authority. Submitting forged or impersonated documents will result in immediate termination.
-          </p>
+      <h2 id="prohibited">11. Prohibited use</h2>
+      <ul>
+        <li>Do not use the Platform for anything other than lawful agricultural-equipment rental and related services.</li>
+        <li>Do not list stolen, encumbered, or non-functional equipment.</li>
+        <li>Do not circumvent the booking flow to avoid the platform's protections (e.g. negotiating off-platform after a connection has been made — beyond the cash/UPI settlement KisanYantra explicitly defers to).</li>
+        <li>Do not scrape, reverse-engineer, or interfere with the Platform's operation.</li>
+        <li>Do not harass, threaten or defame other users.</li>
+        <li>Do not upload viruses, malware, or any code that disrupts the Platform.</li>
+      </ul>
 
-          <h2 id="prohibited">11. Prohibited use</h2>
-          <p>You agree not to:</p>
-          <ul>
-            <li>use the Platform for anything other than lawful agricultural-equipment rental and related services;</li>
-            <li>list stolen, encumbered, or non-functional equipment;</li>
-            <li>circumvent the booking flow to avoid the platform's protections (e.g. negotiating off-platform after a connection has been made);</li>
-            <li>scrape, reverse-engineer, or interfere with the Platform's operation;</li>
-            <li>harass, threaten or defame other users;</li>
-            <li>upload viruses, malware, or any code that disrupts the Platform.</li>
-          </ul>
-          <p>Violations may result in immediate account suspension and may be reported to law-enforcement authorities.</p>
+      <h2 id="content">12. User content</h2>
+      <p>You retain ownership of photos, descriptions, ratings and other content you submit. You grant KisanYantra a non-exclusive, worldwide, royalty-free, sublicensable licence to display, reproduce and adapt that content solely to operate, promote and improve the Platform. You confirm you have the rights to grant this licence.</p>
 
-          <h2 id="content">12. User content</h2>
-          <p>
-            You retain ownership of photos, descriptions, ratings and other content you submit. You grant KisanYantra a non-exclusive, worldwide, royalty-free, sublicensable licence to display, reproduce and adapt that content solely to operate, promote and improve the Platform. You confirm you have the rights to grant this licence.
-          </p>
+      <h2 id="ip">13. Intellectual property</h2>
+      <p>The KisanYantra name, logo, app icons, illustrations, software and all related trademarks are owned by KisanYantra. You may not reproduce them without our written permission.</p>
 
-          <h2 id="ip">13. Intellectual property</h2>
-          <p>
-            The KisanYantra name, logo, app icons, illustrations, software and all related trademarks are owned by KisanYantra. You may not reproduce them without our written permission.
-          </p>
+      <h2 id="disputes">14. Dispute resolution</h2>
+      <h3>14.1 In-app first</h3>
+      <p>If a dispute arises with another user, please raise it in the in-app "Help &amp; support" flow first. We will collect both sides' statements and attempt a fair resolution within 14 working days. As we do not handle the money, the resolution may include a recommendation about cash/UPI settlement between the parties.</p>
+      <h3>14.2 Arbitration</h3>
+      <p>Any dispute that remains unresolved after the in-app process, including any dispute with KisanYantra, shall be referred to a sole arbitrator under the Arbitration and Conciliation Act, 1996. The seat of arbitration shall be in [City — to be set before public launch], India. Proceedings shall be conducted in English or Hindi.</p>
 
-          <h2 id="disputes">14. Dispute resolution</h2>
-          <h3>14.1 In-app first</h3>
-          <p>If a dispute arises with another user, please raise it in the in-app "Help &amp; support" flow first. We will collect both sides' statements and attempt a fair resolution within 14 working days.</p>
-          <h3>14.2 Arbitration</h3>
-          <p>Any dispute that remains unresolved after the in-app process, including any dispute with KisanYantra, shall be referred to a sole arbitrator under the Arbitration and Conciliation Act, 1996. The seat of arbitration shall be in [City — to be set before public launch], India. Proceedings shall be conducted in English or Hindi.</p>
+      <h2 id="liability">15. Limitation of liability</h2>
+      <p>To the maximum extent permitted by law, KisanYantra's aggregate liability for any claim arising out of these Terms or the Platform is limited to the greater of (a) ₹10,000 or (b) the platform fees (if any) paid by you in the 12 months immediately preceding the claim.</p>
+      <p>We are not liable for: (i) loss of profits, goodwill, crops or business opportunity; (ii) damage to or loss of equipment caused by users; (iii) injuries arising from operator / renter conduct; (iv) cash or UPI transactions between users; (v) failure of third-party services (UPI, telecom, electricity); or (vi) events of force majeure.</p>
 
-          <h2 id="liability">15. Limitation of liability</h2>
-          <p>
-            To the maximum extent permitted by law, KisanYantra's aggregate liability for any claim arising out of these Terms or the Platform is limited to the greater of (a) ₹10,000 or (b) the platform fees (if any) paid by you in the 12 months immediately preceding the claim.
-          </p>
-          <p>
-            We are not liable for: (i) loss of profits, goodwill, crops or business opportunity; (ii) damage to or loss of equipment caused by users; (iii) injuries arising from operator / renter conduct; (iv) failure of third-party services (UPI, telecom, electricity); or (v) events of force majeure.
-          </p>
+      <h2 id="indemnity">16. Indemnification</h2>
+      <p>You agree to indemnify and hold harmless KisanYantra and its officers, employees, affiliates and partners from any claim, demand, loss or liability (including reasonable legal fees) arising from your breach of these Terms, your misuse of the Platform, or your interaction with another user.</p>
 
-          <h2 id="indemnity">16. Indemnification</h2>
-          <p>
-            You agree to indemnify and hold harmless KisanYantra and its officers, employees, affiliates and partners from any claim, demand, loss or liability (including reasonable legal fees) arising from your breach of these Terms, your misuse of the Platform, or your interaction with another user.
-          </p>
+      <h2 id="termination">17. Termination</h2>
+      <p>You may delete your account at any time from the in-app Profile screen. We may suspend or terminate your account if you breach these Terms, fail KYC, or for any reason required by law, with reasonable notice where practicable. Provisions that by their nature survive termination (sections 12–16, 19) will continue to apply.</p>
 
-          <h2 id="termination">17. Termination</h2>
-          <p>
-            You may delete your account at any time from the in-app Profile screen. We may suspend or terminate your account if you breach these Terms, fail KYC, or for any reason required by law, with reasonable notice where practicable. Provisions that by their nature survive termination (sections 12–16, 19) will continue to apply.
-          </p>
+      <h2 id="changes">18. Changes to these Terms</h2>
+      <p>We may update these Terms as the product or our legal obligations change. Material changes will be notified in-app at least 7 days before they take effect. Continuing to use the Platform after the effective date constitutes acceptance.</p>
 
-          <h2 id="changes">18. Changes to these Terms</h2>
-          <p>
-            We may update these Terms as the product or our legal obligations change. Material changes will be notified in-app at least 7 days before they take effect. Continuing to use the Platform after the effective date constitutes acceptance.
-          </p>
+      <h2 id="governing-law">19. Governing law</h2>
+      <p>These Terms are governed by the laws of India. Subject to Section 14, the courts at [City — to be set before public launch] shall have exclusive jurisdiction.</p>
 
-          <h2 id="governing-law">19. Governing law</h2>
-          <p>
-            These Terms are governed by the laws of India. Subject to Section 14, the courts at [City — to be set before public launch] shall have exclusive jurisdiction.
-          </p>
+      <h2 id="contact">20. Contact</h2>
+      <ul>
+        <li>General: <a href="mailto:hello@kisanyantra.in">hello@kisanyantra.in</a></li>
+        <li>Support: <a href="mailto:support@kisanyantra.in">support@kisanyantra.in</a></li>
+        <li>Legal: <a href="mailto:legal@kisanyantra.in">legal@kisanyantra.in</a></li>
+        <li>Grievance officer: <a href="mailto:grievance@kisanyantra.in">grievance@kisanyantra.in</a></li>
+        <li>Postal: [Registered office address — to be updated before public launch], India</li>
+      </ul>
+      <p>By using KisanYantra you confirm you have read and accepted these Terms.</p>
+    </article>
+  </section>
 
-          <h2 id="contact">20. Contact</h2>
-          <ul>
-            <li>General: <a href="mailto:hello@kisanyantra.app">hello@kisanyantra.app</a></li>
-            <li>Support: <a href="mailto:support@kisanyantra.app">support@kisanyantra.app</a></li>
-            <li>Legal: <a href="mailto:legal@kisanyantra.app">legal@kisanyantra.app</a></li>
-            <li>Grievance officer: <a href="mailto:grievance@kisanyantra.app">grievance@kisanyantra.app</a></li>
-            <li>Postal: [Registered office address — to be updated before public launch], India</li>
-          </ul>
-          <p>
-            By using KisanYantra you confirm you have read and accepted these Terms.
-          </p>
-        </article>
+  <footer class="ky-foot">
+    <div style="max-width:1312px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;">
+      <span>© 2026 KisanYantra Technologies Pvt. Ltd. · Made for Indian farmers 🇮🇳</span>
+      <div style="display:flex; gap:24px;">
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="contact.html">Contact</a>
       </div>
-    </div>
-  </main>
-
-  <footer class="footer">
-    <div class="container footer__wrap">
-      <div class="footer__brand">
-        <img src="assets/logo.png" alt="" />
-        <strong>KisanYantra</strong>
-        <span>Made in Bharat 🌾</span>
-      </div>
-      <nav class="footer__cols" aria-label="Footer">
-        <div><h4>Product</h4>
-          <a href="for-farmers.html">For farmers</a>
-          <a href="for-owners.html">For owners</a>
-          <a href="for-operators.html">For operators</a>
-          <a href="equipment.html">Equipment</a>
-        </div>
-        <div><h4>Get the app</h4>
-          <a href="index.html#download">Download</a>
-          <a href="index.html#download">Play Store</a>
-          <a href="index.html#download">App Store</a>
-        </div>
-        <div><h4>Company</h4>
-          <a href="mailto:hello@kisanyantra.app">Contact</a>
-          <a href="mailto:support@kisanyantra.app">Support</a>
-        </div>
-        <div><h4>Legal</h4>
-          <a href="privacy.html">Privacy policy</a>
-          <a href="terms.html">Terms &amp; conditions</a>
-        </div>
-      </nav>
-    </div>
-    <div class="footer__bottom">
-      <span>© <span id="year"></span> KisanYantra. All rights reserved.</span>
-      <span>0% commission. 9 भाषाएँ. एक भरोसा.</span>
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
+  <script>
+    (function () {
+      var links = document.querySelectorAll('.legal-toc a');
+      var headings = Array.from(links).map(function (a) {
+        return document.querySelector(a.getAttribute('href'));
+      }).filter(Boolean);
+      if (!headings.length) return;
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            var id = e.target.id;
+            links.forEach(function (a) {
+              a.classList.toggle('is-active', a.getAttribute('href') === '#' + id);
+            });
+          }
+        });
+      }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+      headings.forEach(function (h) { io.observe(h); });
+    })();
+  </script>
 </body>
 </html>

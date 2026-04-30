@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>About KisanYantra — Built for Bharat</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="tokens.css"/>
+  
+</head>
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel">
+const { useState } = React;
+
+function PageNav() {
+  return (
+    <nav style={{ position:"sticky", top:0, zIndex:50, display:"flex", alignItems:"center", justifyContent:"space-between", padding:"14px 64px", borderBottom:"1px solid var(--ky-cream-line)", background:"rgba(253,250,245,0.92)", backdropFilter:"blur(10px)", gap:24 }}>
+      <a href="index.html" style={{ textDecoration:"none", flexShrink:0 }}><KYLogo size={30}/></a>
+      <div style={{ display:"flex", gap:2, alignItems:"center", flex:1, justifyContent:"center" }}>
+        <a href="index.html" style={{ padding:"7px 14px", borderRadius:8, textDecoration:"none", fontWeight:500, fontSize:14, color:"var(--ky-ink-3)" }}>Home</a>
+        <a href="farmer.html" style={{ padding:"7px 14px", borderRadius:8, textDecoration:"none", fontWeight:500, fontSize:14, color:"var(--ky-ink-3)" }}>Farmers</a>
+        <a href="owner.html" style={{ padding:"7px 14px", borderRadius:8, textDecoration:"none", fontWeight:500, fontSize:14, color:"var(--ky-ink-3)" }}>Owners</a>
+        <a href="operator.html" style={{ padding:"7px 14px", borderRadius:8, textDecoration:"none", fontWeight:500, fontSize:14, color:"var(--ky-ink-3)" }}>Operators</a>
+        <a href="pricing.html" style={{ padding:"7px 14px", borderRadius:8, textDecoration:"none", fontWeight:500, fontSize:14, color:"var(--ky-ink-3)" }}>Pricing</a>
+        <a href="about.html" style={{ padding:"7px 14px", borderRadius:8, textDecoration:"none", fontWeight:700, fontSize:14, color:"var(--ky-ink-3)", background:"color-mix(in srgb, var(--ky-ink-3) 10%, transparent)" }}>About</a>
+        <a href="contact.html" style={{ padding:"7px 14px", borderRadius:8, textDecoration:"none", fontWeight:500, fontSize:14, color:"var(--ky-ink-3)" }}>Contact</a>
+      </div>
+      <div style={{ flexShrink:0 }}><StoreBadge store="play"/></div>
+    </nav>
+  );
+}
+
+function MissionHero() {
+  return (
+    <section style={{ padding:"100px 64px 80px", background:"var(--ky-ink)", color:"var(--ky-cream)", position:"relative", overflow:"hidden" }}>
+      <svg style={{ position:"absolute", inset:0, width:"100%", height:"100%", opacity:0.1, pointerEvents:"none" }} viewBox="0 0 1440 700" preserveAspectRatio="xMidYMid slice">
+        {Array.from({length:12}).map((_,i) => <ellipse key={i} cx="1200" cy="200" rx={80+i*80} ry={50+i*52} stroke="#FF6B00" strokeWidth="0.8" fill="none" opacity={0.5-i*0.03}/>)}
+      </svg>
+      <div style={{ position:"relative", maxWidth:1100, margin:"0 auto", display:"grid", gridTemplateColumns:"1fr 1fr", gap:80, alignItems:"center" }}>
+        <div>
+          <span style={{ display:"inline-flex", alignItems:"center", gap:8, padding:"6px 14px", borderRadius:999, background:"rgba(255,107,0,0.15)", color:"#FFB174", fontSize:13, fontWeight:700, marginBottom:28 }}>
+            <Icon name="globe" size={14} color="#FFB174"/>Our story · हमारी कहानी
+          </span>
+          <h1 style={{ fontFamily:"var(--f-display)", fontSize:76, lineHeight:0.97, letterSpacing:"-0.025em", fontWeight:800, margin:"0 0 24px", textWrap:"balance" }}>
+            Built for the<br/>farmer who<br/><span style={{ color:"var(--ky-saffron)" }}>grows our food.</span>
+          </h1>
+          <p style={{ fontSize:19, color:"rgba(253,250,245,0.78)", lineHeight:1.65, maxWidth:520 }}>
+            India has 150 million farming households and fewer than 5 million tractors. Most small farmers wait days — sometimes weeks — to borrow a tractor from a neighbour or go through a broker who takes 20%.
+          </p>
+          <p style={{ fontSize:19, color:"rgba(253,250,245,0.78)", lineHeight:1.65, maxWidth:520, marginTop:18 }}>
+            KisanYantra exists to close that gap — in Hindi, Tamil, Marathi, Bengali and 6 more languages, so no farmer is left out because of the language on the screen.
+          </p>
+        </div>
+        <div style={{ display:"grid", gap:14 }}>
+          {[
+            { n:"2025", l:"Founded in", c:"var(--ky-saffron)" },
+            { n:"2", l:"States · pilot", c:"var(--ky-forest)" },
+            { n:"120+", l:"Villages · pilot", c:"var(--ky-op-blue)" },
+            { n:"2,400+", l:"Bookings completed", c:"var(--ky-saffron)" },
+            { n:"10", l:"Indian languages", c:"var(--ky-forest)" },
+            { n:"₹0", l:"Cost to all users", c:"var(--ky-op-blue)" },
+          ].map((s,i) => (
+            <div key={i} style={{ display:"flex", alignItems:"center", gap:18, padding:"18px 22px", background:"rgba(253,250,245,0.05)", borderRadius:14, border:"1px solid rgba(253,250,245,0.08)" }}>
+              <div style={{ fontFamily:"var(--f-display)", fontSize:36, fontWeight:800, color:s.c, letterSpacing:"-0.02em", minWidth:80 }}>{s.n}</div>
+              <div style={{ fontSize:15, color:"rgba(253,250,245,0.65)", fontWeight:500 }}>{s.l}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TheProblem() {
+  return (
+    <section style={{ padding:"100px 64px", background:"var(--ky-cream)" }}>
+      <div style={{ maxWidth:1100, margin:"0 auto" }}>
+        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:80, alignItems:"start" }}>
+          <div>
+            <span style={{ display:"inline-flex", alignItems:"center", gap:8, padding:"6px 14px", borderRadius:999, background:"var(--ky-saffron-tint)", color:"var(--ky-saffron-deep)", fontSize:13, fontWeight:700, marginBottom:22 }}>
+              <Icon name="info" size={14} color="var(--ky-saffron)"/>The problem · समस्या
+            </span>
+            <h2 style={{ fontFamily:"var(--f-display)", fontSize:52, lineHeight:1.05, letterSpacing:"-0.025em", fontWeight:700, margin:"0 0 24px", textWrap:"balance" }}>
+              A ₹7 lakh tractor,<br/>idle 200 days<br/><span style={{ color:"var(--ky-saffron)" }}>a year.</span>
+            </h2>
+            <p style={{ fontSize:18, color:"var(--ky-ink-2)", lineHeight:1.65 }}>
+              In rural India, equipment ownership is concentrated among 3–4% of farmers. Everyone else either waits for a neighbor to finish or pays a broker. The broker typically adds 20–30% on top of the rental rate and is unreliable at peak sowing season.
+            </p>
+            <p style={{ fontSize:18, color:"var(--ky-ink-2)", lineHeight:1.65, marginTop:18 }}>
+              Meanwhile, owners who spent ₹5–10 lakh on a tractor operate it 90–120 days a year. The other 240 days it sits in a shed, depreciating.
+            </p>
+            <p style={{ fontSize:18, color:"var(--ky-ink-2)", lineHeight:1.65, marginTop:18 }}>
+              Both sides lose. We fix that.
+            </p>
+          </div>
+          <div style={{ display:"grid", gap:16, paddingTop:80 }}>
+            {[
+              { icon:"tractor", color:"var(--ky-saffron)", t:"150M farming households", d:"Only a fraction own any mechanised equipment." },
+              { icon:"rupee",   color:"var(--ky-forest)",  t:"20–30% broker markup",    d:"The middleman tax on every rental that farmers currently pay." },
+              { icon:"calendar",color:"var(--ky-op-blue)", t:"240 idle days/year",       d:"Average days a rural tractor sits unused, even in high-demand districts." },
+              { icon:"globe",   color:"var(--ky-saffron)", t:"22 scheduled languages",  d:"India has 22 official languages. Most agri-tech serves 1–2." },
+            ].map((it,i) => (
+              <div key={i} style={{ padding:"20px 22px", background:"var(--ky-cream-deep)", borderRadius:"var(--r-card)", border:"1px solid var(--ky-cream-line)", display:"flex", gap:16, alignItems:"flex-start" }}>
+                <div style={{ width:48, height:48, borderRadius:14, background:"color-mix(in srgb, "+it.color+" 12%, var(--ky-cream))", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>
+                  <Icon name={it.icon} size={24} color={it.color}/>
+                </div>
+                <div>
+                  <div style={{ fontFamily:"var(--f-display)", fontSize:17, fontWeight:700, color:"var(--ky-ink)", marginBottom:4 }}>{it.t}</div>
+                  <div style={{ fontSize:14, color:"var(--ky-ink-3)", lineHeight:1.5 }}>{it.d}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Team() {
+  const members = [
+    { name:"Pradeep Kumar", role:"CEO & Co-Founder", bio:"Visionary behind KisanYantra's mission to put farm equipment in every farmer's hands — in their own language, on their own terms.", initials:"PK", color:"var(--ky-saffron)", linkedin:"https://www.linkedin.com/in/pradeep-kumar-98a52220/", photo:"uploads/pradeep.png" },
+    { name:"Amit Dalal", role:"CMO & Co-Founder", bio:"Leads growth and brand strategy, connecting KisanYantra with farmers, owners and operators across rural India.", initials:"AD", color:"var(--ky-forest)", linkedin:"https://www.linkedin.com/in/amit-dalal-13045b34/", photo:"uploads/Amit Dalal.png" },
+    { name:"Shikha Jakhar", role:"CSO & Co-Founder", bio:"Drives KisanYantra's sales and partnerships, building the ground network of equipment owners and district-level alliances.", initials:"SJ", color:"var(--ky-op-blue)", linkedin:"https://www.linkedin.com/in/shikha-jakhar/", photo:"uploads/Shikha.png" },
+  ];
+  return (
+    <section style={{ padding:"100px 64px", background:"var(--ky-cream-deep)", borderTop:"1px solid var(--ky-cream-line)" }}>
+      <div style={{ maxWidth:1100, margin:"0 auto" }}>
+        <div style={{ marginBottom:60 }}>
+          <span style={{ display:"inline-flex", alignItems:"center", gap:8, padding:"6px 14px", borderRadius:999, background:"var(--ky-cream)", border:"1px solid var(--ky-cream-line)", fontSize:13, fontWeight:700, color:"var(--ky-ink-2)", marginBottom:16 }}>
+            <Icon name="users" size={14}/>Team · टीम
+          </span>
+          <h2 style={{ fontFamily:"var(--f-display)", fontSize:52, lineHeight:1.05, letterSpacing:"-0.025em", fontWeight:700, margin:0, textWrap:"balance" }}>
+            People from the field,<br/>building for the field.
+          </h2>
+          <div style={{ fontFamily:"var(--f-display)", fontSize:22, color:"var(--ky-ink-3)", fontWeight:500, marginTop:8 }}>खेत के लोग, खेत के लिए बना रहे हैं।</div>
+        </div>
+        <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:20 }}>
+          {members.map((m,i) => (
+            <div key={i} style={{ padding:28, background:"var(--ky-cream)", borderRadius:"var(--r-card)", border:"1px solid var(--ky-cream-line)" }}>
+              <div style={{ width:80, height:80, borderRadius:999, overflow:"hidden", marginBottom:18, border:`3px solid ${m.color}22`, background:"var(--ky-cream-deep)" }}>
+                {m.photo
+                  ? <img src={m.photo} alt={m.name} style={{ width:"100%", height:"100%", objectFit:"cover", objectPosition:"top center" }}/>
+                  : <div style={{ width:"100%", height:"100%", background:m.color, display:"flex", alignItems:"center", justifyContent:"center", fontFamily:"var(--f-display)", fontWeight:800, fontSize:26, color:"var(--ky-cream)" }}>{m.initials}</div>
+                }
+              </div>
+              <div style={{ fontFamily:"var(--f-display)", fontSize:20, fontWeight:700, color:"var(--ky-ink)" }}>{m.name}</div>
+              <div style={{ fontSize:13, color:m.color, fontWeight:700, marginTop:3, marginBottom:14 }}>{m.role}</div>
+              <p style={{ fontSize:14.5, color:"var(--ky-ink-2)", lineHeight:1.6, margin:"0 0 18px" }}>{m.bio}</p>
+              <a href={m.linkedin} target="_blank" rel="noopener noreferrer" style={{ display:"inline-flex", alignItems:"center", gap:8, padding:"8px 14px", borderRadius:8, background:"var(--ky-cream-deep)", border:"1px solid var(--ky-cream-line)", textDecoration:"none", fontSize:13, fontWeight:600, color:"var(--ky-ink-2)", transition:"background .15s" }}
+                onMouseEnter={e => e.currentTarget.style.background = m.color + "18"}
+                onMouseLeave={e => e.currentTarget.style.background = "var(--ky-cream-deep)"}
+              >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill={m.color}><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                LinkedIn
+              </a>
+
+            </div>
+          ))}
+        </div>
+        <div style={{ marginTop:24, padding:"20px 24px", background:"var(--ky-cream)", borderRadius:14, border:"1px dashed var(--ky-cream-line)", textAlign:"center" }}>
+          <div style={{ fontFamily:"var(--f-display)", fontSize:17, fontWeight:700, color:"var(--ky-ink-3)" }}>We're hiring across engineering, operations and agri-partnerships.</div>
+          <div style={{ fontSize:14, color:"var(--ky-ink-4)", marginTop:6 }}>Reach us at <strong>careers@kisanyantra.in</strong></div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Values() {
+  const vals = [
+    { icon:"globe",   color:"var(--ky-saffron)", t:"Language first",    d:"If a farmer can't read the screen in their language, the product has failed. Every feature ships in all 10 languages simultaneously." },
+    { icon:"shield",  color:"var(--ky-forest)",  t:"No extraction",     d:"We exist to build access, not to take a cut. The farmer pays only the rental — nothing to us. The owner keeps the full payment." },
+    { icon:"users",   color:"var(--ky-op-blue)", t:"Three-sided equity", d:"A marketplace that only serves one side eventually collapses. Farmers, owners and operators all have to win for the platform to work." },
+    { icon:"mapPin",  color:"var(--ky-saffron)", t:"Rural by default",  d:"We don't build for cities first and port to rural later. Our UX is designed for a 2G connection, a shared phone, and low literacy." },
+  ];
+  return (
+    <section style={{ padding:"100px 64px", background:"var(--ky-forest-night)", color:"var(--ky-cream)" }}>
+      <div style={{ maxWidth:1100, margin:"0 auto" }}>
+        <div style={{ textAlign:"center", marginBottom:60 }}>
+          <h2 style={{ fontFamily:"var(--f-display)", fontSize:52, lineHeight:1.05, letterSpacing:"-0.025em", fontWeight:700, margin:"0 auto 12px", maxWidth:700, textWrap:"balance" }}>
+            What we believe.
+          </h2>
+          <div style={{ fontFamily:"var(--f-display)", fontSize:22, color:"rgba(253,250,245,0.6)", fontWeight:500 }}>हम किस पर भरोसा करते हैं।</div>
+        </div>
+        <div style={{ display:"grid", gridTemplateColumns:"repeat(2,1fr)", gap:16 }}>
+          {vals.map((v,i) => (
+            <div key={i} style={{ padding:"28px 26px", background:"rgba(253,250,245,0.05)", borderRadius:"var(--r-card)", border:"1px solid rgba(253,250,245,0.08)" }}>
+              <div style={{ width:52, height:52, borderRadius:14, background:"color-mix(in srgb, "+v.color+" 18%, transparent)", display:"flex", alignItems:"center", justifyContent:"center", marginBottom:18 }}>
+                <Icon name={v.icon} size={26} color={v.color}/>
+              </div>
+              <h3 style={{ fontFamily:"var(--f-display)", fontSize:22, fontWeight:700, color:"var(--ky-cream)", margin:"0 0 10px" }}>{v.t}</h3>
+              <p style={{ fontSize:15.5, color:"rgba(253,250,245,0.72)", lineHeight:1.65, margin:0 }}>{v.d}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function App() {
+  return (
+    <div style={{ fontFamily:"var(--f-body)", color:"var(--ky-ink)", background:"var(--ky-cream)" }}>
+      <PageNav/>
+      <MissionHero/>
+      <TheProblem/>
+      <Team/>
+      <Values/>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+</script>
+
+
+
+
+
+
+<style>
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity .6s cubic-bezier(.2,.9,.25,1), transform .65s cubic-bezier(.2,.9,.25,1);
+  }
+  [data-reveal].in { opacity: 1; transform: none; }
+</style>
+<script>
+(function(){
+  setTimeout(function(){
+    var sections = document.querySelectorAll('section');
+    sections.forEach(function(s){ s.setAttribute('data-reveal',''); });
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    },{ threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
+    sections.forEach(function(s){ io.observe(s); });
+  }, 200);
+})();
+</script>
+
+<style>
+/* ── Mobile overrides ─────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Nav */
+  nav { padding: 14px 20px !important; }
+  nav > div:nth-child(2) { display: none !important; } /* hide middle links */
+
+  /* Sections */
+  section { padding: 60px 20px !important; }
+
+  /* Kill perspective/3D on touch */
+  .hero-stage-3d { perspective: none !important; }
+
+  /* All 2-column grids → single column */
+  [style*="grid-template-columns: 1fr 1fr"],
+  [style*="gridTemplateColumns: \"1fr 1fr\""] {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+
+  /* 3+ column grids → single column */
+  [style*="repeat(3"],
+  [style*="repeat(4"],
+  [style*="repeat(5"] {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  /* Heading sizes */
+  h1[style*="font-size: 78"],
+  h1[style*="font-size: 80"],
+  h1[style*="font-size: 76"],
+  h1[style*="fontSize:\"78"],
+  h1[style*="fontSize:\"80"] {
+    font-size: 44px !important;
+    line-height: 1.05 !important;
+  }
+  h2[style*="font-size: 52"],
+  h2[style*="font-size: 48"] {
+    font-size: 32px !important;
+  }
+
+  /* Hero phones on mobile — hide secondary phone */
+  .hero-stage-3d > div:last-of-type { display: none; }
+
+  /* Store badges */
+  [style*="minWidth: 168"] { min-width: 0 !important; }
+
+  /* Footer grid → 2 col */
+  footer [style*="1.5fr repeat(3, 1fr) 1.4fr"] {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+@media (max-width: 480px) {
+  section { padding: 48px 16px !important; }
+  [style*="repeat(3"], [style*="repeat(4"], [style*="repeat(5"] {
+    grid-template-columns: 1fr !important;
+  }
+  footer [style*="1.5fr repeat(3, 1fr) 1.4fr"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+</style>
+
+<!-- Mobile nav: hamburger menu -->
+<style>
+  .mob-menu-btn { display: none; }
+  .mob-nav-open { display: none; }
+  @media (max-width: 768px) {
+    .mob-menu-btn { display: flex !important; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1px solid var(--ky-cream-line); border-radius: 10px; background: var(--ky-cream-deep); cursor: pointer; }
+    .mob-nav-open { display: flex !important; position: fixed; inset: 0; top: 60px; z-index: 40; flex-direction: column; background: var(--ky-cream); padding: 24px 24px; gap: 4px; border-top: 1px solid var(--ky-cream-line); box-shadow: 0 20px 40px rgba(30,26,18,0.12); }
+    .mob-nav-open a { padding: 14px 16px; border-radius: 10px; font-size: 17px; font-weight: 600; text-decoration: none; color: var(--ky-ink-2); border-bottom: 1px solid var(--ky-cream-line); }
+  }
+</style>
+
+<script>
+(function(){
+  // Inject mobile hamburger button into nav
+  setTimeout(function(){
+    var nav = document.querySelector('nav');
+    if (!nav) return;
+
+    // Create hamburger button
+    var btn = document.createElement('button');
+    btn.className = 'mob-menu-btn';
+    btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 20 20"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+    btn.style.display = 'none'; // CSS shows it on mobile
+    nav.appendChild(btn);
+
+    // Create mobile nav panel
+    var panel = document.createElement('div');
+    panel.className = 'mob-nav-open';
+    panel.style.display = 'none'; // CSS shows it when .open
+    var pages = [
+      ['index.html','Home'],['farmer.html','🌾 Farmers'],['owner.html','🚜 Owners'],
+      ['operator.html','👨‍🌾 Operators'],['pricing.html','Pricing'],
+      ['about.html','About'],['contact.html','Contact']
+    ];
+    pages.forEach(function(p){
+      var a = document.createElement('a');
+      a.href = p[0]; a.textContent = p[1];
+      panel.appendChild(a);
+    });
+    document.body.appendChild(panel);
+
+    var open = false;
+    btn.addEventListener('click', function(){
+      open = !open;
+      panel.style.display = open ? 'flex' : 'none';
+      btn.innerHTML = open
+        ? '<svg width="20" height="20" viewBox="0 0 20 20"><path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>'
+        : '<svg width="20" height="20" viewBox="0 0 20 20"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+    });
+  }, 400);
+})();
+</script>
+<footer style="padding:40px 64px; background:var(--ky-ink); color:rgba(253,250,245,0.65); font-size:13px;"><div style="max-width:1312px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;"><span>© 2026 KisanYantra Technologies Pvt. Ltd. · Made for Indian farmers 🇮🇳</span><div style="display:flex; gap:24px;"><a href="privacy.html" style="color:rgba(253,250,245,0.7); text-decoration:none;">Privacy</a><a href="terms.html" style="color:rgba(253,250,245,0.7); text-decoration:none;">Terms</a><a href="contact.html" style="color:rgba(253,250,245,0.7); text-decoration:none;">Contact</a></div></div></footer></body>
+</html>

@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>KisanYantra Pricing — Free for everyone</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="tokens.css"/>
+  
+</head>
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel">
+const { useState } = React;
+
+function PageNav() {
+  return (
+    <nav style={{ position:"sticky", top:0, zIndex:50, display:"flex", alignItems:"center", justifyContent:"space-between", padding:"14px 64px", borderBottom:"1px solid var(--ky-cream-line)", background:"rgba(253,250,245,0.92)", backdropFilter:"blur(10px)", gap:24 }}>
+      <a href="index.html" style={{ textDecoration:"none", flexShrink:0 }}><KYLogo size={30}/></a>
+      <div style={{ display:"flex", gap:2, alignItems:"center", flex:1, justifyContent:"center" }}>
+        <a href="index.html" style={{ padding:"7px 14px", borderRadius:8, textDecoration:"none", fontWeight:500, fontSize:14, color:"var(--ky-ink-3)" }}>Home</a>
+        <a href="farmer.html" style={{ padding:"7px 14px", borderRadius:8, textDecoration:"none", fontWeight:500, fontSize:14, color:"var(--ky-ink-3)" }}>Farmers</a>
+        <a href="owner.html" style={{ padding:"7px 14px", borderRadius:8, textDecoration:"none", fontWeight:500, fontSize:14, color:"var(--ky-ink-3)" }}>Owners</a>
+        <a href="operator.html" style={{ padding:"7px 14px", borderRadius:8, textDecoration:"none", fontWeight:500, fontSize:14, color:"var(--ky-ink-3)" }}>Operators</a>
+        <a href="pricing.html" style={{ padding:"7px 14px", borderRadius:8, textDecoration:"none", fontWeight:700, fontSize:14, color:"var(--ky-ink-3)", background:"color-mix(in srgb, var(--ky-ink-3) 10%, transparent)" }}>Pricing</a>
+        <a href="about.html" style={{ padding:"7px 14px", borderRadius:8, textDecoration:"none", fontWeight:500, fontSize:14, color:"var(--ky-ink-3)" }}>About</a>
+        <a href="contact.html" style={{ padding:"7px 14px", borderRadius:8, textDecoration:"none", fontWeight:500, fontSize:14, color:"var(--ky-ink-3)" }}>Contact</a>
+      </div>
+      <div style={{ flexShrink:0 }}><StoreBadge store="play"/></div>
+    </nav>
+  );
+}
+
+function Hero() {
+  return (
+    <section style={{ padding:"100px 64px 80px", background:"var(--ky-ink)", color:"var(--ky-cream)", textAlign:"center", position:"relative", overflow:"hidden" }}>
+      <svg style={{ position:"absolute", inset:0, width:"100%", height:"100%", opacity:0.12, pointerEvents:"none" }} viewBox="0 0 1440 600" preserveAspectRatio="xMidYMid slice">
+        {Array.from({length:12}).map((_,i) => <ellipse key={i} cx="720" cy="300" rx={80+i*80} ry={50+i*50} stroke="#FF6B00" strokeWidth="0.8" fill="none" opacity={0.5-i*0.035}/>)}
+      </svg>
+      <div style={{ position:"relative", maxWidth:800, margin:"0 auto" }}>
+        <span style={{ display:"inline-flex", alignItems:"center", gap:8, padding:"6px 16px", borderRadius:999, background:"rgba(255,107,0,0.15)", color:"#FFB174", fontSize:13, fontWeight:700, marginBottom:28 }}>
+          <Icon name="sealCheck" size={14} color="#FFB174" weight="fill"/>
+          Pricing · मूल्य निर्धारण
+        </span>
+        <h1 style={{ fontFamily:"var(--f-display)", fontSize:88, lineHeight:0.95, letterSpacing:"-0.03em", fontWeight:800, margin:"0 0 20px", textWrap:"balance" }}>
+          Free.<br/><span style={{ color:"var(--ky-saffron)" }}>Always.</span>
+        </h1>
+        <div style={{ fontFamily:"var(--f-display)", fontSize:30, color:"rgba(253,250,245,0.65)", fontWeight:500, marginBottom:24 }}>
+          हमेशा के लिए मुफ़्त।
+        </div>
+        <p style={{ fontSize:20, color:"rgba(253,250,245,0.78)", lineHeight:1.6, maxWidth:580, margin:"0 auto 48px" }}>
+          KisanYantra is free for farmers, free for owners, free for operators. No booking fee, no commission, no subscription. Download and use.
+        </p>
+        <div style={{ display:"inline-flex", alignItems:"center", gap:12, padding:"16px 28px", borderRadius:999, background:"rgba(255,107,0,0.12)", border:"1px solid rgba(255,107,0,0.25)" }}>
+          <Icon name="rupee" size={24} color="var(--ky-saffron)"/>
+          <span style={{ fontFamily:"var(--f-display)", fontSize:28, fontWeight:800, color:"var(--ky-saffron)", letterSpacing:"-0.01em" }}>₹0 forever</span>
+          <span style={{ fontSize:16, color:"rgba(253,250,245,0.55)" }}>— no asterisk</span>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function RoleCards() {
+  const roles = [
+    {
+      key: "farmer", label: "Farmer", hi: "किसान", color: "var(--ky-saffron)", soft: "var(--ky-saffron-tint)", deep: "var(--ky-saffron-deep)",
+      href: "farmer.html",
+      features: [
+        "Browse 30+ equipment types — no login needed",
+        "Book by the hour or by the day",
+        "Live GPS tracking to your farm",
+        "In-app chat with owner and operator",
+        "Pay via UPI or cash after the work",
+        "Booking history and receipts",
+        "Post a request if you can't find what you need",
+        "10 Indian languages — switch anytime",
+      ],
+    },
+    {
+      key: "owner", label: "Owner", hi: "मालिक", color: "var(--ky-forest)", soft: "var(--ky-forest-soft)", deep: "var(--ky-forest-deep)",
+      href: "owner.html",
+      features: [
+        "List unlimited equipment — no setup fee",
+        "Receive booking requests from verified farmers",
+        "Accept, decline or counter-offer any request",
+        "Assign operators from your own team",
+        "Track every booking and operator live",
+        "Earnings dashboard per machine",
+        "Weekly payout to your UPI",
+        "Dispute resolution within 24 hours",
+      ],
+    },
+    {
+      key: "operator", label: "Operator", hi: "चालक", color: "var(--ky-op-blue)", soft: "var(--ky-op-blue-soft)", deep: "var(--ky-op-blue-deep)",
+      href: "operator.html",
+      features: [
+        "Get hired by verified equipment owners",
+        "Job alerts on your phone",
+        "Navigation to farm — no Google Maps needed",
+        "Track your jobs, hours and earnings",
+        "Weekly pay to your UPI",
+        "Build a ratings profile",
+        "Work for multiple owners simultaneously",
+        "10 Indian languages supported",
+      ],
+    },
+  ];
+
+  return (
+    <section style={{ padding:"80px 64px 100px", background:"var(--ky-cream)" }}>
+      <div style={{ maxWidth:1312, margin:"0 auto" }}>
+        <div style={{ textAlign:"center", marginBottom:60 }}>
+          <h2 style={{ fontFamily:"var(--f-display)", fontSize:52, lineHeight:1.05, letterSpacing:"-0.025em", fontWeight:700, margin:"0 auto 12px", maxWidth:680, textWrap:"balance" }}>
+            Everything included. For every role.
+          </h2>
+          <p style={{ fontSize:18, color:"var(--ky-ink-3)", maxWidth:520, margin:"0 auto", lineHeight:1.6 }}>
+            One free plan, three complete experiences — farmer, owner and operator each get everything they need.
+          </p>
+        </div>
+
+        <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:20 }}>
+          {roles.map(r => (
+            <div key={r.key} style={{ borderRadius:24, border:"1.5px solid var(--ky-cream-line)", background:"var(--ky-cream)", overflow:"hidden", display:"flex", flexDirection:"column" }}>
+              {/* header */}
+              <div style={{ padding:"28px 28px 24px", background:r.soft, borderBottom:"1px solid var(--ky-cream-line)" }}>
+                <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:16 }}>
+                  <div>
+                    <div style={{ fontFamily:"var(--f-display)", fontSize:24, fontWeight:800, color:"var(--ky-ink)" }}>{r.label}</div>
+                    <div style={{ fontFamily:"var(--f-display)", fontSize:16, color:"var(--ky-ink-3)", fontWeight:500, marginTop:2 }}>{r.hi}</div>
+                  </div>
+                  <div style={{ padding:"8px 18px", borderRadius:999, background:r.color, color:"var(--ky-cream)", fontFamily:"var(--f-display)", fontWeight:800, fontSize:20 }}>₹0</div>
+                </div>
+                <div style={{ fontFamily:"var(--f-display)", fontSize:14, fontWeight:600, color:r.deep }}>Free forever · हमेशा मुफ़्त</div>
+              </div>
+
+              {/* features */}
+              <div style={{ padding:"24px 28px", flex:1 }}>
+                <div style={{ display:"grid", gap:10 }}>
+                  {r.features.map((f,i) => (
+                    <div key={i} style={{ display:"flex", gap:12, alignItems:"flex-start", fontSize:14.5, color:"var(--ky-ink-2)", lineHeight:1.45 }}>
+                      <span style={{ width:20, height:20, borderRadius:999, background:r.soft, display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, marginTop:1 }}>
+                        <svg width="10" height="10" viewBox="0 0 10 10"><path d="M2 5l2.5 2.5L8 3" stroke={r.color} strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                      </span>
+                      {f}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* cta */}
+              <div style={{ padding:"0 28px 28px" }}>
+                <a href={r.href} style={{ display:"flex", alignItems:"center", justifyContent:"center", gap:8, height:52, borderRadius:"var(--r-btn)", background:r.color, color:"var(--ky-cream)", fontFamily:"var(--f-body)", fontSize:15, fontWeight:700, textDecoration:"none", boxShadow:"0 8px 20px color-mix(in srgb, "+r.color+" 30%, transparent)" }}>
+                  Learn more about {r.label}s
+                  <svg width="14" height="14" viewBox="0 0 14 14"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function WhyFree() {
+  return (
+    <section style={{ padding:"100px 64px", background:"var(--ky-cream-deep)", borderTop:"1px solid var(--ky-cream-line)" }}>
+      <div style={{ maxWidth:1100, margin:"0 auto", display:"grid", gridTemplateColumns:"1fr 1fr", gap:80, alignItems:"center" }}>
+        <div>
+          <span style={{ display:"inline-flex", alignItems:"center", gap:8, padding:"6px 14px", borderRadius:999, background:"var(--ky-saffron-tint)", color:"var(--ky-saffron-deep)", fontSize:13, fontWeight:700, marginBottom:22 }}>
+            <Icon name="info" size={14} color="var(--ky-saffron)"/>
+            Why free? · मुफ़्त क्यों?
+          </span>
+          <h2 style={{ fontFamily:"var(--f-display)", fontSize:52, lineHeight:1.05, letterSpacing:"-0.025em", fontWeight:700, margin:"0 0 20px", textWrap:"balance" }}>
+            Because the farmer<br/>shouldn't pay to find<br/><span style={{ color:"var(--ky-saffron)" }}>a tractor.</span>
+          </h2>
+          <p style={{ fontSize:18, color:"var(--ky-ink-2)", lineHeight:1.65, maxWidth:480 }}>
+            Most platforms charge farmers a booking fee, owners a listing fee, or take 15–25% from every transaction. We think that's wrong.
+          </p>
+          <p style={{ fontSize:18, color:"var(--ky-ink-2)", lineHeight:1.65, maxWidth:480, marginTop:16 }}>
+            KisanYantra is building the infrastructure layer for farm equipment in India. Our goal is access, not margin extraction.
+          </p>
+          <div style={{ marginTop:36, padding:"20px 24px", background:"var(--ky-cream)", borderRadius:14, border:"1px solid var(--ky-cream-line)", display:"flex", gap:14, alignItems:"flex-start" }}>
+            <Icon name="lightning" size={24} color="var(--ky-saffron)" weight="fill"/>
+            <div>
+              <div style={{ fontFamily:"var(--f-display)", fontSize:17, fontWeight:700 }}>Premium features coming soon</div>
+              <div style={{ fontSize:14, color:"var(--ky-ink-3)", marginTop:4, lineHeight:1.55 }}>We're building voice-first access so farmers who can't type can book equipment by speaking — in their language. Core app stays free, always.</div>
+            </div>
+          </div>
+        </div>
+
+        <div style={{ display:"grid", gap:14 }}>
+          {[
+            { icon:"sealCheck", color:"var(--ky-forest)",   t:"No booking fee",       d:"Farmers pay only the agreed rental rate — nothing extra to the platform." },
+            { icon:"sealCheck", color:"var(--ky-forest)",   t:"No listing fee",       d:"Owners list any number of machines for free. No monthly or annual charge." },
+            { icon:"sealCheck", color:"var(--ky-forest)",   t:"No commission",        d:"Every rupee the farmer pays goes to the owner — we don't take a cut." },
+            { icon:"sealCheck", color:"var(--ky-forest)",   t:"No subscription",      d:"Download the app, use it fully. No trial period, no expiry, no upgrade wall." },
+            { icon:"sealCheck", color:"var(--ky-forest)",   t:"No hidden charges",    d:"The price on the listing screen is the price you pay. No surprises at checkout." },
+          ].map((it,i) => (
+            <div key={i} style={{ display:"flex", gap:14, alignItems:"flex-start", padding:"18px 20px", background:"var(--ky-cream)", borderRadius:"var(--r-card)", border:"1px solid var(--ky-cream-line)" }}>
+              <div style={{ width:36, height:36, borderRadius:10, background:"var(--ky-forest-soft)", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>
+                <Icon name={it.icon} size={20} color="var(--ky-forest)" weight="fill"/>
+              </div>
+              <div>
+                <div style={{ fontFamily:"var(--f-display)", fontSize:16, fontWeight:700, color:"var(--ky-ink)", marginBottom:4 }}>{it.t}</div>
+                <div style={{ fontSize:14, color:"var(--ky-ink-3)", lineHeight:1.5 }}>{it.d}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PricingCTA() {
+  return (
+    <section style={{ padding:"100px 64px", background:"linear-gradient(135deg, var(--ky-saffron) 0%, #FF9500 100%)", color:"var(--ky-cream)", textAlign:"center", position:"relative", overflow:"hidden" }}>
+      <svg style={{ position:"absolute", inset:0, width:"100%", height:"100%", opacity:0.12, pointerEvents:"none" }} viewBox="0 0 1440 500" preserveAspectRatio="none">
+        {Array.from({length:80}).map((_,i) => <circle key={i} cx={(i*73)%1440} cy={(i*119)%500} r={((i*7)%4)+1} fill="var(--ky-cream)"/>)}
+      </svg>
+      <div style={{ position:"relative", maxWidth:820, margin:"0 auto" }}>
+        <h2 style={{ fontFamily:"var(--f-display)", fontSize:72, lineHeight:.98, letterSpacing:"-0.025em", fontWeight:800, margin:"0 0 14px", textWrap:"balance" }}>
+          Download. It's free.
+        </h2>
+        <div style={{ fontFamily:"var(--f-display)", fontSize:26, fontWeight:500, opacity:.9, marginBottom:40 }}>डाउनलोड करें। बिल्कुल मुफ़्त।</div>
+        <div style={{ display:"flex", gap:14, justifyContent:"center", flexWrap:"wrap" }}>
+          <StoreBadge store="play" dark={false}/>
+          <StoreBadge store="apple" dark={false}/>
+        </div>
+        <p style={{ marginTop:28, fontSize:15, opacity:.85 }}>Free for farmers · Free for owners · Free for operators · Always</p>
+      </div>
+    </section>
+  );
+}
+
+function App() {
+  return (
+    <div style={{ fontFamily:"var(--f-body)", color:"var(--ky-ink)", background:"var(--ky-cream)" }}>
+      <PageNav/>
+      <Hero/>
+      <RoleCards/>
+      <WhyFree/>
+      <PricingCTA/>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+</script>
+
+
+
+
+
+
+<style>
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity .6s cubic-bezier(.2,.9,.25,1), transform .65s cubic-bezier(.2,.9,.25,1);
+  }
+  [data-reveal].in { opacity: 1; transform: none; }
+</style>
+<script>
+(function(){
+  setTimeout(function(){
+    var sections = document.querySelectorAll('section');
+    sections.forEach(function(s){ s.setAttribute('data-reveal',''); });
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    },{ threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
+    sections.forEach(function(s){ io.observe(s); });
+  }, 200);
+})();
+</script>
+
+<style>
+/* ── Mobile overrides ─────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Nav */
+  nav { padding: 14px 20px !important; }
+  nav > div:nth-child(2) { display: none !important; } /* hide middle links */
+
+  /* Sections */
+  section { padding: 60px 20px !important; }
+
+  /* Kill perspective/3D on touch */
+  .hero-stage-3d { perspective: none !important; }
+
+  /* All 2-column grids → single column */
+  [style*="grid-template-columns: 1fr 1fr"],
+  [style*="gridTemplateColumns: \"1fr 1fr\""] {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+
+  /* 3+ column grids → single column */
+  [style*="repeat(3"],
+  [style*="repeat(4"],
+  [style*="repeat(5"] {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  /* Heading sizes */
+  h1[style*="font-size: 78"],
+  h1[style*="font-size: 80"],
+  h1[style*="font-size: 76"],
+  h1[style*="fontSize:\"78"],
+  h1[style*="fontSize:\"80"] {
+    font-size: 44px !important;
+    line-height: 1.05 !important;
+  }
+  h2[style*="font-size: 52"],
+  h2[style*="font-size: 48"] {
+    font-size: 32px !important;
+  }
+
+  /* Hero phones on mobile — hide secondary phone */
+  .hero-stage-3d > div:last-of-type { display: none; }
+
+  /* Store badges */
+  [style*="minWidth: 168"] { min-width: 0 !important; }
+
+  /* Footer grid → 2 col */
+  footer [style*="1.5fr repeat(3, 1fr) 1.4fr"] {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+@media (max-width: 480px) {
+  section { padding: 48px 16px !important; }
+  [style*="repeat(3"], [style*="repeat(4"], [style*="repeat(5"] {
+    grid-template-columns: 1fr !important;
+  }
+  footer [style*="1.5fr repeat(3, 1fr) 1.4fr"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+</style>
+
+<!-- Mobile nav: hamburger menu -->
+<style>
+  .mob-menu-btn { display: none; }
+  .mob-nav-open { display: none; }
+  @media (max-width: 768px) {
+    .mob-menu-btn { display: flex !important; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1px solid var(--ky-cream-line); border-radius: 10px; background: var(--ky-cream-deep); cursor: pointer; }
+    .mob-nav-open { display: flex !important; position: fixed; inset: 0; top: 60px; z-index: 40; flex-direction: column; background: var(--ky-cream); padding: 24px 24px; gap: 4px; border-top: 1px solid var(--ky-cream-line); box-shadow: 0 20px 40px rgba(30,26,18,0.12); }
+    .mob-nav-open a { padding: 14px 16px; border-radius: 10px; font-size: 17px; font-weight: 600; text-decoration: none; color: var(--ky-ink-2); border-bottom: 1px solid var(--ky-cream-line); }
+  }
+</style>
+
+<script>
+(function(){
+  // Inject mobile hamburger button into nav
+  setTimeout(function(){
+    var nav = document.querySelector('nav');
+    if (!nav) return;
+
+    // Create hamburger button
+    var btn = document.createElement('button');
+    btn.className = 'mob-menu-btn';
+    btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 20 20"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+    btn.style.display = 'none'; // CSS shows it on mobile
+    nav.appendChild(btn);
+
+    // Create mobile nav panel
+    var panel = document.createElement('div');
+    panel.className = 'mob-nav-open';
+    panel.style.display = 'none'; // CSS shows it when .open
+    var pages = [
+      ['index.html','Home'],['farmer.html','🌾 Farmers'],['owner.html','🚜 Owners'],
+      ['operator.html','👨‍🌾 Operators'],['pricing.html','Pricing'],
+      ['about.html','About'],['contact.html','Contact']
+    ];
+    pages.forEach(function(p){
+      var a = document.createElement('a');
+      a.href = p[0]; a.textContent = p[1];
+      panel.appendChild(a);
+    });
+    document.body.appendChild(panel);
+
+    var open = false;
+    btn.addEventListener('click', function(){
+      open = !open;
+      panel.style.display = open ? 'flex' : 'none';
+      btn.innerHTML = open
+        ? '<svg width="20" height="20" viewBox="0 0 20 20"><path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>'
+        : '<svg width="20" height="20" viewBox="0 0 20 20"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+    });
+  }, 400);
+})();
+</script>
+<footer style="padding:40px 64px; background:var(--ky-ink); color:rgba(253,250,245,0.65); font-size:13px;"><div style="max-width:1312px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;"><span>© 2026 KisanYantra Technologies Pvt. Ltd. · Made for Indian farmers 🇮🇳</span><div style="display:flex; gap:24px;"><a href="privacy.html" style="color:rgba(253,250,245,0.7); text-decoration:none;">Privacy</a><a href="terms.html" style="color:rgba(253,250,245,0.7); text-decoration:none;">Terms</a><a href="contact.html" style="color:rgba(253,250,245,0.7); text-decoration:none;">Contact</a></div></div></footer></body>
+</html>

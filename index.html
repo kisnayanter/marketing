@@ -1,404 +1,485 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#FF6B00" />
-  <meta name="description" content="KisanYantra — rent farm equipment from nearby owners. 0% commission. 9 Indian languages. Built for Bharat." />
-  <meta property="og:title" content="KisanYantra — Farm equipment, on demand" />
-  <meta property="og:description" content="Rent tractors, harvesters, pumps and more. 100% commission-free. Made in Bharat." />
-  <meta property="og:type" content="website" />
-  <title>KisanYantra — Farm equipment, on demand. 0% commission.</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>KisanYantra — Farm equipment, in your language.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="tokens.css"/>
+  <style>
+    body { background: var(--ky-cream); }
 
-  <link rel="icon" type="image/png" href="assets/logo.png" />
-  <link rel="apple-touch-icon" href="assets/logo.png" />
+    /* Scroll-reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s cubic-bezier(.2,.9,.25,1), transform 0.65s cubic-bezier(.2,.9,.25,1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    /* Floating card animation */
+    @keyframes floatY {
+      0%, 100% { transform: translateY(0px) rotate(-4deg); }
+      50%       { transform: translateY(-10px) rotate(-4deg); }
+    }
+    @keyframes floatY2 {
+      0%, 100% { transform: translateY(0px) rotate(5deg); }
+      50%       { transform: translateY(-12px) rotate(5deg); }
+    }
+    @keyframes ping {
+      0%   { transform: scale(0.8); opacity: 0.7; }
+      100% { transform: scale(2.4); opacity: 0; }
+    }
 
-  <link rel="stylesheet" href="css/styles.css" />
-  <link rel="stylesheet" href="css/animations.css" />
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-thumb { background: var(--ky-cream-line); border-radius: 99px; }
+  
+    /* 3D parallax hero */
+    .hero3d-stage {
+      perspective: 1200px;
+      perspective-origin: 50% 40%;
+    }
+    .hero3d-phone {
+      transform-style: preserve-3d;
+      transition: transform .08s ease-out;
+      will-change: transform;
+    }
+    .hero3d-layer {
+      transform-style: preserve-3d;
+      transition: transform .12s ease-out;
+      will-change: transform;
+    }
+    @keyframes floatEq1 { 0%,100%{transform:translateY(0) translateZ(60px) rotate(-8deg)} 50%{transform:translateY(-14px) translateZ(60px) rotate(-8deg)} }
+    @keyframes floatEq2 { 0%,100%{transform:translateY(0) translateZ(40px) rotate(6deg)} 50%{transform:translateY(-10px) translateZ(40px) rotate(6deg)} }
+    @keyframes floatEq3 { 0%,100%{transform:translateY(0) translateZ(80px) rotate(12deg)} 50%{transform:translateY(-18px) translateZ(80px) rotate(12deg)} }
+    @keyframes floatCard { 0%,100%{transform:translateY(0) translateZ(90px)} 50%{transform:translateY(-8px) translateZ(90px)} }
+    @keyframes spinHalo { from{transform:rotateZ(0deg)} to{transform:rotateZ(360deg)} }
+
+  </style>
 </head>
 <body>
+  <template id="__bundler_thumbnail">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 80">
+      <rect width="120" height="80" fill="#1E1A12"/>
+      <circle cx="60" cy="40" r="22" fill="#FF6B00"/>
+      <path d="M60 28 L63 35 L70 35 L64 39 L66 46 L60 42 L54 46 L56 39 L50 35 L57 35 Z" fill="#FDFAF5"/>
+      <text x="60" y="70" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="700" fill="#FF6B00">KisanYantra</text>
+    </svg>
+  </template>
+  <div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel" src="sections.jsx"></script>
+<script type="text/babel">
+const { useState, useEffect, useRef } = React;
 
-  <div class="preloader" id="preloader" aria-hidden="true">
-    <div class="preloader__logo"><img src="assets/logo.png" alt="" /></div>
-  </div>
+// ── Scroll reveal hook ──────────────────────────────────────
+function useReveal() {
+  useEffect(() => {
+    const els = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    els.forEach(el => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+}
 
-  <header class="nav" id="nav">
-    <a href="index.html" class="nav__brand">
-      <img src="assets/logo.png" alt="KisanYantra" class="nav__logo" />
-      <span class="nav__wordmark">KisanYantra</span>
-    </a>
-    <nav class="nav__links" aria-label="Primary">
-      <a href="for-farmers.html">Farmers</a>
-      <a href="for-owners.html">Owners</a>
-      <a href="for-operators.html">Operators</a>
-      <a href="equipment.html">Equipment</a>
+// ── Reveal wrapper component ────────────────────────────────
+function Reveal({ children, delay = 0, style = {} }) {
+  return (
+    <div className={"reveal" + (delay ? " reveal-delay-" + delay : "")} style={style}>
+      {children}
+    </div>
+  );
+}
+
+// ── Nav ─────────────────────────────────────────────────────
+function PageNav() {
+  const ALL_PAGES = [
+    { href:"index.html",       label:"Home",      color:"var(--ky-ink)" },
+    { href:"farmer.html",     label:"Farmers",   color:"var(--ky-saffron)" },
+    { href:"owner.html",      label:"Owners",    color:"var(--ky-forest)" },
+    { href:"operator.html",   label:"Operators", color:"var(--ky-op-blue)" },
+    { href:"pricing.html",    label:"Pricing",   color:"var(--ky-ink-3)" },
+    { href:"about.html",      label:"About",     color:"var(--ky-ink-3)" },
+    { href:"contact.html",    label:"Contact",   color:"var(--ky-ink-3)" },
+  ];
+  return (
+    <nav style={{ position:"sticky", top:0, zIndex:50, display:"flex", alignItems:"center", justifyContent:"space-between", padding:"14px 64px", borderBottom:"1px solid var(--ky-cream-line)", background:"rgba(253,250,245,0.92)", backdropFilter:"blur(10px)", gap:24 }}>
+      <a href="index.html" style={{ textDecoration:"none", flexShrink:0 }}><KYLogo size={30}/></a>
+      <div style={{ display:"flex", gap:2, alignItems:"center", flex:1, justifyContent:"center" }}>
+        {ALL_PAGES.map(p => {
+          const isActive = p.href === "index.html";
+          return (
+            <a key={p.href} href={p.href} style={{ padding:"7px 14px", borderRadius:8, textDecoration:"none", fontWeight: isActive ? 700 : 500, fontSize:14, color: isActive ? p.color : "var(--ky-ink-3)", background: isActive ? "color-mix(in srgb, "+p.color+" 10%, transparent)" : "transparent" }}>
+              {p.label}
+            </a>
+          );
+        })}
+      </div>
+      <div style={{ flexShrink:0 }}><StoreBadge store="play"/></div>
     </nav>
-    <div class="nav__actions">
-      <a href="#download" class="btn btn--gradient btn--small">Download</a>
-    </div>
-  </header>
+  );
+}
 
-  <main id="top">
+// ── App ─────────────────────────────────────────────────────
 
-    <!-- HERO -->
-    <section class="hero" id="hero">
-      <div class="hero__sky" aria-hidden="true"></div>
-      <svg class="hero__hills hero__hills--back" viewBox="0 0 1440 320" aria-hidden="true" preserveAspectRatio="none">
-        <path fill="currentColor" d="M0,224L80,213.3C160,203,320,181,480,186.7C640,192,800,224,960,224C1120,224,1280,192,1360,176L1440,160L1440,320L0,320Z"></path>
+function Hero3D() {
+  const { useRef, useEffect, useState } = React;
+  const stageRef = useRef(null);
+  const phoneRef = useRef(null);
+  const [screens] = useState(["screens/operator-home.png","screens/farmer-track.png","screens/owner-home.png"]);
+  const [screenIdx, setScreenIdx] = useState(0);
+
+  // Cycle screens
+  useEffect(() => {
+    const t = setInterval(() => setScreenIdx(i => (i+1) % screens.length), 2400);
+    return () => clearInterval(t);
+  }, []);
+
+  // Mouse parallax
+  useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage) return;
+    let raf;
+    let tx = 0, ty = 0, cx = 0, cy = 0;
+
+    function onMove(e) {
+      const r = stage.getBoundingClientRect();
+      const mx = (e.clientX - r.left - r.width/2) / (r.width/2);
+      const my = (e.clientY - r.top - r.height/2) / (r.height/2);
+      tx = mx * 18; ty = my * -12;
+    }
+    function onLeave() { tx = 0; ty = 0; }
+    function tick() {
+      cx += (tx - cx) * 0.08;
+      cy += (ty - cy) * 0.08;
+      if (phoneRef.current) {
+        phoneRef.current.style.transform = `rotateY(${cx}deg) rotateX(${cy}deg)`;
+      }
+      // layers move at different depths
+      const layers = stage.querySelectorAll('[data-depth]');
+      layers.forEach(l => {
+        const d = parseFloat(l.getAttribute('data-depth') || 1);
+        l.style.transform = `translateX(${cx * d * 2}px) translateY(${cy * d * 1.5}px)`;
+      });
+      raf = requestAnimationFrame(tick);
+    }
+    stage.addEventListener('mousemove', onMove);
+    stage.addEventListener('mouseleave', onLeave);
+    raf = requestAnimationFrame(tick);
+    return () => { stage.removeEventListener('mousemove', onMove); stage.removeEventListener('mouseleave', onLeave); cancelAnimationFrame(raf); };
+  }, []);
+
+  const equip = [
+    { img:"equipment/tractor.png",   top:60,  right:20,  w:110, anim:"floatEq1 4.2s ease-in-out infinite", depth:"0.6" },
+    { img:"equipment/harvester.png", top:180, left:-40,  w:90,  anim:"floatEq2 3.8s ease-in-out infinite .4s", depth:"1.1" },
+    { img:"equipment/sprayer.png",   bottom:120, right:-30, w:80, anim:"floatEq3 4.8s ease-in-out infinite .8s", depth:"0.8" },
+    { img:"equipment/rotavator.png", bottom:60, left:20,  w:95,  anim:"floatEq2 5.2s ease-in-out infinite 1.2s", depth:"1.4" },
+  ];
+
+  return (
+    <section style={{ padding:"80px 64px 100px", background:"var(--ky-cream)", position:"relative", overflow:"hidden" }}>
+      {/* Topo rings background */}
+      <svg style={{ position:"absolute", inset:0, width:"100%", height:"100%", opacity:.09, pointerEvents:"none" }} viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice">
+        {Array.from({length:14}).map((_,i) => <ellipse key={i} cx="1180" cy="180" rx={80+i*80} ry={50+i*52} stroke="#FF6B00" strokeWidth=".7" fill="none" opacity={.5-i*.03}/>)}
+        {Array.from({length:8}).map((_,i) => <ellipse key={"g"+i} cx="200" cy="700" rx={60+i*60} ry={40+i*40} stroke="#1A7A3B" strokeWidth=".7" fill="none" opacity={.4-i*.04}/>)}
       </svg>
-      <svg class="hero__hills hero__hills--front" viewBox="0 0 1440 320" aria-hidden="true" preserveAspectRatio="none">
-        <path fill="currentColor" d="M0,256L60,266.7C120,277,240,299,360,288C480,277,600,235,720,224C840,213,960,235,1080,245.3C1200,256,1320,256,1380,256L1440,256L1440,320L0,320Z"></path>
-      </svg>
 
-      <div class="hero__inner container">
-        <div class="hero__copy">
-          <span class="badge badge--green">
-            <span class="badge__dot"></span>
-            <span>0% commission · forever</span>
+      <div style={{ maxWidth:1312, margin:"0 auto", display:"grid", gridTemplateColumns:"1fr 1fr", gap:60, alignItems:"center", position:"relative" }}>
+        {/* Copy */}
+        <div>
+          <span style={{ display:"inline-flex", alignItems:"center", gap:8, padding:"6px 14px", borderRadius:999, background:"var(--ky-saffron-tint)", color:"var(--ky-saffron-deep)", fontSize:13, fontWeight:700, marginBottom:24 }}>
+            <span style={{ width:7, height:7, borderRadius:999, background:"var(--ky-saffron)" }}/>
+            Farm equipment marketplace · भारत के लिए
           </span>
-          <h1 class="hero__title">
-            <span class="hero__title-hi">खेत का भरोसा.</span>
-            <span class="hero__title-en">Farm equipment, on demand.</span>
-          </h1>
-          <p class="hero__subtitle">
-            Rent tractors, harvesters, pumps & more from owners nearby — or list your idle equipment
-            and earn <strong>100% of the fare</strong>. Built for Bharat. Available in 9 Indian languages.
+          <CyclingTagline size={80}/>
+          <p style={{ fontSize:19, color:"var(--ky-ink-2)", lineHeight:1.6, marginTop:24, maxWidth:520 }}>
+            Farmers rent the tractor they need by the hour. Owners earn from machines that used to sit idle. Operators get steady, paid work. All in your language.
           </p>
-          <div class="hero__cta">
-            <a href="#download" class="btn btn--gradient btn--large">
-              <span class="btn__icon">⬇</span>
-              <span>Download the app</span>
-            </a>
-            <a href="for-farmers.html" class="btn btn--ghost btn--large">
-              See how it works
-            </a>
+          <div style={{ display:"flex", gap:12, marginTop:36, flexWrap:"wrap" }}>
+            <StoreBadge store="play"/>
+            <StoreBadge store="apple"/>
           </div>
-          <div class="hero__trust">
-            <div class="hero__trust-item"><strong>30+</strong><span>equipment types</span></div>
-            <div class="hero__trust-divider"></div>
-            <div class="hero__trust-item"><strong>9</strong><span>Indian languages</span></div>
-            <div class="hero__trust-divider"></div>
-            <div class="hero__trust-item"><strong>0%</strong><span>commission</span></div>
+          <div style={{ display:"flex", gap:22, marginTop:28, fontSize:14, color:"var(--ky-ink-3)", flexWrap:"wrap" }}>
+            <span style={{ display:"inline-flex", alignItems:"center", gap:7 }}><Icon name="globe" size={15} color="var(--ky-saffron)"/>10 languages</span>
+            <span style={{ display:"inline-flex", alignItems:"center", gap:7 }}><Icon name="sealCheck" size={15} color="var(--ky-forest)" weight="fill"/>Verified owners</span>
+            <span style={{ display:"inline-flex", alignItems:"center", gap:7 }}><Icon name="wallet" size={15} color="var(--ky-op-blue)"/>UPI &amp; cash</span>
           </div>
         </div>
 
-        <div class="hero__visual">
-          <div class="device device--lg">
-            <div class="device__screen">
-              <img src="assets/screenshots/role-select-hindi.png"
-                   alt="KisanYantra app role selection screen in Hindi"
-                   loading="eager" />
+        {/* 3D Stage */}
+        <div ref={stageRef} className="hero3d-stage" style={{ position:"relative", minHeight:640, display:"flex", alignItems:"center", justifyContent:"center", cursor:"none" }}>
+          {/* Glow halo */}
+          <div style={{ position:"absolute", width:460, height:460, borderRadius:999, background:"radial-gradient(circle, rgba(255,107,0,0.22) 0%, rgba(26,122,59,0.08) 50%, transparent 75%)", filter:"blur(30px)", pointerEvents:"none" }}/>
+
+          {/* Spinning ring */}
+          <div style={{ position:"absolute", width:480, height:480, borderRadius:999, border:"1px dashed rgba(255,107,0,0.2)", animation:"spinHalo 22s linear infinite", pointerEvents:"none" }}/>
+          <div style={{ position:"absolute", width:380, height:380, borderRadius:999, border:"1px dashed rgba(26,122,59,0.15)", animation:"spinHalo 16s linear infinite reverse", pointerEvents:"none" }}/>
+
+          {/* Phone */}
+          <div ref={phoneRef} className="hero3d-phone" style={{ position:"relative", zIndex:3 }}>
+            <ScreenshotPhone src={screens[screenIdx]} width={300}/>
+          </div>
+
+          {/* Floating equipment images */}
+          {equip.map((e,i) => (
+            <div key={i} data-depth={e.depth} style={{
+              position:"absolute",
+              top: e.top, bottom: e.bottom, right: e.right, left: e.left,
+              zIndex: 4, pointerEvents:"none",
+              animation: e.anim,
+            }}>
+              <img src={e.img} alt="" style={{ width:e.w, height:e.w, objectFit:"contain", filter:"drop-shadow(0 12px 24px rgba(30,26,18,0.22))" }}/>
             </div>
-          </div>
-          <div class="hero__floats" aria-hidden="true">
-            <span class="hero__float hero__float--1"><img src="assets/equipment/tractor.png" alt="" /></span>
-            <span class="hero__float hero__float--2"><img src="assets/equipment/harvester.png" alt="" /></span>
-            <span class="hero__float hero__float--3"><img src="assets/equipment/sprayer.png" alt="" /></span>
-            <span class="hero__float hero__float--4"><img src="assets/equipment/drone.png" alt="" /></span>
-            <span class="hero__float hero__float--5"><img src="assets/equipment/rotavator.png" alt="" /></span>
-          </div>
-        </div>
-      </div>
-    </section>
+          ))}
 
-    <!-- TRUST MARQUEE -->
-    <section class="trust-strip" aria-label="Why KisanYantra is fair">
-      <div class="trust-strip__belt">
-        <div class="trust-strip__track">
-          <span>0% Commission</span><span>•</span>
-          <span>किसान का सब, किसान को</span><span>•</span>
-          <span>No hidden fees</span><span>•</span>
-          <span>पूरी कमाई किसान की</span><span>•</span>
-          <span>Made in Bharat</span><span>•</span>
-          <span>Verified owners &amp; operators</span><span>•</span>
-          <span>UPI-first payments</span><span>•</span>
-          <span>0% Commission</span><span>•</span>
-          <span>किसान का सब, किसान को</span><span>•</span>
-          <span>No hidden fees</span><span>•</span>
-          <span>पूरी कमाई किसान की</span><span>•</span>
-          <span>Made in Bharat</span><span>•</span>
-          <span>Verified owners &amp; operators</span><span>•</span>
-          <span>UPI-first payments</span><span>•</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- PERSONA TEASERS -->
-    <section class="personas" id="personas">
-      <div class="container">
-        <div class="section-head">
-          <span class="eyebrow">For everyone in the field</span>
-          <h2>Three roles. <em>One platform.</em></h2>
-        </div>
-
-        <div class="persona-cards">
-
-          <article class="persona-card persona-card--farmer reveal">
-            <div class="persona-card__top">
-              <span class="persona-card__emoji">🌾</span>
-              <h3 class="persona-card__title">Farmers</h3>
-              <span class="persona-card__sub">किसान</span>
-            </div>
-            <div class="persona-card__body">
-              <p>Need a tractor for two days, a harvester for a week, a sprayer for an afternoon? Find owners within 10 km and book in three taps.</p>
-              <ul class="persona-card__list">
-                <li>Verified equipment + operators</li>
-                <li>Hourly &amp; daily rates, transparent</li>
-                <li>UPI deposit, instant refunds</li>
-              </ul>
-              <div class="persona-card__cta">
-                <a href="for-farmers.html">For farmers <span aria-hidden="true">→</span></a>
+          {/* Floating UI cards */}
+          <div data-depth="0.5" style={{ position:"absolute", top:40, left:-20, padding:"12px 16px", background:"var(--ky-cream)", borderRadius:14, border:"1px solid var(--ky-cream-line)", boxShadow:"0 16px 36px rgba(30,26,18,0.10)", zIndex:5, animation:"floatCard 4s ease-in-out infinite" }}>
+            <div style={{ display:"flex", alignItems:"center", gap:10 }}>
+              <div style={{ width:36, height:36, borderRadius:999, background:"var(--ky-forest-soft)", display:"flex", alignItems:"center", justifyContent:"center" }}>
+                <Icon name="sealCheck" size={20} color="var(--ky-forest)" weight="fill"/>
+              </div>
+              <div>
+                <div style={{ fontFamily:"var(--f-display)", fontWeight:700, fontSize:14 }}>Booking confirmed!</div>
+                <div style={{ fontSize:11, color:"var(--ky-ink-3)" }}>Mahindra 575 · ₹1,500/day</div>
               </div>
             </div>
-          </article>
-
-          <article class="persona-card persona-card--owner reveal" data-delay="1">
-            <div class="persona-card__top">
-              <span class="persona-card__emoji">🚜</span>
-              <h3 class="persona-card__title">Owners</h3>
-              <span class="persona-card__sub">मालिक</span>
-            </div>
-            <div class="persona-card__body">
-              <p>Your tractor sleeps for half the year. List it once, accept jobs on your terms, keep <strong>100% of the fare</strong>. We don't take a cut.</p>
-              <ul class="persona-card__list">
-                <li>Set your own rate &amp; calendar</li>
-                <li>KYC-verified renters only</li>
-                <li>Direct UPI payouts to your bank</li>
-              </ul>
-              <div class="persona-card__cta">
-                <a href="for-owners.html">For owners <span aria-hidden="true">→</span></a>
-              </div>
-            </div>
-          </article>
-
-          <article class="persona-card persona-card--operator reveal" data-delay="2">
-            <div class="persona-card__top">
-              <span class="persona-card__emoji">🛠️</span>
-              <h3 class="persona-card__title">Operators</h3>
-              <span class="persona-card__sub">चालक</span>
-            </div>
-            <div class="persona-card__body">
-              <p>Skilled chalaks tag themselves to nearby owners, pick the jobs that fit their week, and rack up ratings that surface them in search.</p>
-              <ul class="persona-card__list">
-                <li>Be discoverable by skill</li>
-                <li>Choose your shifts</li>
-                <li>No platform fee on your wage</li>
-              </ul>
-              <div class="persona-card__cta">
-                <a href="for-operators.html">For operators <span aria-hidden="true">→</span></a>
-              </div>
-            </div>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- HOW IT WORKS (compact) -->
-    <section class="how" id="how">
-      <div class="container">
-        <div class="section-head section-head--center">
-          <span class="eyebrow">How it works</span>
-          <h2>Rent in <em>three taps.</em></h2>
-        </div>
-
-        <div class="how__steps">
-          <article class="how-step reveal">
-            <span class="how-step__num">01</span>
-            <h4>Search nearby</h4>
-            <p>Pick a category — tractor, harvester, sprayer, drone — and we surface verified owners in your taluka.</p>
-          </article>
-          <article class="how-step reveal" data-delay="1">
-            <span class="how-step__num">02</span>
-            <h4>Book + pay deposit</h4>
-            <p>Choose dates, an operator if you need one, and pay a small deposit on UPI. The owner accepts.</p>
-          </article>
-          <article class="how-step reveal" data-delay="2">
-            <span class="how-step__num">03</span>
-            <h4>Use, rate, done</h4>
-            <p>Equipment shows up. You use it. Pay the balance. Rate the experience for the next farmer.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- FEATURES BENTO -->
-    <section class="features" id="features">
-      <div class="container">
-        <div class="section-head">
-          <span class="eyebrow">Built right</span>
-          <h2>Every detail, <em>shaped for the field.</em></h2>
-        </div>
-
-        <div class="bento">
-          <article class="tile tile--xl tile--saffron reveal">
-            <span class="tile__emoji">🚫💰</span>
-            <h3>0% commission. Forever.</h3>
-            <p>Renters pay rent. Owners get rent. We don't take a cut. There is no asterisk.</p>
-          </article>
-
-          <article class="tile reveal" data-delay="1">
-            <span class="tile__emoji">🗣️</span>
-            <h3>9 Indian languages</h3>
-            <p>हिन्दी, தமிழ், বাংলা, ગુજરાતી, ಕನ್ನಡ, मराठी, ਪੰਜਾਬੀ, తెలుగు, മലയാളം — and English.</p>
-          </article>
-
-          <article class="tile tile--green reveal" data-delay="2">
-            <span class="tile__emoji">📍</span>
-            <h3>10-km local discovery</h3>
-            <p>Equipment shouldn't travel further than the operator. We surface what's actually near you.</p>
-          </article>
-
-          <article class="tile reveal" data-delay="3">
-            <span class="tile__emoji">🆔</span>
-            <h3>Verified KYC</h3>
-            <p>Every owner, renter and operator runs through KYC. Ratings stick to real people.</p>
-          </article>
-
-          <article class="tile tile--cream reveal">
-            <span class="tile__emoji">📲</span>
-            <h3>UPI-first payments</h3>
-            <p>Deposit + balance split, instant refund window, full receipt. No cash leaks.</p>
-          </article>
-
-          <article class="tile reveal" data-delay="1">
-            <span class="tile__emoji">🛠️</span>
-            <h3>Operators on tap</h3>
-            <p>Don't drive a thresher? Book a rated chalak with the equipment in one tap.</p>
-          </article>
-
-          <article class="tile tile--saffron-soft reveal" data-delay="2">
-            <span class="tile__emoji">📅</span>
-            <h3>Smart calendar</h3>
-            <p>Owners pause for harvest week; renters reschedule on rain. Auto-blocked, auto-refunded.</p>
-          </article>
-
-          <article class="tile reveal" data-delay="3">
-            <span class="tile__emoji">⭐️</span>
-            <h3>Two-way ratings</h3>
-            <p>Renters rate owners. Owners rate renters. Bad actors don't last a season.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- LANGUAGES -->
-    <section class="languages" id="languages">
-      <div class="container">
-        <div class="languages__head">
-          <span class="eyebrow">For Bharat, in Bharat's tongues</span>
-          <h2>
-            <span class="lang-cycle" id="langCycle"
-              data-words='["Welcome","स्वागत है","வரவேற்பு","স্বাগতম","સ્વાગત છે","ಸ್ವಾಗತ","स्वागत आहे","ਸੁਆਗਤ","స్వాగతం","സ്വാഗതം"]'>
-              Welcome
-            </span>
-            <span class="languages__tail">to KisanYantra.</span>
-          </h2>
-          <p>Switch language any time — every screen, every label, every error is hand-translated for the language a farmer actually speaks at home.</p>
-        </div>
-
-        <div class="languages__chips">
-          <span class="lang-chip">English</span>
-          <span class="lang-chip">हिन्दी</span>
-          <span class="lang-chip">தமிழ்</span>
-          <span class="lang-chip">বাংলা</span>
-          <span class="lang-chip">ગુજરાતી</span>
-          <span class="lang-chip">ಕನ್ನಡ</span>
-          <span class="lang-chip">मराठी</span>
-          <span class="lang-chip">ਪੰਜਾਬੀ</span>
-          <span class="lang-chip">తెలుగు</span>
-          <span class="lang-chip">മലയാളം</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- STATS -->
-    <section class="stats">
-      <div class="container">
-        <div class="stats__grid">
-          <div class="stats__item"><span class="stats__num" data-count="30" data-suffix="+">0</span><span class="stats__label">Equipment categories</span></div>
-          <div class="stats__item"><span class="stats__num" data-count="9"  data-suffix="">0</span><span class="stats__label">Indian languages</span></div>
-          <div class="stats__item"><span class="stats__num" data-count="0"  data-suffix="%">0</span><span class="stats__label">Commission, ever</span></div>
-          <div class="stats__item"><span class="stats__num" data-count="100" data-suffix="%">0</span><span class="stats__label">Earnings to owners</span></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- DOWNLOAD CTA -->
-    <section class="download" id="download">
-      <div class="container download__wrap">
-        <div class="download__copy">
-          <span class="eyebrow eyebrow--light">Get KisanYantra</span>
-          <h2>The whole field, <em>in your pocket.</em></h2>
-          <p>Free download. No subscription. No commission, ever.</p>
-
-          <div class="download__badges">
-            <a href="#" class="badge-store" aria-label="Get it on Google Play">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 1.5C3.2 1.7 3 2.1 3 2.6v18.7c0 .5.2.9.6 1.1l11-9.4-11-11.5z"/><path d="M16.5 9.4 14 12l2.5 2.6 4-2.3c.7-.4.7-1.4 0-1.8l-4-2.3v.2z"/><path d="M14 12 3.6 22.4c.4.2.9.2 1.3-.1l11.6-6.7L14 12z"/><path d="M14 12 16.5 9.4 4.9 1.7c-.4-.3-.9-.3-1.3-.1L14 12z"/></svg>
-              <span><small>GET IT ON</small>Google Play</span>
-            </a>
-            <a href="#" class="badge-store" aria-label="Download on the App Store">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 12.5c0-2.4 2-3.6 2-3.6s-1.1-1.6-2.8-1.6c-1.2-.1-2.4.7-3 .7-.6 0-1.6-.7-2.6-.7-1.4 0-2.7.8-3.4 2-1.5 2.5-.4 6.3 1 8.4.7 1 1.6 2.2 2.7 2.1 1.1 0 1.5-.7 2.8-.7 1.3 0 1.7.7 2.8.7 1.2 0 1.9-1 2.6-2 .5-.7 1-1.5 1.3-2.4-1.4-.5-2.4-1.9-2.4-3.4z"/><path d="M14.6 5.7c.6-.7 1-1.7 1-2.6-.8 0-1.8.5-2.4 1.2-.5.6-1 1.6-1 2.5.9.1 1.8-.4 2.4-1.1z"/></svg>
-              <span><small>Download on the</small>App Store</span>
-            </a>
           </div>
-        </div>
 
-        <div class="download__visual">
-          <div class="device device--lg">
-            <div class="device__screen">
-              <img src="assets/screenshots/farmer-bookings.png" alt="Farmer bookings screen" loading="lazy" />
-            </div>
+          <div data-depth="1.2" style={{ position:"absolute", bottom:150, right:-30, padding:"12px 16px", background:"var(--ky-cream)", borderRadius:14, border:"1px solid var(--ky-cream-line)", boxShadow:"0 16px 36px rgba(30,26,18,0.10)", zIndex:5, animation:"floatCard 5s ease-in-out infinite .8s" }}>
+            <div style={{ fontSize:11, color:"var(--ky-ink-4)", fontWeight:700, textTransform:"uppercase", letterSpacing:"0.08em" }}>This month · owner</div>
+            <div style={{ fontFamily:"var(--f-display)", fontWeight:800, fontSize:26, color:"var(--ky-forest)", letterSpacing:"-0.02em", lineHeight:1 }}>₹42,500</div>
+            <div style={{ fontSize:12, color:"var(--ky-forest-deep)", fontWeight:600, marginTop:2 }}>↑ 18% vs last month</div>
+          </div>
+
+          <div data-depth="0.7" style={{ position:"absolute", top:300, right:-50, padding:"10px 14px", background:"var(--ky-cream)", borderRadius:999, border:"1px solid var(--ky-cream-line)", boxShadow:"0 10px 24px rgba(30,26,18,0.08)", zIndex:5, display:"flex", alignItems:"center", gap:8, animation:"floatCard 3.6s ease-in-out infinite 1.4s" }}>
+            <Icon name="mapPin" size={16} color="var(--ky-saffron)" weight="fill"/>
+            <span style={{ fontFamily:"var(--f-display)", fontWeight:700, fontSize:13 }}>1.8 km · on the way</span>
           </div>
         </div>
       </div>
     </section>
-  </main>
+  );
+}
+window.Hero3D = Hero3D;
 
-  <footer class="footer">
-    <div class="container footer__wrap">
-      <div class="footer__brand">
-        <img src="assets/logo.png" alt="" />
-        <strong>KisanYantra</strong>
-        <span>Made in Bharat 🌾</span>
+function App() {
+  const [role, setRole] = useState("farmer");
+  const [lang, setLang] = useState("hi");
+  useReveal();
+
+  return (
+    <div style={{ fontFamily:"var(--f-body)", color:"var(--ky-ink)", background:"var(--ky-cream)" }}>
+      <PageNav/>
+
+      {/* Hero — animated */}
+      <div className="reveal">
+        
+      {/* Launch countdown banner */}
+      <div style={{ background:"var(--ky-saffron)", color:"var(--ky-cream)", textAlign:"center", padding:"12px 24px", display:"flex", alignItems:"center", justifyContent:"center", gap:12, fontSize:14, fontWeight:600 }}>
+        <span style={{ display:"inline-flex", alignItems:"center", gap:6 }}>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="currentColor" strokeWidth="1.5"/><path d="M7 4v3.5l2 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+          Launching May 21, 2026
+        </span>
+        <span style={{ opacity:0.6 }}>·</span>
+        <span>Currently in pilot across Maharashtra &amp; Uttar Pradesh</span>
+        <span style={{ opacity:0.6 }}>·</span>
+        <a href="contact.html" style={{ color:"var(--ky-cream)", fontWeight:700, textDecoration:"underline" }}>Get early access</a>
+      </div>
+      <Hero3D/>
       </div>
 
-      <nav class="footer__cols" aria-label="Footer">
-        <div>
-          <h4>Product</h4>
-          <a href="for-farmers.html">For farmers</a>
-          <a href="for-owners.html">For owners</a>
-          <a href="for-operators.html">For operators</a>
-          <a href="equipment.html">Equipment</a>
-        </div>
-        <div>
-          <h4>Get the app</h4>
-          <a href="#download">Download</a>
-          <a href="#download">Play Store</a>
-          <a href="#download">App Store</a>
-        </div>
-        <div>
-          <h4>Company</h4>
-          <a href="mailto:hello@kisanyantra.app">Contact</a>
-          <a href="mailto:support@kisanyantra.app">Support</a>
-        </div>
-        <div>
-          <h4>Legal</h4>
-          <a href="privacy.html">Privacy policy</a>
-          <a href="terms.html">Terms &amp; conditions</a>
-        </div>
-      </nav>
+      {/* Language marquee */}
+      <LangMarquee/>
+
+      {/* Persona switcher */}
+      <div className="reveal">
+        <PersonaSwitcher role={role} setRole={setRole}/>
+      </div>
+
+      {/* Equipment */}
+      <div className="reveal">
+        <EquipmentCategories/>
+      </div>
+
+      {/* Features */}
+      <div className="reveal">
+        <Features/>
+      </div>
+
+      {/* Social proof */}
+      <div className="reveal">
+        <SocialProof/>
+      </div>
+
+      {/* Coverage map */}
+      <div className="reveal">
+        <CoverageMap/>
+      </div>
+
+      {/* Language showcase */}
+      <div className="reveal">
+        <LangShowcase/>
+      </div>
+
+      {/* Earnings calculator */}
+      <div className="reveal">
+        <EarningsCalculator/>
+      </div>
+
+      {/* Payments */}
+      <div className="reveal">
+        <PaymentsHow/>
+      </div>
+
+      {/* Download CTA */}
+      <div className="reveal">
+        <DownloadBand/>
+      </div>
+
+      {/* FAQ */}
+      <div className="reveal">
+        <FAQ/>
+      </div>
+
+      {/* Footer */}
+      <Footer/>
     </div>
-    <div class="footer__bottom">
-      <span>© <span id="year"></span> KisanYantra. All rights reserved.</span>
-      <span>0% commission. 9 भाषाएँ. एक भरोसा.</span>
-    </div>
-  </footer>
+  );
+}
 
-  <script src="js/main.js"></script>
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+</script>
+
+<style>
+/* ── Mobile overrides ─────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Nav */
+  nav { padding: 14px 20px !important; }
+  nav > div:nth-child(2) { display: none !important; } /* hide middle links */
+
+  /* Sections */
+  section { padding: 60px 20px !important; }
+
+  /* Kill perspective/3D on touch */
+  .hero-stage-3d { perspective: none !important; }
+
+  /* All 2-column grids → single column */
+  [style*="grid-template-columns: 1fr 1fr"],
+  [style*="gridTemplateColumns: \"1fr 1fr\""] {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+
+  /* 3+ column grids → single column */
+  [style*="repeat(3"],
+  [style*="repeat(4"],
+  [style*="repeat(5"] {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  /* Heading sizes */
+  h1[style*="font-size: 78"],
+  h1[style*="font-size: 80"],
+  h1[style*="font-size: 76"],
+  h1[style*="fontSize:\"78"],
+  h1[style*="fontSize:\"80"] {
+    font-size: 44px !important;
+    line-height: 1.05 !important;
+  }
+  h2[style*="font-size: 52"],
+  h2[style*="font-size: 48"] {
+    font-size: 32px !important;
+  }
+
+  /* Hero phones on mobile — hide secondary phone */
+  .hero-stage-3d > div:last-of-type { display: none; }
+
+  /* Store badges */
+  [style*="minWidth: 168"] { min-width: 0 !important; }
+
+  /* Footer grid → 2 col */
+  footer [style*="1.5fr repeat(3, 1fr) 1.4fr"] {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+@media (max-width: 480px) {
+  section { padding: 48px 16px !important; }
+  [style*="repeat(3"], [style*="repeat(4"], [style*="repeat(5"] {
+    grid-template-columns: 1fr !important;
+  }
+  footer [style*="1.5fr repeat(3, 1fr) 1.4fr"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+</style>
+
+<!-- Mobile nav: hamburger menu -->
+<style>
+  .mob-menu-btn { display: none; }
+  .mob-nav-open { display: none; }
+  @media (max-width: 768px) {
+    .mob-menu-btn { display: flex !important; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1px solid var(--ky-cream-line); border-radius: 10px; background: var(--ky-cream-deep); cursor: pointer; }
+    .mob-nav-open { display: flex !important; position: fixed; inset: 0; top: 60px; z-index: 40; flex-direction: column; background: var(--ky-cream); padding: 24px 24px; gap: 4px; border-top: 1px solid var(--ky-cream-line); box-shadow: 0 20px 40px rgba(30,26,18,0.12); }
+    .mob-nav-open a { padding: 14px 16px; border-radius: 10px; font-size: 17px; font-weight: 600; text-decoration: none; color: var(--ky-ink-2); border-bottom: 1px solid var(--ky-cream-line); }
+  }
+</style>
+
+<script>
+(function(){
+  // Inject mobile hamburger button into nav
+  setTimeout(function(){
+    var nav = document.querySelector('nav');
+    if (!nav) return;
+
+    // Create hamburger button
+    var btn = document.createElement('button');
+    btn.className = 'mob-menu-btn';
+    btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 20 20"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+    btn.style.display = 'none'; // CSS shows it on mobile
+    nav.appendChild(btn);
+
+    // Create mobile nav panel
+    var panel = document.createElement('div');
+    panel.className = 'mob-nav-open';
+    panel.style.display = 'none'; // CSS shows it when .open
+    var pages = [
+      ['index.html','Home'],['farmer.html','🌾 Farmers'],['owner.html','🚜 Owners'],
+      ['operator.html','👨‍🌾 Operators'],['pricing.html','Pricing'],
+      ['about.html','About'],['contact.html','Contact']
+    ];
+    pages.forEach(function(p){
+      var a = document.createElement('a');
+      a.href = p[0]; a.textContent = p[1];
+      panel.appendChild(a);
+    });
+    document.body.appendChild(panel);
+
+    var open = false;
+    btn.addEventListener('click', function(){
+      open = !open;
+      panel.style.display = open ? 'flex' : 'none';
+      btn.innerHTML = open
+        ? '<svg width="20" height="20" viewBox="0 0 20 20"><path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>'
+        : '<svg width="20" height="20" viewBox="0 0 20 20"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+    });
+  }, 400);
+})();
+</script>
 </body>
 </html>

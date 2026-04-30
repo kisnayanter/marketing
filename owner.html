@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>KisanYantra for Equipment Owners — Earn from idle machines</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="tokens.css"/>
+  
+</head>
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel">
+const { useState, useEffect } = React;
+
+function PageNav() {
+  return (
+    <nav style={{ position:"sticky", top:0, zIndex:50, display:"flex", alignItems:"center", justifyContent:"space-between", padding:"14px 64px", borderBottom:"1px solid var(--ky-cream-line)", background:"rgba(253,250,245,0.92)", backdropFilter:"blur(10px)", gap:24 }}>
+      <a href="index.html" style={{ textDecoration:"none", flexShrink:0 }}><KYLogo size={30}/></a>
+      <div style={{ display:"flex", gap:2, alignItems:"center", flex:1, justifyContent:"center" }}>
+        <a href="index.html" style={{ padding:"7px 14px", borderRadius:8, textDecoration:"none", fontWeight:500, fontSize:14, color:"var(--ky-ink-3)" }}>Home</a>
+        <a href="farmer.html" style={{ padding:"7px 14px", borderRadius:8, textDecoration:"none", fontWeight:500, fontSize:14, color:"var(--ky-ink-3)" }}>Farmers</a>
+        <a href="owner.html" style={{ padding:"7px 14px", borderRadius:8, textDecoration:"none", fontWeight:700, fontSize:14, color:"var(--ky-forest)", background:"color-mix(in srgb, var(--ky-forest) 10%, transparent)" }}>Owners</a>
+        <a href="operator.html" style={{ padding:"7px 14px", borderRadius:8, textDecoration:"none", fontWeight:500, fontSize:14, color:"var(--ky-ink-3)" }}>Operators</a>
+        <a href="pricing.html" style={{ padding:"7px 14px", borderRadius:8, textDecoration:"none", fontWeight:500, fontSize:14, color:"var(--ky-ink-3)" }}>Pricing</a>
+        <a href="about.html" style={{ padding:"7px 14px", borderRadius:8, textDecoration:"none", fontWeight:500, fontSize:14, color:"var(--ky-ink-3)" }}>About</a>
+        <a href="contact.html" style={{ padding:"7px 14px", borderRadius:8, textDecoration:"none", fontWeight:500, fontSize:14, color:"var(--ky-ink-3)" }}>Contact</a>
+      </div>
+      <div style={{ flexShrink:0 }}><StoreBadge store="play"/></div>
+    </nav>
+  );
+}
+
+function OwnerHero() {
+  return (
+    <section style={{ padding:"80px 64px 100px", background:"var(--ky-cream)", position:"relative", overflow:"hidden" }}>
+      <svg style={{ position:"absolute", inset:0, width:"100%", height:"100%", opacity:0.10, pointerEvents:"none" }} viewBox="0 0 1440 700" preserveAspectRatio="xMidYMid slice">
+        {Array.from({length:12}).map((_,i) => <ellipse key={i} cx="1200" cy="150" rx={80+i*80} ry={50+i*52} stroke="#1A7A3B" strokeWidth="0.8" fill="none" opacity={0.5-i*0.03}/>)}
+      </svg>
+      <div style={{ maxWidth:1312, margin:"0 auto", display:"grid", gridTemplateColumns:"1fr 1fr", gap:60, alignItems:"center", position:"relative" }}>
+        <div>
+          <span style={{ display:"inline-flex", alignItems:"center", gap:8, padding:"6px 14px", borderRadius:999, background:"var(--ky-forest-soft)", color:"var(--ky-forest-deep)", fontSize:13, fontWeight:700, marginBottom:24 }}>
+            <span style={{ width:6, height:6, borderRadius:999, background:"var(--ky-forest)" }}/>
+            For Equipment Owners · यंत्र मालिकों के लिए
+          </span>
+          <h1 style={{ fontFamily:"var(--f-display)", fontSize:78, lineHeight:0.97, letterSpacing:"-0.025em", fontWeight:800, margin:"0 0 10px", textWrap:"balance" }}>
+            Earn from machines<br/>that sit <span style={{ color:"var(--ky-forest)" }}>idle.</span>
+          </h1>
+          <div style={{ fontFamily:"var(--f-display)", fontSize:26, color:"var(--ky-ink-3)", fontWeight:500, marginBottom:22 }}>बेकार पड़े यंत्रों से कमाई करें।</div>
+          <p style={{ fontSize:18, color:"var(--ky-ink-2)", lineHeight:1.6, maxWidth:520, margin:"0 0 16px" }}>
+            List your tractor, harvester or any farm equipment. Farmers in your area book it by the day or hour. You earn. We handle the payments.
+          </p>
+          <div style={{ padding:"16px 20px", background:"var(--ky-forest-soft)", borderRadius:14, border:"1px solid color-mix(in srgb, var(--ky-forest) 20%, transparent)", display:"inline-flex", alignItems:"center", gap:14, marginBottom:36 }}>
+            <div style={{ width:44, height:44, borderRadius:12, background:"var(--ky-forest)", display:"flex", alignItems:"center", justifyContent:"center" }}>
+              <Icon name="rupee" size={22} color="var(--ky-cream)" weight="fill"/>
+            </div>
+            <div>
+              <div style={{ fontSize:11, color:"var(--ky-forest-deep)", fontWeight:700, textTransform:"uppercase", letterSpacing:"0.08em" }}>Avg. owner earns</div>
+              <div style={{ fontFamily:"var(--f-display)", fontSize:26, fontWeight:800, color:"var(--ky-forest)", letterSpacing:"-0.02em" }}>₹12,000–18,000/month</div>
+              <div style={{ fontSize:12, color:"var(--ky-forest-deep)" }}>per tractor · based on 180 rental days/yr</div>
+            </div>
+          </div>
+          <div style={{ display:"flex", gap:12, flexWrap:"wrap" }}>
+            <button style={{ height:56, padding:"0 28px", background:"var(--ky-forest)", color:"var(--ky-cream)", border:"none", borderRadius:"var(--r-btn)", fontSize:16, fontWeight:700, cursor:"pointer", boxShadow:"0 12px 30px rgba(26,122,59,0.3)", display:"inline-flex", alignItems:"center", gap:10 }}>
+              <Icon name="plus" size={18}/>List your equipment — Free
+            </button>
+            <button style={{ height:56, padding:"0 24px", background:"transparent", color:"var(--ky-forest)", border:"1.5px solid var(--ky-forest)", borderRadius:"var(--r-btn)", fontSize:16, fontWeight:700, cursor:"pointer", display:"inline-flex", alignItems:"center", gap:10 }}>
+              <Icon name="play" size={16} weight="fill"/>See how it works
+            </button>
+          </div>
+          <div style={{ display:"flex", gap:20, marginTop:26, fontSize:14, color:"var(--ky-ink-3)", fontWeight:500, flexWrap:"wrap" }}>
+            {["Free to list","5% commission on bookings only","Weekly UPI payouts"].map((t,i) => (
+              <span key={i} style={{ display:"inline-flex", alignItems:"center", gap:7 }}>
+                <svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="var(--ky-forest-soft)"/><path d="M4 7l2.5 2.5L10 5" stroke="var(--ky-forest)" strokeWidth="1.6" fill="none" strokeLinecap="round"/></svg>
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+        <div className="hero-stage-3d" style={{ position:"relative", display:"flex", justifyContent:"center", alignItems:"center", minHeight:640 }}>
+          <div style={{ position:"absolute", width:520, height:520, borderRadius:999, background:"radial-gradient(circle, rgba(26,122,59,0.18), transparent 68%)", filter:"blur(26px)" }}/>
+          <div className="hero-phone-3d" style={{display:"inline-block"}}><ScreenshotPhone src="screens/owner-home.png" width={300} tilt={-8}/></div>
+          <div className="hero-card-3d" style={{ position:"absolute", top:60, right:20, padding:"10px 14px", background:"var(--ky-cream)", border:"1px solid var(--ky-cream-line)", borderRadius:14, boxShadow:"0 12px 28px rgba(30,26,18,0.1)", transform:"rotate(4deg)", zIndex:4 }}>
+            <div style={{ fontSize:10, color:"var(--ky-ink-4)", fontWeight:700, textTransform:"uppercase", letterSpacing:"0.1em" }}>This month</div>
+            <div style={{ fontFamily:"var(--f-display)", fontSize:24, fontWeight:800, color:"var(--ky-forest)", letterSpacing:"-0.02em" }}>₹42,500</div>
+            <div style={{ fontSize:12, color:"var(--ky-forest-deep)", fontWeight:600 }}>↑ 18% vs last month</div>
+          </div>
+          <div className="hero-card-3d" style={{ position:"absolute", bottom:130, left:10, padding:"10px 14px", background:"var(--ky-cream)", border:"1px solid var(--ky-cream-line)", borderRadius:14, boxShadow:"0 12px 28px rgba(30,26,18,0.1)", transform:"rotate(-3deg)", zIndex:4 }}>
+            <div style={{ display:"flex", alignItems:"center", gap:8 }}>
+              <div style={{ width:32, height:32, borderRadius:999, background:"var(--ky-forest-soft)", display:"flex", alignItems:"center", justifyContent:"center" }}>
+                <Icon name="bell" size={16} color="var(--ky-forest)"/>
+              </div>
+              <div>
+                <div style={{ fontFamily:"var(--f-display)", fontWeight:700, fontSize:13, color:"var(--ky-ink)" }}>New booking request</div>
+                <div style={{ fontSize:11, color:"var(--ky-ink-3)" }}>Ramesh K. · 2 days · ₹3,000</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
+function OwnerHowItWorks() {
+  const steps = [
+    { n:"01", icon:"plus",    color:"var(--ky-forest)",   t:"List in 2 minutes",          hi:"2 मिनट में लिस्ट करें",   d:"Add a photo, model name and daily rate. Free to list always — no subscription, no setup fee." },
+    { n:"02", icon:"bell",    color:"var(--ky-saffron)",  t:"Receive booking requests",    hi:"बुकिंग अनुरोध पाएं",      d:"Farmers near you send requests. Accept or send a counter-offer directly from the app." },
+    { n:"03", icon:"tractor", color:"var(--ky-op-blue)",  t:"Operator delivers the job",   hi:"ऑपरेटर काम करता है",      d:"Assign your operator to the booking. They navigate to the farm and complete the job. You track live." },
+    { n:"04", icon:"wallet",  color:"var(--ky-forest)",   t:"Get paid every Friday",       hi:"हर हफ्ते भुगतान पाएं",    d:"Earnings from completed bookings are sent to your UPI every Friday. Full breakdown per machine in the app." },
+  ];
+  return (
+    <section style={{ padding:"100px 64px", background:"var(--ky-cream-deep)", borderTop:"1px solid var(--ky-cream-line)" }}>
+      <div style={{ maxWidth:1312, margin:"0 auto" }}>
+        <div style={{ textAlign:"center", marginBottom:60 }}>
+          <h2 style={{ fontFamily:"var(--f-display)", fontSize:52, lineHeight:1.05, letterSpacing:"-0.025em", fontWeight:700, margin:"0 auto 12px", maxWidth:680, textWrap:"balance" }}>
+            List once. Earn <span style={{ color:"var(--ky-forest)" }}>every week.</span>
+          </h2>
+          <p style={{ fontFamily:"var(--f-display)", fontSize:22, color:"var(--ky-ink-3)", fontWeight:500 }}>एक बार लिस्ट करें · हर हफ्ते कमाएं</p>
+        </div>
+        <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:16, position:"relative" }}>
+          <div style={{ position:"absolute", top:52, left:"12%", right:"12%", height:2, background:"repeating-linear-gradient(90deg, var(--ky-forest) 0 8px, transparent 8px 16px)", zIndex:0 }}/>
+          {steps.map((s,i) => (
+            <div key={i} style={{ padding:28, background:"var(--ky-cream)", borderRadius:"var(--r-card)", border:"1px solid var(--ky-cream-line)", position:"relative", zIndex:1 }}>
+              <div style={{ width:56, height:56, borderRadius:16, background:"color-mix(in srgb, "+s.color+" 14%, var(--ky-cream))", display:"flex", alignItems:"center", justifyContent:"center", marginBottom:18 }}>
+                <Icon name={s.icon} size={26} color={s.color}/>
+              </div>
+              <div style={{ fontFamily:"var(--f-mono)", fontSize:11, fontWeight:700, color:s.color, letterSpacing:"0.12em", marginBottom:8 }}>STEP {s.n}</div>
+              <h3 style={{ fontFamily:"var(--f-display)", fontSize:20, fontWeight:700, color:"var(--ky-ink)", margin:"0 0 4px", lineHeight:1.2 }}>{s.t}</h3>
+              <div style={{ fontFamily:"var(--f-display)", fontSize:14, color:"var(--ky-ink-3)", fontWeight:500, marginBottom:12 }}>{s.hi}</div>
+              <p style={{ fontSize:14, color:"var(--ky-ink-2)", lineHeight:1.6, margin:0 }}>{s.d}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function EarningsCalc() {
+  const [idle, setIdle] = React.useState(180);
+  const rate = 1500;
+  const yearly = idle * rate;
+  const monthly = Math.round(yearly / 12);
+  return (
+    <section style={{ padding:"100px 64px", background:"var(--ky-forest-night)", color:"var(--ky-cream)", position:"relative", overflow:"hidden" }}>
+      <div style={{ position:"relative", maxWidth:1100, margin:"0 auto", display:"grid", gridTemplateColumns:"1.1fr 1fr", gap:80, alignItems:"center" }}>
+        <div>
+          <h2 style={{ fontFamily:"var(--f-display)", fontSize:52, lineHeight:1.04, letterSpacing:"-0.025em", fontWeight:800, margin:"0 0 12px" }}>
+            See what your tractor could earn.
+          </h2>
+          <div style={{ fontFamily:"var(--f-display)", fontSize:22, color:"rgba(253,250,245,0.6)", fontWeight:500, marginBottom:22 }}>देखें आपका ट्रैक्टर कितना कमा सकता है।</div>
+          <p style={{ fontSize:17, color:"rgba(253,250,245,0.75)", lineHeight:1.6, maxWidth:440 }}>A tractor idle 200 days a year is a loan, not an asset. Drag to see the potential.</p>
+          <div style={{ marginTop:36, padding:28, background:"rgba(255,255,255,0.05)", borderRadius:"var(--r-card)", border:"1px solid rgba(255,255,255,0.1)" }}>
+            <div style={{ display:"flex", justifyContent:"space-between", marginBottom:4 }}>
+              <span style={{ fontSize:14, fontWeight:600, color:"rgba(253,250,245,0.78)" }}>Idle days per year</span>
+              <span style={{ fontSize:12, color:"rgba(253,250,245,0.5)" }}>{idle} days</span>
+            </div>
+            <div style={{ fontFamily:"var(--f-display)", fontSize:56, fontWeight:800, color:"var(--ky-saffron)", letterSpacing:"-0.025em", lineHeight:1, marginBottom:16 }}>{idle}</div>
+            <input type="range" min={30} max={300} step={10} value={idle} onChange={e => setIdle(+e.target.value)} style={{ width:"100%", accentColor:"#FF6B00" }}/>
+            <div style={{ display:"flex", justifyContent:"space-between", marginTop:6, fontSize:11, color:"rgba(253,250,245,0.4)", fontFamily:"var(--f-mono)" }}><span>30</span><span>300</span></div>
+          </div>
+        </div>
+        <div style={{ background:"var(--ky-cream)", color:"var(--ky-ink)", borderRadius:"var(--r-card)", padding:32, boxShadow:"0 30px 60px rgba(0,0,0,0.3)" }}>
+          <div style={{ fontSize:12, letterSpacing:"0.1em", textTransform:"uppercase", color:"var(--ky-ink-3)", fontWeight:700 }}>Estimated earnings</div>
+          <div style={{ marginTop:16 }}>
+            <div style={{ fontSize:13, color:"var(--ky-ink-3)", fontWeight:600 }}>Per month</div>
+            <div style={{ fontFamily:"var(--f-display)", fontSize:54, fontWeight:800, color:"var(--ky-forest)", letterSpacing:"-0.03em", lineHeight:1 }}>₹{monthly.toLocaleString("en-IN")}</div>
+          </div>
+          <div style={{ marginTop:20, padding:18, background:"var(--ky-forest-soft)", borderRadius:12, display:"grid", gridTemplateColumns:"1fr 1fr", gap:14 }}>
+            <div><div style={{ fontSize:12, color:"var(--ky-forest-deep)", fontWeight:600 }}>Per year</div><div style={{ fontFamily:"var(--f-display)", fontSize:22, fontWeight:800, color:"var(--ky-forest-deep)" }}>₹{yearly.toLocaleString("en-IN")}</div></div>
+            <div><div style={{ fontSize:12, color:"var(--ky-forest-deep)", fontWeight:600 }}>Per booking</div><div style={{ fontFamily:"var(--f-display)", fontSize:22, fontWeight:800, color:"var(--ky-forest-deep)" }}>₹{rate.toLocaleString("en-IN")}</div></div>
+          </div>
+          <div style={{ marginTop:16, fontSize:12, color:"var(--ky-ink-4)", lineHeight:1.5 }}>Assumes ₹{rate}/day avg. for tractor. Actual earnings vary by equipment type and region.</div>
+          <button style={{ marginTop:22, width:"100%", height:52, background:"var(--ky-forest)", color:"var(--ky-cream)", border:"none", borderRadius:"var(--r-btn)", fontSize:15, fontWeight:700, display:"flex", alignItems:"center", justifyContent:"center", gap:10, cursor:"pointer" }}>
+            List your equipment — Free
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function OwnerFAQ() {
+  const [open, setOpen] = React.useState(-1);
+  const faqs = [
+    { q:"Is it free to list?", a:"Yes. Listing is free. We take a 5% commission only when a booking completes and payment is received — billed weekly. No subscription, no setup fee." },
+    { q:"How do I get paid?", a:"Earnings are sent to your UPI every Friday. Full per-booking breakdown is in the earnings tab — booking date, farmer, machine, hours and payment method." },
+    { q:"What if a farmer damages my equipment?", a:"Every booking requires a photo at handover and return. Damage is documented before payment is released. Our team resolves disputes within 24 hours." },
+    { q:"Can I set my own rates?", a:"Yes. You set your daily and hourly rate. You can also counter-offer any booking request with different dates or pricing." },
+    { q:"Can I assign my own operator?", a:"Yes. Link operators to your fleet. They receive job alerts, get routed to the farm, and track their earnings through the same app." },
+  ];
+  return (
+    <section style={{ padding:"100px 64px", background:"var(--ky-cream)" }}>
+      <div style={{ maxWidth:900, margin:"0 auto" }}>
+        <div style={{ textAlign:"center", marginBottom:56 }}>
+          <h2 style={{ fontFamily:"var(--f-display)", fontSize:48, lineHeight:1.08, letterSpacing:"-0.025em", fontWeight:700, margin:"0 auto 10px", maxWidth:640 }}>Owner questions, answered.</h2>
+          <div style={{ fontFamily:"var(--f-display)", fontSize:20, color:"var(--ky-ink-3)", fontWeight:500 }}>मालिकों के सवाल</div>
+        </div>
+        <div style={{ border:"1px solid var(--ky-cream-line)", borderRadius:"var(--r-card)", overflow:"hidden" }}>
+          {faqs.map((f,i) => (
+            <div key={i} style={{ borderTop: i===0 ? "none" : "1px solid var(--ky-cream-line)" }}>
+              <button onClick={() => setOpen(open===i ? -1 : i)} style={{ width:"100%", display:"flex", justifyContent:"space-between", alignItems:"center", padding:"22px 28px", background:"transparent", border:"none", textAlign:"left", gap:20, cursor:"pointer" }}>
+                <span style={{ fontFamily:"var(--f-display)", fontSize:19, fontWeight:600, color:"var(--ky-ink)" }}>{f.q}</span>
+                <span style={{ width:30, height:30, borderRadius:999, background: open===i ? "var(--ky-forest)" : "var(--ky-cream-deep)", color: open===i ? "var(--ky-cream)" : "var(--ky-ink-2)", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, transition:"transform .25s", transform: open===i ? "rotate(45deg)" : "rotate(0)" }}>
+                  <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>
+                </span>
+              </button>
+              <div style={{ maxHeight: open===i ? 200 : 0, overflow:"hidden", transition:"max-height .35s cubic-bezier(.2,.9,.25,1)" }}>
+                <div style={{ padding:"0 28px 22px", fontSize:16, color:"var(--ky-ink-2)", lineHeight:1.65 }}>{f.a}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function OwnerDownload() {
+  return (
+    <section style={{ padding:"100px 64px", background:"linear-gradient(135deg, var(--ky-forest) 0%, var(--ky-forest-deep) 100%)", color:"var(--ky-cream)", position:"relative", overflow:"hidden", textAlign:"center" }}>
+      <div style={{ position:"relative", maxWidth:820, margin:"0 auto" }}>
+        <h2 style={{ fontFamily:"var(--f-display)", fontSize:68, lineHeight:.98, letterSpacing:"-0.025em", fontWeight:800, margin:"0 0 14px", textWrap:"balance" }}>
+          List your first machine today.
+        </h2>
+        <div style={{ fontFamily:"var(--f-display)", fontSize:24, fontWeight:500, opacity:.85, marginBottom:40 }}>अपना पहला यंत्र आज ही लिस्ट करें।</div>
+        <div style={{ display:"flex", gap:14, justifyContent:"center", flexWrap:"wrap" }}>
+          <StoreBadge store="play" dark={false}/>
+          <StoreBadge store="apple" dark={false}/>
+        </div>
+        <p style={{ marginTop:28, fontSize:15, opacity:.8 }}>Free to list · 5% only on success · Weekly UPI payouts</p>
+      </div>
+    </section>
+  );
+}
+
+function App() {
+  return (
+    <div style={{ fontFamily:"var(--f-body)", color:"var(--ky-ink)", background:"var(--ky-cream)" }}>
+      <PageNav/>
+      <OwnerHero/>
+      <OwnerHowItWorks/>
+      <EarningsCalc/>
+      <OwnerFAQ/>
+      <OwnerDownload/>
+      <OwnerHowItWorks/>
+      <EarningsCalc/>
+      <OwnerFAQ/>
+      <OwnerDownload/>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+</script>
+
+
+
+
+
+
+<style>
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity .6s cubic-bezier(.2,.9,.25,1), transform .65s cubic-bezier(.2,.9,.25,1);
+  }
+  [data-reveal].in { opacity: 1; transform: none; }
+</style>
+<script>
+(function(){
+  setTimeout(function(){
+    var sections = document.querySelectorAll('section');
+    sections.forEach(function(s){ s.setAttribute('data-reveal',''); });
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    },{ threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
+    sections.forEach(function(s){ io.observe(s); });
+  }, 200);
+})();
+</script>
+
+
+
+<style>
+/* ── Mobile overrides ─────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Nav */
+  nav { padding: 14px 20px !important; }
+  nav > div:nth-child(2) { display: none !important; } /* hide middle links */
+
+  /* Sections */
+  section { padding: 60px 20px !important; }
+
+  /* Kill perspective/3D on touch */
+  .hero-stage-3d { perspective: none !important; }
+
+  /* All 2-column grids → single column */
+  [style*="grid-template-columns: 1fr 1fr"],
+  [style*="gridTemplateColumns: \"1fr 1fr\""] {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+
+  /* 3+ column grids → single column */
+  [style*="repeat(3"],
+  [style*="repeat(4"],
+  [style*="repeat(5"] {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  /* Heading sizes */
+  h1[style*="font-size: 78"],
+  h1[style*="font-size: 80"],
+  h1[style*="font-size: 76"],
+  h1[style*="fontSize:\"78"],
+  h1[style*="fontSize:\"80"] {
+    font-size: 44px !important;
+    line-height: 1.05 !important;
+  }
+  h2[style*="font-size: 52"],
+  h2[style*="font-size: 48"] {
+    font-size: 32px !important;
+  }
+
+  /* Hero phones on mobile — hide secondary phone */
+  .hero-stage-3d > div:last-of-type { display: none; }
+
+  /* Store badges */
+  [style*="minWidth: 168"] { min-width: 0 !important; }
+
+  /* Footer grid → 2 col */
+  footer [style*="1.5fr repeat(3, 1fr) 1.4fr"] {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+@media (max-width: 480px) {
+  section { padding: 48px 16px !important; }
+  [style*="repeat(3"], [style*="repeat(4"], [style*="repeat(5"] {
+    grid-template-columns: 1fr !important;
+  }
+  footer [style*="1.5fr repeat(3, 1fr) 1.4fr"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+</style>
+
+<!-- Mobile nav: hamburger menu -->
+<style>
+  .mob-menu-btn { display: none; }
+  .mob-nav-open { display: none; }
+  @media (max-width: 768px) {
+    .mob-menu-btn { display: flex !important; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1px solid var(--ky-cream-line); border-radius: 10px; background: var(--ky-cream-deep); cursor: pointer; }
+    .mob-nav-open { display: flex !important; position: fixed; inset: 0; top: 60px; z-index: 40; flex-direction: column; background: var(--ky-cream); padding: 24px 24px; gap: 4px; border-top: 1px solid var(--ky-cream-line); box-shadow: 0 20px 40px rgba(30,26,18,0.12); }
+    .mob-nav-open a { padding: 14px 16px; border-radius: 10px; font-size: 17px; font-weight: 600; text-decoration: none; color: var(--ky-ink-2); border-bottom: 1px solid var(--ky-cream-line); }
+  }
+</style>
+
+<script>
+(function(){
+  // Inject mobile hamburger button into nav
+  setTimeout(function(){
+    var nav = document.querySelector('nav');
+    if (!nav) return;
+
+    // Create hamburger button
+    var btn = document.createElement('button');
+    btn.className = 'mob-menu-btn';
+    btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 20 20"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+    btn.style.display = 'none'; // CSS shows it on mobile
+    nav.appendChild(btn);
+
+    // Create mobile nav panel
+    var panel = document.createElement('div');
+    panel.className = 'mob-nav-open';
+    panel.style.display = 'none'; // CSS shows it when .open
+    var pages = [
+      ['index.html','Home'],['farmer.html','🌾 Farmers'],['owner.html','🚜 Owners'],
+      ['operator.html','👨‍🌾 Operators'],['pricing.html','Pricing'],
+      ['about.html','About'],['contact.html','Contact']
+    ];
+    pages.forEach(function(p){
+      var a = document.createElement('a');
+      a.href = p[0]; a.textContent = p[1];
+      panel.appendChild(a);
+    });
+    document.body.appendChild(panel);
+
+    var open = false;
+    btn.addEventListener('click', function(){
+      open = !open;
+      panel.style.display = open ? 'flex' : 'none';
+      btn.innerHTML = open
+        ? '<svg width="20" height="20" viewBox="0 0 20 20"><path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>'
+        : '<svg width="20" height="20" viewBox="0 0 20 20"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+    });
+  }, 400);
+})();
+</script>
+
+<style>
+  .hero-stage-3d { perspective: 1200px; perspective-origin: 50% 40%; }
+  .hero-phone-3d { transition: transform .12s ease-out; will-change: transform; transform-style: preserve-3d; }
+  .hero-card-3d  { transition: transform .16s ease-out; will-change: transform; }
+  @keyframes autoFloat { 
+    0%   { transform: rotateY(-4deg) rotateX(2deg); }
+    25%  { transform: rotateY(4deg) rotateX(-1deg); }
+    50%  { transform: rotateY(2deg) rotateX(3deg); }
+    75%  { transform: rotateY(-3deg) rotateX(-2deg); }
+    100% { transform: rotateY(-4deg) rotateX(2deg); }
+  }
+  @media (max-width: 768px) {
+    .hero-stage-3d { perspective: none; }
+    .hero-phone-3d { animation: autoFloat 6s ease-in-out infinite; }
+    .hero-card-3d  { transform: none !important; }
+  }
+</style>
+<script>
+(function(){
+  setTimeout(function(){
+    var stages = document.querySelectorAll('.hero-stage-3d');
+    stages.forEach(function(stage){
+      var phone = stage.querySelector('.hero-phone-3d');
+      var cards = stage.querySelectorAll('.hero-card-3d');
+      var tx=0, ty=0, cx=0, cy=0, raf;
+      var isMobile = window.innerWidth <= 768;
+
+      if (!isMobile) {
+        // Desktop: mouse parallax
+        function onMove(e){
+          var r = stage.getBoundingClientRect();
+          tx = ((e.clientX-r.left-r.width/2)/(r.width/2))*16;
+          ty = ((e.clientY-r.top-r.height/2)/(r.height/2))*-10;
+        }
+        function onLeave(){ tx=0; ty=0; }
+        function tick(){
+          cx += (tx-cx)*0.09; cy += (ty-cy)*0.09;
+          if(phone) phone.style.transform = 'rotateY('+cx+'deg) rotateX('+cy+'deg)';
+          cards.forEach(function(c,i){
+            var d = (i%2===0)?1.4:0.7;
+            c.style.transform = 'translateX('+(cx*d*1.8)+'px) translateY('+(cy*d*1.4)+'px)';
+          });
+          raf = requestAnimationFrame(tick);
+        }
+        stage.addEventListener('mousemove', onMove);
+        stage.addEventListener('mouseleave', onLeave);
+        raf = requestAnimationFrame(tick);
+
+      } else {
+        // Mobile: device orientation gyroscope tilt
+        var hasGyro = false;
+        if (window.DeviceOrientationEvent) {
+          window.addEventListener('deviceorientation', function(e){
+            if (e.gamma === null) return;
+            hasGyro = true;
+            // gamma = left-right tilt (-90 to 90), beta = front-back (-180 to 180)
+            tx = Math.max(-12, Math.min(12, e.gamma * 0.4));
+            ty = Math.max(-8,  Math.min(8,  (e.beta - 30) * 0.2));
+          }, { passive: true });
+        }
+        // Auto-float CSS animation handles it when no gyro (via CSS above)
+        // If gyro available, override the CSS animation
+        function tick(){
+          if (hasGyro && phone) {
+            cx += (tx-cx)*0.06; cy += (ty-cy)*0.06;
+            phone.style.animation = 'none';
+            phone.style.transform = 'rotateY('+cx+'deg) rotateX('+cy+'deg)';
+          }
+          raf = requestAnimationFrame(tick);
+        }
+        raf = requestAnimationFrame(tick);
+      }
+    });
+  }, 300);
+})();
+</script>
+<footer style="padding:40px 64px; background:var(--ky-ink); color:rgba(253,250,245,0.65); font-size:13px;"><div style="max-width:1312px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;"><span>© 2026 KisanYantra Technologies Pvt. Ltd. · Made for Indian farmers 🇮🇳</span><div style="display:flex; gap:24px;"><a href="privacy.html" style="color:rgba(253,250,245,0.7); text-decoration:none;">Privacy</a><a href="terms.html" style="color:rgba(253,250,245,0.7); text-decoration:none;">Terms</a><a href="contact.html" style="color:rgba(253,250,245,0.7); text-decoration:none;">Contact</a></div></div></footer></body>
+</html>
