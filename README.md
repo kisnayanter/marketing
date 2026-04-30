@@ -4,26 +4,58 @@ Static, dependency-free marketing site for **KisanYantra** — a 0%-commission f
 
 > **Hosted as a static site.** Drop the folder on any static host (GitHub Pages, Netlify, Vercel, S3 + CloudFront, your own nginx) and you're live.
 
-## What's inside
+## Pages
+
+| File | Purpose |
+|---|---|
+| `index.html`         | Hero + persona teasers + key features + 9-language banner + stats + download CTA |
+| `for-farmers.html`   | Farmer story with real screenshots (post-request, bookings, track, notifications) |
+| `for-owners.html`    | Owner story with real screenshots (home with earnings, register, incoming, payment, quick actions) |
+| `for-operators.html` | Operator story with real screenshots |
+| `equipment.html`     | Static, filterable grid of all 30 equipment categories |
+| `privacy.html`       | Privacy Policy (template — needs legal review) |
+| `terms.html`         | Terms &amp; Conditions (template — needs legal review) |
+
+> The privacy and terms pages carry a visible "template — review by qualified counsel before publishing" banner, plus `[placeholder]` markers in the spots a lawyer needs to fill in (registered office, jurisdiction city, named grievance officer).
+
+## Layout
 
 ```
 kisanyantra-website/
-├── index.html             # All 10 sections (single page, anchor scroll)
+├── index.html
+├── for-farmers.html
+├── for-owners.html
+├── for-operators.html
+├── equipment.html
+├── privacy.html
+├── terms.html
 ├── css/
-│   ├── styles.css         # Design tokens + layout + components + sections
-│   └── animations.css     # Keyframes
+│   ├── styles.css         # Design tokens + components + per-section styles
+│   └── animations.css     # Keyframes only (lightweight)
 ├── js/
-│   ├── main.js            # Smooth scroll, nav, persona tabs, stats, carousel, reveals
-│   └── hero-3d.js         # Three.js hero scene (ES module)
+│   └── main.js            # IntersectionObserver-driven; no frameworks, no CDN libs
 ├── assets/
-│   ├── logo.png           # Brand mark
-│   ├── logo-wordmark.png  # Brand + name
-│   ├── equipment/         # 30 equipment PNGs (used by hero scene + carousel)
-│   └── screenshots/       # ← Drop app screenshots here (replaces phone-mock placeholders)
-└── README.md
+│   ├── logo.png
+│   ├── logo-wordmark.png
+│   ├── equipment/         # 30 equipment PNGs — used on equipment.html and hero
+│   └── screenshots/       # 12 device screenshots — used in persona pages + hero
+├── README.md
+├── LICENSE
+└── .gitignore
 ```
 
-No build step, no node_modules, no bundler. Open `index.html` directly or serve with any static server.
+**Zero build step. No node_modules. No CDN libraries.** Open any HTML file directly or serve with any static server.
+
+## Why no GSAP / Three.js / Lenis?
+
+The first iteration loaded GSAP, ScrollTrigger, Lenis and Three.js for a 3D hero scene. Performance complaints in early review told us the per-frame work (Three.js scene + 30-card 3D carousel) was too heavy on rural-India devices. The current build:
+
+- Drops Three.js entirely — hero shows a real device mockup with the actual app screenshot, surrounded by lightly bobbing equipment icons (CSS `@keyframes` only).
+- Drops the 3D carousel — replaced with a static, filterable equipment grid.
+- Replaces GSAP scroll triggers with `IntersectionObserver` — fires once per element on view, not every frame.
+- Replaces Lenis with the browser's native `scroll-behavior: smooth`.
+
+Total JS shipped per page is now ~5 KB minified-equivalent.
 
 ## Brand system (locked from the app)
 
@@ -36,56 +68,34 @@ No build step, no node_modules, no bundler. Open `index.html` directly or serve 
 | Body | DM Sans |
 | Card radius | 18px |
 
-Fonts load from Google Fonts (`<link>` in `index.html`) — no local font files.
-
-## CDN libraries (loaded inline from index.html)
-
-| Lib | Purpose |
-|---|---|
-| **GSAP 3.12** + ScrollTrigger | Path-draw animation, parallax hills |
-| **Lenis 1.1** | Inertial smooth scroll |
-| **Three.js 0.160** (via importmap) | 3D hero scene |
-
-If any CDN is unreachable, the site degrades gracefully:
-- No GSAP → CSS keyframes still run, IntersectionObserver still reveals.
-- No Lenis → native scroll, no harm.
-- No WebGL → CSS orbiting equipment ring takes over.
+Fonts load from Google Fonts (`<link>` in every page). No local font files.
 
 ## Run locally
-
-Plain Python:
 
 ```bash
 python3 -m http.server 8765
 # → open http://localhost:8765
 ```
 
-Or any of:
+Or:
 
 ```bash
 npx serve .
 npx http-server -p 8765
 ```
 
-Don't open `index.html` via `file://` — the ES-module Three.js script needs HTTP.
+Each page works in isolation — you can deploy a single `*.html` and it'll render fine, as long as `css/`, `js/` and `assets/` are alongside.
 
-## Adding real screenshots
+## Adding / replacing screenshots
 
-Each persona panel + the download CTA has a `.phone-mock__placeholder` div. Replace each with an `<img>`:
+The 12 screenshots in `assets/screenshots/` were resized from 1170×2532 (iPhone Pro Max native) to 720px wide via `sips`. To add a new one:
 
-```html
-<!-- Before -->
-<div class="phone-mock__placeholder">
-  <span class="phone-mock__chip">Farmer Home</span>
-  <p>Replace with farmer dashboard screenshot.</p>
-</div>
-
-<!-- After -->
-<img src="assets/screenshots/farmer-home.png" alt="Farmer dashboard"
-     style="width: 100%; height: 100%; object-fit: cover;" />
+```bash
+cp ~/Downloads/your-screenshot.png assets/screenshots/your-name.png
+sips --resampleWidth 720 assets/screenshots/your-name.png
 ```
 
-Recommended dimensions: **3:6.4 aspect** (e.g. 750 × 1600) — matches the iPhone-style mock.
+Then reference it in a `<div class="device"><div class="device__screen"><img src="assets/screenshots/your-name.png" alt="..." /></div></div>` block on whichever page.
 
 ## Deploy
 
@@ -102,20 +112,19 @@ Recommended dimensions: **3:6.4 aspect** (e.g. 750 × 1600) — matches the iPho
 ```bash
 npx vercel --prod
 ```
-No build settings needed; Vercel detects the static site.
+No build settings; Vercel detects the static site.
 
 ### S3 + CloudFront
 ```bash
 aws s3 sync . s3://your-bucket --delete \
-    --exclude ".git/*" --exclude "node_modules/*" --exclude "*.md"
+    --exclude ".git/*" --exclude "*.md"
 ```
-Set the bucket to static-website hosting and point CloudFront at it.
 
-## What's intentionally **not** in the site
+## What's intentionally NOT in the site
 
-- **Voice / audio interfaces** — feature isn't shipped yet. Site doesn't claim it.
-- **Commission / "freemium" / "fair pricing" weasel words** — KisanYantra is 0% commission, full stop. Copy reflects that throughout.
-- **Inflated stats** — placeholder numbers are honest (30+ equipment categories, 9 languages, 0% commission, 100% earnings to owners). Swap with real numbers as the platform grows.
+- **Voice / audio interfaces** — feature isn't shipped yet.
+- **Commission / fair-pricing weasel words** — KisanYantra is 0% commission, full stop.
+- **Inflated stats** — placeholders are honest (30+ equipment, 9 languages, 0% commission, 100% earnings to owners).
 
 ## License
 

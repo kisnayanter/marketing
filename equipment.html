@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#FF6B00" />
+  <meta name="description" content="30+ farm equipment categories on KisanYantra — tractors, harvesters, sprayers, drones, irrigation, transport. List or rent any of them." />
+  <title>Equipment — 30+ categories on KisanYantra</title>
+
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+</head>
+<body>
+  <header class="nav" id="nav">
+    <a href="index.html" class="nav__brand">
+      <img src="assets/logo.png" alt="" class="nav__logo" />
+      <span class="nav__wordmark">KisanYantra</span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="for-farmers.html">Farmers</a>
+      <a href="for-owners.html">Owners</a>
+      <a href="for-operators.html">Operators</a>
+      <a href="equipment.html" class="is-active">Equipment</a>
+    </nav>
+    <div class="nav__actions">
+      <a href="index.html#download" class="btn btn--gradient btn--small">Download</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero page-hero--cream">
+      <div class="container page-hero__inner" style="grid-template-columns: 1fr;">
+        <div class="page-hero__copy" style="max-width: 720px;">
+          <span class="eyebrow">All equipment</span>
+          <h1>From <em>plough</em> to <em>drone.</em></h1>
+          <p>
+            Tractors, harvesters, sprayers, threshers, drip systems, drones, water pumps —
+            if it works in a field, it's listable on KisanYantra. <strong>30+ categories</strong> already on the platform.
+          </p>
+          <div class="page-hero__cta">
+            <a href="for-farmers.html" class="btn btn--gradient btn--large">Rent equipment</a>
+            <a href="for-owners.html" class="btn btn--ghost btn--large">List equipment</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="equipment">
+      <div class="container">
+        <div class="equipment__filters" role="tablist" aria-label="Equipment categories">
+          <button class="chip is-active" data-filter="all">All <small style="opacity:0.6;">30</small></button>
+          <button class="chip" data-filter="tillage">Tillage</button>
+          <button class="chip" data-filter="planting">Planting</button>
+          <button class="chip" data-filter="harvest">Harvest</button>
+          <button class="chip" data-filter="post-harvest">Post-harvest</button>
+          <button class="chip" data-filter="crop-care">Crop care</button>
+          <button class="chip" data-filter="irrigation">Irrigation</button>
+          <button class="chip" data-filter="transport">Transport</button>
+        </div>
+
+        <div class="equipment__grid" id="equipmentGrid">
+          <!-- Tillage -->
+          <article class="equip-card" data-category="tillage"><div class="equip-card__img"><img src="assets/equipment/tractor.png" alt="" loading="lazy" /></div><h3>Tractor</h3><span class="equip-card__cat">Tillage</span></article>
+          <article class="equip-card" data-category="tillage"><div class="equip-card__img"><img src="assets/equipment/plough.png" alt="" loading="lazy" /></div><h3>Plough</h3><span class="equip-card__cat">Tillage</span></article>
+          <article class="equip-card" data-category="tillage"><div class="equip-card__img"><img src="assets/equipment/cultivator.png" alt="" loading="lazy" /></div><h3>Cultivator</h3><span class="equip-card__cat">Tillage</span></article>
+          <article class="equip-card" data-category="tillage"><div class="equip-card__img"><img src="assets/equipment/harrow.png" alt="" loading="lazy" /></div><h3>Harrow</h3><span class="equip-card__cat">Tillage</span></article>
+          <article class="equip-card" data-category="tillage"><div class="equip-card__img"><img src="assets/equipment/rotavator.png" alt="" loading="lazy" /></div><h3>Rotavator</h3><span class="equip-card__cat">Tillage</span></article>
+          <article class="equip-card" data-category="tillage"><div class="equip-card__img"><img src="assets/equipment/tiller.png" alt="" loading="lazy" /></div><h3>Tiller</h3><span class="equip-card__cat">Tillage</span></article>
+          <article class="equip-card" data-category="tillage"><div class="equip-card__img"><img src="assets/equipment/power_tiller.png" alt="" loading="lazy" /></div><h3>Power tiller</h3><span class="equip-card__cat">Tillage</span></article>
+
+          <!-- Planting -->
+          <article class="equip-card" data-category="planting"><div class="equip-card__img"><img src="assets/equipment/seed_drill.png" alt="" loading="lazy" /></div><h3>Seed drill</h3><span class="equip-card__cat">Planting</span></article>
+          <article class="equip-card" data-category="planting"><div class="equip-card__img"><img src="assets/equipment/planter.png" alt="" loading="lazy" /></div><h3>Planter</h3><span class="equip-card__cat">Planting</span></article>
+          <article class="equip-card" data-category="planting"><div class="equip-card__img"><img src="assets/equipment/transplanter.png" alt="" loading="lazy" /></div><h3>Transplanter</h3><span class="equip-card__cat">Planting</span></article>
+
+          <!-- Harvest -->
+          <article class="equip-card" data-category="harvest"><div class="equip-card__img"><img src="assets/equipment/harvester.png" alt="" loading="lazy" /></div><h3>Harvester</h3><span class="equip-card__cat">Harvest</span></article>
+          <article class="equip-card" data-category="harvest"><div class="equip-card__img"><img src="assets/equipment/maize_harvester.png" alt="" loading="lazy" /></div><h3>Maize harvester</h3><span class="equip-card__cat">Harvest</span></article>
+          <article class="equip-card" data-category="harvest"><div class="equip-card__img"><img src="assets/equipment/reaper.png" alt="" loading="lazy" /></div><h3>Reaper</h3><span class="equip-card__cat">Harvest</span></article>
+          <article class="equip-card" data-category="harvest"><div class="equip-card__img"><img src="assets/equipment/baler.png" alt="" loading="lazy" /></div><h3>Baler</h3><span class="equip-card__cat">Harvest</span></article>
+          <article class="equip-card" data-category="harvest"><div class="equip-card__img"><img src="assets/equipment/potato_digger.png" alt="" loading="lazy" /></div><h3>Potato digger</h3><span class="equip-card__cat">Harvest</span></article>
+
+          <!-- Post-harvest -->
+          <article class="equip-card" data-category="post-harvest"><div class="equip-card__img"><img src="assets/equipment/thresher.png" alt="" loading="lazy" /></div><h3>Thresher</h3><span class="equip-card__cat">Post-harvest</span></article>
+          <article class="equip-card" data-category="post-harvest"><div class="equip-card__img"><img src="assets/equipment/dryer.png" alt="" loading="lazy" /></div><h3>Dryer</h3><span class="equip-card__cat">Post-harvest</span></article>
+          <article class="equip-card" data-category="post-harvest"><div class="equip-card__img"><img src="assets/equipment/winnower.png" alt="" loading="lazy" /></div><h3>Winnower</h3><span class="equip-card__cat">Post-harvest</span></article>
+          <article class="equip-card" data-category="post-harvest"><div class="equip-card__img"><img src="assets/equipment/grader.png" alt="" loading="lazy" /></div><h3>Grader</h3><span class="equip-card__cat">Post-harvest</span></article>
+
+          <!-- Crop care -->
+          <article class="equip-card" data-category="crop-care"><div class="equip-card__img"><img src="assets/equipment/sprayer.png" alt="" loading="lazy" /></div><h3>Sprayer</h3><span class="equip-card__cat">Crop care</span></article>
+          <article class="equip-card" data-category="crop-care"><div class="equip-card__img"><img src="assets/equipment/duster.png" alt="" loading="lazy" /></div><h3>Duster</h3><span class="equip-card__cat">Crop care</span></article>
+          <article class="equip-card" data-category="crop-care"><div class="equip-card__img"><img src="assets/equipment/flame_weeder.png" alt="" loading="lazy" /></div><h3>Flame weeder</h3><span class="equip-card__cat">Crop care</span></article>
+          <article class="equip-card" data-category="crop-care"><div class="equip-card__img"><img src="assets/equipment/drone.png" alt="" loading="lazy" /></div><h3>Drone</h3><span class="equip-card__cat">Crop care</span></article>
+
+          <!-- Irrigation -->
+          <article class="equip-card" data-category="irrigation"><div class="equip-card__img"><img src="assets/equipment/pump.png" alt="" loading="lazy" /></div><h3>Pump</h3><span class="equip-card__cat">Irrigation</span></article>
+          <article class="equip-card" data-category="irrigation"><div class="equip-card__img"><img src="assets/equipment/water_pump.png" alt="" loading="lazy" /></div><h3>Water pump</h3><span class="equip-card__cat">Irrigation</span></article>
+          <article class="equip-card" data-category="irrigation"><div class="equip-card__img"><img src="assets/equipment/drip_system.png" alt="" loading="lazy" /></div><h3>Drip system</h3><span class="equip-card__cat">Irrigation</span></article>
+          <article class="equip-card" data-category="irrigation"><div class="equip-card__img"><img src="assets/equipment/sprinkler.png" alt="" loading="lazy" /></div><h3>Sprinkler</h3><span class="equip-card__cat">Irrigation</span></article>
+          <article class="equip-card" data-category="irrigation"><div class="equip-card__img"><img src="assets/equipment/rain_gun.png" alt="" loading="lazy" /></div><h3>Rain gun</h3><span class="equip-card__cat">Irrigation</span></article>
+
+          <!-- Transport -->
+          <article class="equip-card" data-category="transport"><div class="equip-card__img"><img src="assets/equipment/trailer.png" alt="" loading="lazy" /></div><h3>Trailer</h3><span class="equip-card__cat">Transport</span></article>
+          <article class="equip-card" data-category="transport"><div class="equip-card__img"><img src="assets/equipment/truck.png" alt="" loading="lazy" /></div><h3>Truck</h3><span class="equip-card__cat">Transport</span></article>
+        </div>
+
+        <p style="text-align: center; color: var(--muted); margin-top: 2rem; font-size: 0.95rem;">
+          Don't see your equipment? Owners can list anything they own — these are just the most common categories. Tap <a href="for-owners.html" style="color: var(--saffron); border-bottom: 1px dashed currentColor;">List equipment</a> to add yours.
+        </p>
+      </div>
+    </section>
+
+    <section style="background: var(--cream-deep);">
+      <div class="container">
+        <div class="section-head section-head--center">
+          <span class="eyebrow">Get started</span>
+          <h2>Pick a side. <em>Both are free.</em></h2>
+        </div>
+        <div class="persona-cards">
+          <article class="persona-card persona-card--farmer">
+            <div class="persona-card__top">
+              <span class="persona-card__emoji">🌾</span>
+              <h3 class="persona-card__title">Need equipment?</h3>
+              <span class="persona-card__sub">किसान</span>
+            </div>
+            <div class="persona-card__body">
+              <p>Find verified equipment within 10 km. Pay only for what you use, by hour or day.</p>
+              <div class="persona-card__cta"><a href="for-farmers.html">For farmers <span aria-hidden="true">→</span></a></div>
+            </div>
+          </article>
+          <article class="persona-card persona-card--owner">
+            <div class="persona-card__top">
+              <span class="persona-card__emoji">🚜</span>
+              <h3 class="persona-card__title">Have idle equipment?</h3>
+              <span class="persona-card__sub">मालिक</span>
+            </div>
+            <div class="persona-card__body">
+              <p>List your tractor, harvester or sprayer. Earn 100% — we don't take commission.</p>
+              <div class="persona-card__cta"><a href="for-owners.html">For owners <span aria-hidden="true">→</span></a></div>
+            </div>
+          </article>
+          <article class="persona-card persona-card--operator">
+            <div class="persona-card__top">
+              <span class="persona-card__emoji">🛠️</span>
+              <h3 class="persona-card__title">Drive for hire?</h3>
+              <span class="persona-card__sub">चालक</span>
+            </div>
+            <div class="persona-card__body">
+              <p>Skilled chalaks find work nearby, pick shifts, and build a rated public profile.</p>
+              <div class="persona-card__cta"><a href="for-operators.html">For operators <span aria-hidden="true">→</span></a></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__wrap">
+      <div class="footer__brand">
+        <img src="assets/logo.png" alt="" />
+        <strong>KisanYantra</strong>
+        <span>Made in Bharat 🌾</span>
+      </div>
+      <nav class="footer__cols" aria-label="Footer">
+        <div><h4>Product</h4>
+          <a href="for-farmers.html">For farmers</a>
+          <a href="for-owners.html">For owners</a>
+          <a href="for-operators.html">For operators</a>
+          <a href="equipment.html">Equipment</a>
+        </div>
+        <div><h4>Get the app</h4>
+          <a href="index.html#download">Download</a>
+          <a href="index.html#download">Play Store</a>
+          <a href="index.html#download">App Store</a>
+        </div>
+        <div><h4>Company</h4>
+          <a href="mailto:hello@kisanyantra.app">Contact</a>
+          <a href="mailto:support@kisanyantra.app">Support</a>
+        </div>
+        <div><h4>Legal</h4>
+          <a href="privacy.html">Privacy policy</a>
+          <a href="terms.html">Terms &amp; conditions</a>
+        </div>
+      </nav>
+    </div>
+    <div class="footer__bottom">
+      <span>© <span id="year"></span> KisanYantra. All rights reserved.</span>
+      <span>0% commission. 9 भाषाएँ. एक भरोसा.</span>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
