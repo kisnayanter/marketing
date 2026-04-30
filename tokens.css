@@ -40,13 +40,201 @@
 }
 
 * { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; }
+html, body {
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+  /* Prevents stray descendant overflow from triggering a horizontal scrollbar.
+     `clip` is preferred over `hidden` because it doesn't create a new scroll
+     container, so `position: sticky` on the page nav keeps working. The
+     `hidden` declaration is a fallback for older browsers. */
+  overflow-x: hidden;
+  overflow-x: clip;
+}
 body {
   font-family: var(--f-body);
   color: var(--ky-ink);
   background: var(--ky-cream);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+img, svg, video { max-width: 100%; height: auto; }
+
+/* ── Mobile layout safety: collapse any 2-column section grid that uses
+   fractional units (1fr 1fr, 1.05fr 1fr, 1.1fr 3fr, 1.3fr 1fr, 1fr 1.1fr, …)
+   to a single column. Without this, sections render desktop-width on phones
+   and overflow the viewport horizontally. ─────────────────────────────── */
+@media (max-width: 768px) {
+  [style*="grid-template-columns: 1fr 1fr"],
+  [style*="grid-template-columns: 1fr 1.1fr"],
+  [style*="grid-template-columns: 1.05fr 1fr"],
+  [style*="grid-template-columns: 1.1fr 1fr"],
+  [style*="grid-template-columns: 1.1fr 3fr"],
+  [style*="grid-template-columns: 1.3fr 1fr"],
+  [style*="grid-template-columns: 1.5fr"],
+  [style*="grid-template-columns: repeat(2"] {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  [style*="grid-template-columns: repeat(3"],
+  [style*="grid-template-columns: repeat(4"],
+  [style*="grid-template-columns: repeat(5"] {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  /* Right-padding 64px on horizontal-scroll equipment lists must shrink too,
+     otherwise the last card sits behind the page edge. */
+  [style*="padding-right: 64"] { padding-right: 20px !important; }
+  [style*="padding: 100px 0 100px 64"] { padding: 60px 0 60px 20px !important; }
+
+  /* Hero/section headings used across pages have hardcoded large font-size
+     values in their inline style. Catch every variant the codebase uses so
+     they don't overflow narrow screens. */
+  h1[style*="font-size: 60"],
+  h1[style*="font-size: 64"],
+  h1[style*="font-size: 68"],
+  h1[style*="font-size: 72"],
+  h1[style*="font-size: 76"],
+  h1[style*="font-size: 78"],
+  h1[style*="font-size: 80"] {
+    font-size: 38px !important;
+    line-height: 1.05 !important;
+  }
+  h2[style*="font-size: 44"],
+  h2[style*="font-size: 48"],
+  h2[style*="font-size: 52"],
+  h2[style*="font-size: 56"],
+  h2[style*="font-size: 60"] {
+    font-size: 30px !important;
+    line-height: 1.1 !important;
+  }
+  h3[style*="font-size: 40"],
+  h3[style*="font-size: 44"],
+  h3[style*="font-size: 48"] {
+    font-size: 26px !important;
+    line-height: 1.15 !important;
+  }
+  /* Big "main" text in contact channel cards and similar — phone numbers,
+     emails, etc. that overflow at 26–32px on narrow phones */
+  [style*="font-size: 26"][style*="font-weight: 800"] { font-size: 20px !important; word-break: break-word; }
+  [style*="font-size: 32"][style*="letter-spacing"] { font-size: 22px !important; }
+}
+@media (max-width: 480px) {
+  [style*="grid-template-columns: repeat(3"],
+  [style*="grid-template-columns: repeat(4"],
+  [style*="grid-template-columns: repeat(5"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── Language strip — continuous marquee that "circles" the screen on every
+   viewport. The duplicated list (LANG_LIST × 2) lets transform: translateX(-50%)
+   loop seamlessly. Manual scroll is disabled so the auto-scroll isn't fought.
+   Slowed slightly on mobile so the scripts are easier to read. */
+.lang-marquee {
+  overflow: hidden;
+}
+.lang-marquee-track {
+  width: max-content;
+  animation: lang-scroll 38s linear infinite;
+}
+@keyframes lang-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.lang-marquee:hover .lang-marquee-track,
+.lang-marquee:focus-within .lang-marquee-track {
+  animation-play-state: paused;
+}
+@media (max-width: 768px) {
+  .lang-marquee-track { animation-duration: 28s; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lang-marquee-track { animation: none; }
+}
+
+/* ── Language orbit (LangShowcase) — Saturn-ring effect ─────────────
+   The ring is tilted back (--chip-tilt) so chips at the front of the orbit
+   sweep in front of the phone (positive Z) and chips at the back pass
+   behind it (negative Z). Each chip's position is computed with sin/cos
+   over an animated `--orbit-angle` (typed via @property so it interpolates
+   smoothly). Chips don't rotate — they only translate — so text always
+   faces the camera. Pause on hover; halt for prefers-reduced-motion. */
+@property --orbit-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.lang-orbit-stage {
+  perspective: 1300px;
+  perspective-origin: 50% 45%;
+  transform-style: preserve-3d;
+}
+
+.lang-orbit {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transform-style: preserve-3d;
+}
+
+.lang-orbit-chip {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  --chip-offset: 0deg;
+  --chip-radius: 340px;
+  --chip-tilt: 68deg;
+  pointer-events: auto;
+  will-change: transform;
+  animation: lang-orbit-revolve 32s linear infinite;
+  transform:
+    translate(-50%, -50%)
+    translate3d(
+      calc(var(--chip-radius) * sin(var(--orbit-angle) + var(--chip-offset))),
+      calc(-1 * var(--chip-radius) * cos(var(--orbit-angle) + var(--chip-offset)) * cos(var(--chip-tilt))),
+      calc(-1 * var(--chip-radius) * cos(var(--orbit-angle) + var(--chip-offset)) * sin(var(--chip-tilt)))
+    );
+}
+
+@keyframes lang-orbit-revolve {
+  from { --orbit-angle: 0deg; }
+  to   { --orbit-angle: 360deg; }
+}
+
+.lang-orbit-stage:hover .lang-orbit-chip {
+  animation-play-state: paused;
+}
+
+@media (max-width: 1100px) {
+  .lang-orbit-chip { --chip-radius: 260px; }
+}
+@media (max-width: 768px) {
+  .lang-orbit-chip {
+    --chip-radius: 150px;
+    --chip-tilt: 72deg;
+    animation-duration: 24s;
+  }
+}
+@media (max-width: 380px) {
+  .lang-orbit-chip { --chip-radius: 132px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lang-orbit-chip { animation: none; }
+}
+
+/* ── Hero hero3d-textcard hide on mobile.
+   The 3 floating UI cards (Booking confirmed / ₹42,500 / 1.8 km) on index.html
+   and the .hero-card-3d cards on farmer/owner/operator pages are text-heavy
+   and don't shrink gracefully — they overflow the viewport on phones. Hide
+   them on mobile. The equipment images (.hero3d-equip) stay visible at the
+   smaller mobile sizes set in JS, so the float animations still play. */
+@media (max-width: 768px) {
+  .hero3d-textcard,
+  .hero-card-3d {
+    display: none !important;
+  }
 }
 button { font-family: inherit; cursor: pointer; }
 a { color: inherit; }

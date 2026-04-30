@@ -220,8 +220,8 @@ function TopoPattern({ dark }) {
 // ============================================================
 function LangMarquee() {
   return (
-    <div style={{ background: "var(--ky-ink)", color: "var(--ky-cream)", padding: "20px 0", overflow: "hidden", borderTop: "1px solid var(--ky-cream-line)" }}>
-      <div style={{ display: "flex", gap: 56, whiteSpace: "nowrap", alignItems: "center", fontFamily: "var(--f-display)", fontSize: 22, fontWeight: 600 }}>
+    <div className="lang-marquee" style={{ background: "var(--ky-ink)", color: "var(--ky-cream)", padding: "20px 0", borderTop: "1px solid var(--ky-cream-line)" }}>
+      <div className="lang-marquee-track" style={{ display: "flex", gap: 56, whiteSpace: "nowrap", alignItems: "center", fontFamily: "var(--f-display)", fontSize: 22, fontWeight: 600, padding: "0 24px" }}>
         {[...LANG_LIST, ...LANG_LIST].map((l, i) => (
           <React.Fragment key={i}>
             <span>{l.label}</span>
@@ -291,115 +291,231 @@ function PersonaSwitcher({ role, setRole }) {
   };
   const data = flows[role];
 
+  const isMobile = useIsBelow(900);
+
   return (
-    <section id="personas" style={{ padding: "120px 64px", background: "var(--ky-cream)" }}>
+    <section id="personas" style={{ padding: isMobile ? "64px 20px" : "120px 64px", background: "var(--ky-cream)" }}>
       <div style={{ maxWidth: 1312, margin: "0 auto" }}>
         {/* Header */}
-        <div style={{ textAlign: "center", marginBottom: 48 }}>
+        <div style={{ textAlign: "center", marginBottom: isMobile ? 28 : 48 }}>
           <span style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "7px 14px", borderRadius: 999, background: "var(--ky-cream-deep)", border: "1px solid var(--ky-cream-line)", fontSize: 13, fontWeight: 600, color: "var(--ky-ink-2)", letterSpacing: "0.01em" }}>
             <Icon name="users" size={14}/>
             Three sides of the field
           </span>
-          <h2 style={{ fontFamily: "var(--f-display)", fontSize: 56, lineHeight: 1.05, letterSpacing: "-0.025em", margin: "20px auto 16px", fontWeight: 700, maxWidth: 760, textWrap: "balance" }}>
+          <h2 style={{ fontFamily: "var(--f-display)", fontSize: isMobile ? 36 : 56, lineHeight: 1.05, letterSpacing: "-0.025em", margin: "20px auto 16px", fontWeight: 700, maxWidth: 760, textWrap: "balance" }}>
             One marketplace.<br/><span style={{ color: data.accent }}>Pick your side.</span>
           </h2>
-          <p style={{ fontSize: 18, color: "var(--ky-ink-2)", maxWidth: 580, margin: "0 auto", lineHeight: 1.55 }}>
+          <p style={{ fontSize: isMobile ? 16 : 18, color: "var(--ky-ink-2)", maxWidth: 580, margin: "0 auto", lineHeight: 1.55 }}>
             Farmers rent. Owners earn. Operators get hired. The same app — three different home screens.
           </p>
         </div>
 
-        {/* Persona segmented control */}
-        <div style={{ display: "flex", justifyContent: "center", marginBottom: 56 }}>
-          <div style={{ display: "inline-flex", padding: 6, gap: 4, background: "var(--ky-cream-deep)", borderRadius: "var(--r-pill)", border: "1px solid var(--ky-cream-line)" }}>
-            {Object.entries(ROLES).map(([key, p]) => (
-              <button key={key} onClick={() => setRole(key)} style={{
-                padding: "12px 26px",
-                background: role === key ? "var(--ky-cream)" : "transparent",
-                color: role === key ? "var(--ky-ink)" : "var(--ky-ink-3)",
-                border: "none", borderRadius: 999,
-                fontFamily: "var(--f-body)", fontSize: 15, fontWeight: 600,
-                boxShadow: role === key ? "0 2px 8px rgba(30,26,18,0.08)" : "none",
-                display: "flex", alignItems: "center", gap: 10, cursor: "pointer",
-                transition: "all .2s ease",
-              }}>
-                <span style={{
-                  width: 8, height: 8, borderRadius: 999,
-                  background: role === key ? p.accent : "var(--ky-ink-4)",
-                  boxShadow: role === key ? `0 0 0 4px ${p.accentSoft}` : "none",
-                }}/>
-                <span>I want to {key === "farmer" ? "rent" : key === "owner" ? "earn" : "operate"}</span>
-                <span style={{ fontFamily: "var(--f-display)", fontSize: 13, opacity: 0.55 }}>· {p.hindi}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Body */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" }}>
-          <div>
-            <span style={{
-              display: "inline-flex", alignItems: "center", gap: 8,
-              padding: "6px 14px",
-              borderRadius: 999,
-              background: data.accentSoft, color: data.accentDeep,
-              fontSize: 13, fontWeight: 700,
-              marginBottom: 18,
-            }}>
-              <span style={{ width: 6, height: 6, borderRadius: 999, background: data.accent }}/>
-              For {ROLES[role].label.toLowerCase()}s · {ROLES[role].hindi}
-            </span>
-            <h3 style={{ fontFamily: "var(--f-display)", fontSize: 48, lineHeight: 1.05, letterSpacing: "-0.02em", margin: 0, fontWeight: 700, color: "var(--ky-ink)", textWrap: "balance" }}>
-              {data.title}
-            </h3>
-            <div style={{ fontFamily: "var(--f-display)", fontSize: 22, color: "var(--ky-ink-3)", marginTop: 6, fontWeight: 500 }}>{data.titleHi}</div>
-            <p style={{ fontSize: 17.5, color: "var(--ky-ink-2)", lineHeight: 1.6, marginTop: 18, maxWidth: 480 }}>{data.sub}</p>
-
-            {/* 3-step flow */}
-            <div style={{ marginTop: 36, display: "grid", gap: 4 }}>
-              {data.steps.map((s, i) => (
-                <div key={i} style={{ display: "flex", gap: 18, padding: "20px 0", borderTop: i === 0 ? "none" : "1px solid var(--ky-cream-line)" }}>
-                  <div style={{
-                    width: 48, height: 48, flexShrink: 0,
-                    borderRadius: 14,
-                    background: data.accentSoft,
-                    color: data.accent,
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                  }}>
-                    <Icon name={s.i} size={24} color={data.accent}/>
-                  </div>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontFamily: "var(--f-display)", fontSize: 20, fontWeight: 700, color: "var(--ky-ink)", lineHeight: 1.25 }}>
-                      <span style={{ color: data.accent, marginRight: 10, fontWeight: 800 }}>0{i+1}</span>
-                      {s.t}
-                    </div>
-                    <div style={{ fontSize: 15, color: "var(--ky-ink-2)", marginTop: 6, lineHeight: 1.55, maxWidth: 440 }}>{s.d}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <button style={{
-              marginTop: 32,
-              height: 56, padding: "0 28px",
-              background: data.accent, color: "var(--ky-cream)",
-              border: "none", borderRadius: "var(--r-btn)",
-              fontFamily: "var(--f-body)", fontSize: 16, fontWeight: 700,
-              boxShadow: `0 12px 30px ${data.accent === "var(--ky-saffron)" ? "rgba(255,107,0,0.32)" : data.accent === "var(--ky-forest)" ? "rgba(26,122,59,0.30)" : "rgba(37,99,235,0.30)"}`,
-              display: "inline-flex", alignItems: "center", gap: 10, cursor: "pointer",
-            }}>
-              <Icon name={data.ctaIcon} size={16} weight="fill"/>
-              {data.cta}
-            </button>
-          </div>
-
-          {/* RIGHT — phone */}
-          <div style={{ position: "relative", display: "flex", justifyContent: "center", alignItems: "center", minHeight: 720 }}>
-            <div style={{ position: "absolute", width: 540, height: 540, borderRadius: 999, background: `radial-gradient(circle, ${data.accentSoft}, transparent 70%)` }}/>
-            <ScreenshotPhone src={data.screen} width={340}/>
-          </div>
-        </div>
+        {isMobile
+          ? <PersonaAccordion flows={flows} role={role} setRole={setRole}/>
+          : <>
+              <PersonaTabs flows={flows} role={role} setRole={setRole}/>
+              <PersonaBody data={data} role={role} layout="desktop"/>
+            </>
+        }
       </div>
     </section>
+  );
+}
+
+// Pill segmented control — desktop only.
+function PersonaTabs({ flows, role, setRole }) {
+  return (
+    <div style={{ display: "flex", justifyContent: "center", marginBottom: 56 }}>
+      <div style={{ display: "inline-flex", padding: 6, gap: 4, background: "var(--ky-cream-deep)", borderRadius: "var(--r-pill)", border: "1px solid var(--ky-cream-line)" }}>
+        {Object.entries(ROLES).map(([key, p]) => (
+          <button key={key} onClick={() => setRole(key)} style={{
+            padding: "12px 26px",
+            background: role === key ? "var(--ky-cream)" : "transparent",
+            color: role === key ? "var(--ky-ink)" : "var(--ky-ink-3)",
+            border: "none", borderRadius: 999,
+            fontFamily: "var(--f-body)", fontSize: 15, fontWeight: 600,
+            boxShadow: role === key ? "0 2px 8px rgba(30,26,18,0.08)" : "none",
+            display: "flex", alignItems: "center", gap: 10, cursor: "pointer",
+            transition: "all .2s ease",
+          }}>
+            <span style={{
+              width: 8, height: 8, borderRadius: 999,
+              background: role === key ? p.accent : "var(--ky-ink-4)",
+              boxShadow: role === key ? `0 0 0 4px ${p.accentSoft}` : "none",
+            }}/>
+            <span>I want to {key === "farmer" ? "rent" : key === "owner" ? "earn" : "operate"}</span>
+            <span style={{ fontFamily: "var(--f-display)", fontSize: 13, opacity: 0.55 }}>· {p.hindi}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// Accordion — mobile/tablet only. Each row is a roomy header, expand-to-show.
+// `role` from parent seeds the initially-open row; toggling also updates parent.
+function PersonaAccordion({ flows, role, setRole }) {
+  const verbs = { farmer: "rent", owner: "earn", operator: "operate" };
+  const [openKey, setOpenKey] = useS(role);
+  // Keep accordion in sync if parent role changes (e.g. via deep link)
+  useE(() => { setOpenKey(role); }, [role]);
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+      {Object.entries(flows).map(([key, data]) => {
+        const isOpen = openKey === key;
+        const p = ROLES[key];
+        return (
+          <div key={key} style={{
+            border: `1.5px solid ${isOpen ? data.accent : "var(--ky-cream-line)"}`,
+            borderRadius: "var(--r-card)",
+            background: "var(--ky-cream)",
+            overflow: "hidden",
+            transition: "border-color .2s ease",
+            boxShadow: isOpen ? "0 12px 28px rgba(30,26,18,0.06)" : "none",
+          }}>
+            <button
+              type="button"
+              onClick={() => {
+                const next = isOpen ? null : key;
+                setOpenKey(next);
+                if (next) setRole(next);
+              }}
+              aria-expanded={isOpen}
+              style={{
+                width: "100%",
+                padding: "18px 20px",
+                background: isOpen ? data.accentSoft : "transparent",
+                border: "none",
+                display: "flex", alignItems: "center", gap: 14,
+                cursor: "pointer",
+                textAlign: "left",
+                transition: "background .2s ease",
+              }}
+            >
+              <span style={{
+                width: 36, height: 36, flexShrink: 0,
+                borderRadius: 999,
+                background: isOpen ? data.accent : "var(--ky-cream-deep)",
+                color: isOpen ? "var(--ky-cream)" : data.accent,
+                display: "flex", alignItems: "center", justifyContent: "center",
+              }}>
+                <Icon name={data.steps[0].i} size={18} color={isOpen ? "var(--ky-cream)" : data.accent} weight={isOpen ? "fill" : "regular"}/>
+              </span>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontFamily: "var(--f-display)", fontSize: 17, fontWeight: 700, color: isOpen ? data.accentDeep : "var(--ky-ink)", lineHeight: 1.2 }}>
+                  I want to {verbs[key]}
+                </div>
+                <div style={{ fontSize: 13, color: "var(--ky-ink-3)", marginTop: 2, fontWeight: 500 }}>
+                  {p.label} · {p.hindi}
+                </div>
+              </div>
+              <svg width="20" height="20" viewBox="0 0 20 20" style={{
+                flexShrink: 0,
+                transform: isOpen ? "rotate(180deg)" : "rotate(0)",
+                transition: "transform .25s ease",
+                color: isOpen ? data.accentDeep : "var(--ky-ink-3)",
+              }}>
+                <path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
+            {isOpen && (
+              <div style={{ padding: "20px 20px 28px", borderTop: `1px solid ${data.accentSoft}` }}>
+                <PersonaBody data={data} role={key} layout="mobile"/>
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+// Body content shared by desktop tab view and mobile accordion view.
+// `layout`: "desktop" → 2-col grid with phone on right.
+//           "mobile"  → stacked: tag, title, steps, phone, CTA.
+function PersonaBody({ data, role, layout }) {
+  const isMobile = layout === "mobile";
+  const phone = (
+    <div style={{ position: "relative", display: "flex", justifyContent: "center", alignItems: "center", minHeight: isMobile ? 480 : 720 }}>
+      <div style={{ position: "absolute", width: isMobile ? 320 : 540, height: isMobile ? 320 : 540, borderRadius: 999, background: `radial-gradient(circle, ${data.accentSoft}, transparent 70%)` }}/>
+      <ScreenshotPhone src={data.screen} width={isMobile ? 260 : 340}/>
+    </div>
+  );
+
+  const copy = (
+    <div>
+      <span style={{
+        display: "inline-flex", alignItems: "center", gap: 8,
+        padding: "6px 14px",
+        borderRadius: 999,
+        background: data.accentSoft, color: data.accentDeep,
+        fontSize: 13, fontWeight: 700,
+        marginBottom: 18,
+      }}>
+        <span style={{ width: 6, height: 6, borderRadius: 999, background: data.accent }}/>
+        For {ROLES[role].label.toLowerCase()}s · {ROLES[role].hindi}
+      </span>
+      <h3 style={{ fontFamily: "var(--f-display)", fontSize: isMobile ? 28 : 48, lineHeight: 1.05, letterSpacing: "-0.02em", margin: 0, fontWeight: 700, color: "var(--ky-ink)", textWrap: "balance" }}>
+        {data.title}
+      </h3>
+      <div style={{ fontFamily: "var(--f-display)", fontSize: isMobile ? 17 : 22, color: "var(--ky-ink-3)", marginTop: 6, fontWeight: 500 }}>{data.titleHi}</div>
+      <p style={{ fontSize: isMobile ? 15.5 : 17.5, color: "var(--ky-ink-2)", lineHeight: 1.6, marginTop: 14, maxWidth: 480 }}>{data.sub}</p>
+
+      <div style={{ marginTop: isMobile ? 20 : 36, display: "grid", gap: 4 }}>
+        {data.steps.map((s, i) => (
+          <div key={i} style={{ display: "flex", gap: 14, padding: isMobile ? "14px 0" : "20px 0", borderTop: i === 0 ? "none" : "1px solid var(--ky-cream-line)" }}>
+            <div style={{
+              width: isMobile ? 40 : 48, height: isMobile ? 40 : 48, flexShrink: 0,
+              borderRadius: 12,
+              background: data.accentSoft,
+              color: data.accent,
+              display: "flex", alignItems: "center", justifyContent: "center",
+            }}>
+              <Icon name={s.i} size={isMobile ? 20 : 24} color={data.accent}/>
+            </div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontFamily: "var(--f-display)", fontSize: isMobile ? 16 : 20, fontWeight: 700, color: "var(--ky-ink)", lineHeight: 1.25 }}>
+                <span style={{ color: data.accent, marginRight: 8, fontWeight: 800 }}>0{i+1}</span>
+                {s.t}
+              </div>
+              <div style={{ fontSize: isMobile ? 14 : 15, color: "var(--ky-ink-2)", marginTop: 4, lineHeight: 1.55, maxWidth: 440 }}>{s.d}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <button style={{
+        marginTop: isMobile ? 24 : 32,
+        height: isMobile ? 52 : 56, padding: "0 24px",
+        background: data.accent, color: "var(--ky-cream)",
+        border: "none", borderRadius: "var(--r-btn)",
+        fontFamily: "var(--f-body)", fontSize: isMobile ? 15 : 16, fontWeight: 700,
+        boxShadow: `0 12px 30px ${data.accent === "var(--ky-saffron)" ? "rgba(255,107,0,0.32)" : data.accent === "var(--ky-forest)" ? "rgba(26,122,59,0.30)" : "rgba(37,99,235,0.30)"}`,
+        display: "inline-flex", alignItems: "center", gap: 10, cursor: "pointer",
+      }}>
+        <Icon name={data.ctaIcon} size={16} weight="fill"/>
+        {data.cta}
+      </button>
+    </div>
+  );
+
+  if (isMobile) {
+    // Stack: copy first, phone screenshot, then CTA already inside copy.
+    // We reorder so the phone sits between sub-paragraph and steps for visual weight.
+    return (
+      <div>
+        {copy}
+        <div style={{ marginTop: 24 }}>{phone}</div>
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" }}>
+      {copy}
+      {phone}
+    </div>
   );
 }
 
@@ -761,65 +877,81 @@ function TestimonialCard({ q }) {
 // LANGUAGE SHOWCASE — Hindi screenshot with native scripts floating around
 // ============================================================
 function LangShowcase() {
+  const isMobile = useIsBelow(768);
+  const langs = [
+    { l: "हिंदी",     t: "Hindi",     color: "var(--ky-saffron)" },
+    { l: "ਪੰਜਾਬੀ",   t: "Punjabi",   color: "var(--ky-saffron)" },
+    { l: "தமிழ்",     t: "Tamil",     color: "var(--ky-forest)" },
+    { l: "বাংলা",    t: "Bengali",   color: "var(--ky-saffron)" },
+    { l: "ಕನ್ನಡ",    t: "Kannada",   color: "var(--ky-op-blue)" },
+    { l: "English",   t: "English",   color: "var(--ky-forest)" },
+    { l: "తెలుగు",   t: "Telugu",    color: "var(--ky-saffron)" },
+    { l: "ગુજરાતી",  t: "Gujarati",  color: "var(--ky-forest)" },
+    { l: "मराठी",    t: "Marathi",   color: "var(--ky-op-blue)" },
+    { l: "മലയാളം",   t: "Malayalam", color: "var(--ky-forest)" },
+  ];
+  const N = langs.length;
+  const phoneWidth   = isMobile ? 200 : 320;
+  const haloSize     = isMobile ? 360 : 700;
+  const stageHeight  = isMobile ? 480 : 760;
+
   return (
-    <section style={{ padding: "120px 64px", background: "var(--ky-cream)" }}>
+    <section style={{ padding: isMobile ? "60px 20px" : "120px 64px", background: "var(--ky-cream)", overflow: "hidden" }}>
       <div style={{ maxWidth: 1312, margin: "0 auto" }}>
-        <div style={{ textAlign: "center", marginBottom: 56 }}>
+        <div style={{ textAlign: "center", marginBottom: isMobile ? 28 : 56 }}>
           <span style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 999, background: "var(--ky-saffron-tint)", color: "var(--ky-saffron-deep)", fontSize: 13, fontWeight: 700 }}>
             <Icon name="globe" size={14}/>
             10 Indian languages
           </span>
-          <h2 style={{ fontFamily: "var(--f-display)", fontSize: 60, lineHeight: 1.02, letterSpacing: "-0.025em", margin: "20px auto 14px", fontWeight: 800, maxWidth: 820, textWrap: "balance" }}>
+          <h2 style={{ fontFamily: "var(--f-display)", fontSize: isMobile ? 36 : 60, lineHeight: 1.02, letterSpacing: "-0.025em", margin: "20px auto 14px", fontWeight: 800, maxWidth: 820, textWrap: "balance" }}>
             In the language of <span style={{ color: "var(--ky-saffron)" }}>your fields.</span>
           </h2>
-          <p style={{ fontSize: 19, color: "var(--ky-ink-2)", maxWidth: 580, margin: "0 auto", lineHeight: 1.55 }}>
+          <p style={{ fontSize: isMobile ? 16 : 19, color: "var(--ky-ink-2)", maxWidth: 580, margin: "0 auto", lineHeight: 1.55 }}>
             Switch anytime — every screen, every notification, every receipt.
           </p>
         </div>
 
-        <div style={{ position: "relative", display: "flex", justifyContent: "center", alignItems: "center", minHeight: 760, padding: "20px 0" }}>
+        <div className="lang-orbit-stage" style={{ position: "relative", display: "flex", justifyContent: "center", alignItems: "center", minHeight: stageHeight, padding: "20px 0" }}>
           {/* halo */}
-          <div style={{ position: "absolute", width: 700, height: 700, borderRadius: 999, background: "radial-gradient(circle, rgba(255,107,0,0.18), transparent 65%)", filter: "blur(30px)" }}/>
+          <div style={{ position: "absolute", width: haloSize, height: haloSize, borderRadius: 999, background: "radial-gradient(circle, rgba(255,107,0,0.18), transparent 65%)", filter: "blur(30px)" }}/>
 
-          {/* phone center */}
-          <div style={{ position: "relative", zIndex: 3 }}>
-            <ScreenshotPhone src={SCREENS.roleSelect} width={320}/>
+          {/* phone center — kept at z=0; preserve-3d on the stage handles
+              depth ordering so chips pass in front of and behind it. */}
+          <div style={{ position: "relative", transformStyle: "preserve-3d" }}>
+            <ScreenshotPhone src={SCREENS.roleSelect} width={phoneWidth}/>
           </div>
 
-          {/* Floating language chips arranged around phone */}
-          {[
-            { l: "हिंदी", t: "Hindi", x: -380, y: -180, color: "var(--ky-saffron)" },
-            { l: "தமிழ்", t: "Tamil", x: 340, y: -210, color: "var(--ky-forest)" },
-            { l: "मराठी", t: "Marathi", x: -420, y: 30, color: "var(--ky-op-blue)" },
-            { l: "বাংলা", t: "Bengali", x: 380, y: 60, color: "var(--ky-saffron)" },
-            { l: "ગુજરાતી", t: "Gujarati", x: -360, y: 230, color: "var(--ky-forest)" },
-            { l: "ಕನ್ನಡ", t: "Kannada", x: 400, y: 280, color: "var(--ky-op-blue)" },
-            { l: "മലയാളം", t: "Malayalam", x: -270, y: -310, color: "var(--ky-forest)" },
-            { l: "ਪੰਜਾਬੀ", t: "Punjabi", x: 250, y: -310, color: "var(--ky-saffron)" },
-            { l: "తెలుగు", t: "Telugu", x: -180, y: 350, color: "var(--ky-saffron)" },
-            { l: "English", t: "English", x: 200, y: 350, color: "var(--ky-forest)" },
-          ].map((g, i) => (
-            <div key={i} style={{
-              position: "absolute",
-              transform: `translate(${g.x}px, ${g.y}px) rotate(${(i % 2 === 0 ? -1 : 1) * (2 + i * 0.4)}deg)`,
-              padding: "12px 18px",
-              background: "var(--ky-cream)",
-              borderRadius: 14,
-              border: "1px solid var(--ky-cream-line)",
-              boxShadow: "0 12px 28px rgba(30,26,18,0.10), 0 2px 6px rgba(255,107,0,0.06)",
-              display: "flex", alignItems: "center", gap: 10,
-              zIndex: 2,
-            }}>
-              <div style={{
-                width: 8, height: 8, borderRadius: 999, background: g.color,
-                boxShadow: `0 0 0 4px color-mix(in srgb, ${g.color} 18%, transparent)`,
-              }}/>
-              <div>
-                <div style={{ fontFamily: "var(--f-display)", fontSize: 18, fontWeight: 700, color: "var(--ky-ink)", lineHeight: 1.05 }}>{g.l}</div>
-                <div style={{ fontSize: 11, color: "var(--ky-ink-4)", textTransform: "uppercase", letterSpacing: "0.08em", fontWeight: 600 }}>{g.t}</div>
+          {/* Orbiting language chips — even-spaced around phone, continuous rotation */}
+          <div className="lang-orbit" aria-hidden="true">
+            {langs.map((g, i) => (
+              <div
+                key={i}
+                className="lang-orbit-chip"
+                style={{ "--chip-offset": `${(i / N) * 360}deg` }}
+              >
+                <div style={{
+                  padding: isMobile ? "10px 14px" : "14px 18px",
+                  background: "var(--ky-cream)",
+                  borderRadius: 14,
+                  border: "1px solid var(--ky-cream-line)",
+                  boxShadow: "0 12px 28px rgba(30,26,18,0.10), 0 2px 6px rgba(255,107,0,0.06)",
+                  display: "flex", alignItems: "center", gap: isMobile ? 8 : 10,
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                }}>
+                  <div style={{
+                    width: 8, height: 8, borderRadius: 999, background: g.color,
+                    boxShadow: `0 0 0 4px color-mix(in srgb, ${g.color} 18%, transparent)`,
+                    flexShrink: 0,
+                  }}/>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                    <div style={{ fontFamily: "var(--f-display)", fontSize: isMobile ? 14 : 18, fontWeight: 700, color: "var(--ky-ink)", lineHeight: 1.4 }}>{g.l}</div>
+                    <div style={{ fontSize: isMobile ? 9 : 11, color: "var(--ky-ink-4)", textTransform: "uppercase", letterSpacing: "0.08em", fontWeight: 600, lineHeight: 1.2 }}>{g.t}</div>
+                  </div>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

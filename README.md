@@ -98,6 +98,34 @@ npx vercel --prod
 aws s3 sync . s3://your-bucket --delete --exclude ".git/*" --exclude "*.md"
 ```
 
+### Firebase Hosting (via GitHub Actions)
+
+Project: **`kisan-yantra`** (shared with the mobile app's Firebase project — `firebase.json` + `.firebaserc` are committed). Manual-trigger workflow lives at `.github/workflows/firebase-deploy.yml`.
+
+**One-time setup:**
+
+1. **Enable Hosting** for the `kisan-yantra` project at [console.firebase.google.com](https://console.firebase.google.com/) → Hosting → Get started.
+2. **Generate a deploy service account:**
+   - Run `firebase init hosting:github` locally once (it auto-generates a service account, attaches the right IAM role, and writes the JSON secret to the repo). Requires `npm i -g firebase-tools` + `firebase login`.
+   - **Or manually**: Firebase Console → Project Settings → Service Accounts → "Generate new private key" → download the JSON.
+3. **Add the secret to GitHub**: repo → Settings → Secrets and variables → Actions → New repository secret.
+   - Name: `FIREBASE_SERVICE_ACCOUNT_KISAN_YANTRA`
+   - Value: paste the entire service-account JSON file content.
+
+**Deploy:**
+
+- GitHub → Actions tab → "Deploy to Firebase Hosting" → **Run workflow** → pick channel:
+  - `live` → publishes to the production URL (`https://kisan-yantra.web.app`)
+  - `preview` → spins up a 7-day preview channel at `preview-<run-number>` (great for sharing a draft before going live)
+
+**Local deploy** (skips CI, useful for first push):
+
+```bash
+npm i -g firebase-tools
+firebase login
+firebase deploy --only hosting
+```
+
 ## Production hardening notes
 
 If page-load weight becomes an issue, the next step is to **pre-compile the JSX** (Babel in-browser is the biggest cost on first paint):

@@ -3,6 +3,24 @@
 
 const { useState, useEffect, useRef, useMemo, createContext, useContext } = React;
 
+// ---------- Viewport hook ----------
+// Returns `true` when the viewport is at or below `maxWidth`. Subscribes to
+// matchMedia changes so layout swaps (e.g. tabs → accordion) react to resize.
+function useIsBelow(maxWidth = 900) {
+  const [below, setBelow] = useState(() =>
+    typeof window !== "undefined" ? window.matchMedia(`(max-width: ${maxWidth}px)`).matches : false
+  );
+  useEffect(() => {
+    const mq = window.matchMedia(`(max-width: ${maxWidth}px)`);
+    const onChange = () => setBelow(mq.matches);
+    mq.addEventListener ? mq.addEventListener("change", onChange) : mq.addListener(onChange);
+    return () => {
+      mq.removeEventListener ? mq.removeEventListener("change", onChange) : mq.removeListener(onChange);
+    };
+  }, [maxWidth]);
+  return below;
+}
+
 // ---------- Role & language context ----------
 const RoleCtx = React.createContext({ role: "farmer", setRole: () => {} });
 
@@ -37,29 +55,28 @@ const ROLES = {
 };
 
 // ---------- Logo ----------
+// `size` is the rendered HEIGHT in px; width auto-scales by the image's
+// aspect ratio (~549/455 ≈ 1.21). Callers historically passed size=30–34
+// as the icon-only height; we bump those small values up so the wordmark
+// (which is now baked into the image) reads at the same visual weight.
+// `mono=true` (used in the dark-background footer) flips the colors via
+// a CSS filter so the brand stays readable.
 function KYLogo({ size = 32, mono = false }) {
-  const fill = mono ? "var(--ky-ink)" : "var(--ky-saffron)";
+  // Callers historically passed size=30–34 as a small icon-only height. The
+  // new image bakes the wordmark in, so we scale up generously (~2.2×) so
+  // the brand reads at proper marketing weight in the nav and footer.
+  const renderHeight = size * 2.2;
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-      <svg width={size} height={size} viewBox="0 0 40 40" aria-hidden>
-        <circle cx="20" cy="20" r="19" fill={fill} />
-        {/* stylized wheat sheaf / gear hybrid */}
-        <path
-          d="M20 9 L22 14 L27 13 L24 17 L28 20 L23 22 L25 27 L20 24 L15 27 L17 22 L12 20 L16 17 L13 13 L18 14 Z"
-          fill="var(--ky-cream)"
-        />
-        <circle cx="20" cy="20" r="3" fill={fill} />
-      </svg>
-      <span style={{
-        fontFamily: "var(--f-display)",
-        fontWeight: 800,
-        fontSize: size * 0.58,
-        letterSpacing: "-0.01em",
-        color: "var(--ky-ink)",
-      }}>
-        KisanYantra
-      </span>
-    </div>
+    <img
+      src="logo.png"
+      alt="KisanYantra"
+      style={{
+        height: renderHeight,
+        width: "auto",
+        display: "block",
+        filter: mono ? "brightness(0) invert(1)" : "none",
+      }}
+    />
   );
 }
 
@@ -536,4 +553,5 @@ Object.assign(window, {
   KYLogo, Btn, StoreBadge, Pill, SectionHeader,
   Nav, LangFlip, CyclingTagline, Phone, ScreenshotPhone,
   SCREENS, Icon,
+  useIsBelow,
 });

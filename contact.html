@@ -306,9 +306,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
 <style>
   .mob-menu-btn { display: none; }
   .mob-nav-open { display: none; }
+  body.menu-open { overflow: hidden; }
   @media (max-width: 768px) {
     .mob-menu-btn { display: flex !important; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1px solid var(--ky-cream-line); border-radius: 10px; background: var(--ky-cream-deep); cursor: pointer; }
-    .mob-nav-open { display: flex !important; position: fixed; inset: 0; top: 60px; z-index: 40; flex-direction: column; background: var(--ky-cream); padding: 24px 24px; gap: 4px; border-top: 1px solid var(--ky-cream-line); box-shadow: 0 20px 40px rgba(30,26,18,0.12); }
+    /* Hide the in-nav Play badge on mobile — crowds the hamburger and is already shown inside the page */
+    nav > div:last-of-type { display: none !important; }
+    .mob-nav-open { position: fixed; inset: 0; top: 64px; z-index: 40; flex-direction: column; background: var(--ky-cream); padding: 24px 24px; gap: 4px; border-top: 1px solid var(--ky-cream-line); box-shadow: 0 20px 40px rgba(30,26,18,0.12); overflow-y: auto; }
+    .mob-nav-open.is-open { display: flex; }
     .mob-nav-open a { padding: 14px 16px; border-radius: 10px; font-size: 17px; font-weight: 600; text-decoration: none; color: var(--ky-ink-2); border-bottom: 1px solid var(--ky-cream-line); }
   }
 </style>
@@ -330,7 +334,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
     // Create mobile nav panel
     var panel = document.createElement('div');
     panel.className = 'mob-nav-open';
-    panel.style.display = 'none'; // CSS shows it when .open
     var pages = [
       ['index.html','Home'],['farmer.html','🌾 Farmers'],['owner.html','🚜 Owners'],
       ['operator.html','👨‍🌾 Operators'],['pricing.html','Pricing'],
@@ -344,12 +347,20 @@ ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
     document.body.appendChild(panel);
 
     var open = false;
-    btn.addEventListener('click', function(){
-      open = !open;
-      panel.style.display = open ? 'flex' : 'none';
-      btn.innerHTML = open
-        ? '<svg width="20" height="20" viewBox="0 0 20 20"><path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>'
-        : '<svg width="20" height="20" viewBox="0 0 20 20"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+    var openSvg = '<svg width="20" height="20" viewBox="0 0 20 20"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+    var closeSvg = '<svg width="20" height="20" viewBox="0 0 20 20"><path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+    function setOpen(next) {
+      open = next;
+      panel.classList.toggle('is-open', open);
+      document.body.classList.toggle('menu-open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      btn.innerHTML = open ? closeSvg : openSvg;
+    }
+    btn.setAttribute('aria-label', 'Open menu');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.addEventListener('click', function() { setOpen(!open); });
+    panel.addEventListener('click', function(e) {
+      if (e.target.tagName === 'A') setOpen(false);
     });
   }, 400);
 })();

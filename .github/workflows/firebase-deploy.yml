@@ -1,0 +1,32 @@
+name: Deploy to Firebase Hosting
+
+on:
+  workflow_dispatch:
+    inputs:
+      channel:
+        description: "Hosting channel to deploy to"
+        required: true
+        default: "live"
+        type: choice
+        options:
+          - live
+          - preview
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KISAN_YANTRA }}
+          projectId: kisan-yantra
+          channelId: ${{ github.event.inputs.channel == 'preview' && format('preview-{0}', github.run_number) || 'live' }}
+          expires: ${{ github.event.inputs.channel == 'preview' && '7d' || '' }}
