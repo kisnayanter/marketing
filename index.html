@@ -93,7 +93,13 @@ function useReveal() {
       });
     }, { threshold: 0.12 });
     els.forEach(el => io.observe(el));
-    return () => io.disconnect();
+    // Fallback: iOS Safari sometimes drops IO callbacks for elements already
+    // in view on first paint, leaving sections stuck at opacity:0. Force
+    // visibility after 1.5s so animations never fail open.
+    const fallback = setTimeout(() => {
+      els.forEach(el => el.classList.add('visible'));
+    }, 1500);
+    return () => { io.disconnect(); clearTimeout(fallback); };
   }, []);
 }
 
@@ -476,8 +482,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
     var panel = document.createElement('div');
     panel.className = 'mob-nav-open';
     var pages = [
-      ['index.html','Home'],['farmer.html','🌾 Farmers'],['owner.html','🚜 Owners'],
-      ['operator.html','👨‍🌾 Operators'],['pricing.html','Pricing'],
+      ['index.html','Home'],['farmer.html','Farmers'],['owner.html','Owners'],
+      ['operator.html','Operators'],['pricing.html','Pricing'],
       ['about.html','About'],['contact.html','Contact']
     ];
     pages.forEach(function(p){

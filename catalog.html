@@ -18,6 +18,11 @@
       section { padding: 40px 16px !important; }
       .eq-grid { grid-template-columns: repeat(2,1fr) !important; }
     }
+    @media (max-width: 480px) {
+      /* On phones <480px (incl. iPhone 13/14 mini at 390px), 2-up cards leave
+         no room for the equipment image + description. Drop to single column. */
+      .eq-grid { grid-template-columns: 1fr !important; }
+    }
   </style>
 </head>
 <body>

@@ -286,6 +286,12 @@ ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
       });
     },{ threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
     sections.forEach(function(s){ io.observe(s); });
+
+    // Fallback: iOS Safari (and Chrome on iPhone, which uses the Safari engine)
+    // can miss IntersectionObserver callbacks for elements already intersecting
+    // the viewport on first paint, leaving sections stuck at opacity:0. Force
+    // visibility after 1.5s so animations never fail open.
+    setTimeout(function(){ sections.forEach(function(s){ s.classList.add("in"); }); }, 1500);
   }, 200);
 })();
 </script>
@@ -389,8 +395,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
     var panel = document.createElement('div');
     panel.className = 'mob-nav-open';
     var pages = [
-      ['index.html','Home'],['farmer.html','🌾 Farmers'],['owner.html','🚜 Owners'],
-      ['operator.html','👨‍🌾 Operators'],['pricing.html','Pricing'],
+      ['index.html','Home'],['farmer.html','Farmers'],['owner.html','Owners'],
+      ['operator.html','Operators'],['pricing.html','Pricing'],
       ['about.html','About'],['contact.html','Contact']
     ];
     pages.forEach(function(p){

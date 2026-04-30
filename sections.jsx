@@ -376,10 +376,24 @@ function PersonaAccordion({ flows, role, setRole }) {
           }}>
             <button
               type="button"
-              onClick={() => {
+              onClick={(e) => {
+                // Capture button's viewport position BEFORE the toggle so we can
+                // compensate for layout shift afterwards. Without this, closing
+                // a previously-open accordion above the tapped one collapses the
+                // page upward and the tapped header jumps out of the viewport
+                // (the user has to scroll back up to find what they just opened).
+                const btn = e.currentTarget;
+                const beforeTop = btn.getBoundingClientRect().top;
                 const next = isOpen ? null : key;
                 setOpenKey(next);
                 if (next) setRole(next);
+                // After React commits, scroll by the delta so the tapped header
+                // stays anchored at the same on-screen position.
+                requestAnimationFrame(() => {
+                  const afterTop = btn.getBoundingClientRect().top;
+                  const delta = afterTop - beforeTop;
+                  if (Math.abs(delta) > 1) window.scrollBy(0, delta);
+                });
               }}
               aria-expanded={isOpen}
               style={{
@@ -391,6 +405,7 @@ function PersonaAccordion({ flows, role, setRole }) {
                 cursor: "pointer",
                 textAlign: "left",
                 transition: "background .2s ease",
+                scrollMarginTop: 80,
               }}
             >
               <span style={{
