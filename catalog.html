@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>KisanYantra Equipment Catalog — 30+ farm equipment types</title>
+  <title>Kisan Sadhan Equipment Catalog — 30+ farm equipment types</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@500;600;700;800&display=swap" rel="stylesheet"/>
@@ -78,7 +78,7 @@ function PageNav() {
           <a key={href} href={href} style={{ padding:"7px 14px", borderRadius:8, textDecoration:"none", fontWeight:500, fontSize:14, color:"var(--ky-ink-3)" }}>{label}</a>
         ))}
       </div>
-      <div style={{ flexShrink:0 }}><StoreBadge store="play"/></div>
+      <div style={{ flexShrink:0, display:"flex", gap:8 }}><StoreBadge store="apple" compact/><StoreBadge store="play" compact/></div>
     </nav>
   );
 }
@@ -182,5 +182,5 @@ function App() {
 
 ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
 </script>
-<footer style="padding:40px 64px; background:var(--ky-ink); color:rgba(253,250,245,0.65); font-size:13px;"><div style="max-width:1312px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;"><span>© 2026 KisanYantra Technologies Pvt. Ltd. · Made for Indian farmers 🇮🇳</span><div style="display:flex; gap:24px;"><a href="privacy.html" style="color:rgba(253,250,245,0.7); text-decoration:none;">Privacy</a><a href="terms.html" style="color:rgba(253,250,245,0.7); text-decoration:none;">Terms</a><a href="contact.html" style="color:rgba(253,250,245,0.7); text-decoration:none;">Contact</a></div></div></footer></body>
+<footer style="padding:40px 64px; background:var(--ky-ink); color:rgba(253,250,245,0.65); font-size:13px;"><div style="max-width:1312px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;"><span>© 2026 Kisan Sadhan · Made for Indian farmers 🇮🇳</span><div style="display:flex; gap:24px;"><a href="privacy.html" style="color:rgba(253,250,245,0.7); text-decoration:none;">Privacy</a><a href="terms.html" style="color:rgba(253,250,245,0.7); text-decoration:none;">Terms</a><a href="contact.html" style="color:rgba(253,250,245,0.7); text-decoration:none;">Contact</a></div></div></footer></body>
 </html>

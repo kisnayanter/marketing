@@ -1,4 +1,4 @@
-// KisanYantra — shared UI components
+// Kisan Sadhan — shared UI components
 // Expects React + ReactDOM loaded globally.
 
 const { useState, useEffect, useRef, useMemo, createContext, useContext } = React;
@@ -59,24 +59,51 @@ const ROLES = {
 // aspect ratio (~549/455 ≈ 1.21). Callers historically passed size=30–34
 // as the icon-only height; we bump those small values up so the wordmark
 // (which is now baked into the image) reads at the same visual weight.
-// `mono=true` (used in the dark-background footer) flips the colors via
-// a CSS filter so the brand stays readable.
+// `mono=true` (used in the dark-background footer) flips the icon to white
+// and switches the wordmark to cream.
+//
+// We render the brand as an icon + text wordmark (rather than baking the
+// wordmark into the image) for two reasons:
+//   1. The icon-only `logo-icon.png` is a clean transparent PNG; the with-
+//      name JPEG had grey JPEG-compression artifacts that read as a white
+//      box at small sizes.
+//   2. CSS-rendered text stays crisp at any density and matches the rest of
+//      the marketing typography.
 function KYLogo({ size = 32, mono = false }) {
-  // Callers historically passed size=30–34 as a small icon-only height. The
-  // new image bakes the wordmark in, so we scale up generously (~2.2×) so
-  // the brand reads at proper marketing weight in the nav and footer.
-  const renderHeight = size * 2.2;
   return (
-    <img
-      src="logo.png"
-      alt="KisanYantra"
+    <span
       style={{
-        height: renderHeight,
-        width: "auto",
-        display: "block",
-        filter: mono ? "brightness(0) invert(1)" : "none",
+        display: "inline-flex",
+        alignItems: "center",
+        gap: Math.round(size * 0.32),
+        textDecoration: "none",
       }}
-    />
+      aria-label="Kisan Sadhan"
+    >
+      <img
+        src="logo-icon.png"
+        alt=""
+        style={{
+          height: Math.round(size * 1.4),
+          width: "auto",
+          display: "block",
+          filter: mono ? "brightness(0) invert(1)" : "none",
+        }}
+      />
+      <span
+        style={{
+          fontFamily: "var(--f-display)",
+          fontSize: Math.round(size * 0.72),
+          fontWeight: 800,
+          letterSpacing: "-0.01em",
+          color: mono ? "var(--ky-cream)" : "var(--ky-ink)",
+          whiteSpace: "nowrap",
+          lineHeight: 1,
+        }}
+      >
+        Kisan Sadhan
+      </span>
+    </span>
   );
 }
 
@@ -120,36 +147,39 @@ function Btn({ children, variant = "primary", size = "md", icon, iconRight, styl
 }
 
 // ---------- Store badges ----------
-function StoreBadge({ store = "play", dark = true }) {
+// `compact` shrinks the badge for tight spaces (e.g. desktop nav with two
+// badges side-by-side). It removes the minWidth and tightens padding while
+// keeping the same visual language.
+function StoreBadge({ store = "play", dark = true, compact = false }) {
   const bg = dark ? "#1E1A12" : "var(--ky-cream)";
   const fg = dark ? "var(--ky-cream)" : "var(--ky-ink)";
   const sub = dark ? "rgba(253,250,245,0.7)" : "var(--ky-ink-3)";
   return (
     <div style={{
-      display: "inline-flex", alignItems: "center", gap: 10,
-      padding: "10px 18px",
+      display: "inline-flex", alignItems: "center", gap: compact ? 8 : 10,
+      padding: compact ? "7px 12px" : "10px 18px",
       background: bg, color: fg,
-      borderRadius: 12,
+      borderRadius: compact ? 10 : 12,
       border: dark ? "none" : "1px solid var(--ky-cream-line)",
-      minWidth: 168,
+      minWidth: compact ? 0 : 168,
     }}>
       {store === "play" ? (
-        <svg width="22" height="24" viewBox="0 0 22 24" aria-hidden>
+        <svg width={compact ? 17 : 22} height={compact ? 19 : 24} viewBox="0 0 22 24" aria-hidden>
           <path d="M1.5 1 L15 12 L1.5 23 Z" fill="#FF6B00"/>
           <path d="M1.5 1 L15 12 L10 7.5 Z" fill="#FFA85C" opacity="0.8"/>
           <path d="M1.5 23 L15 12 L10 16.5 Z" fill="#E85D00" opacity="0.9"/>
           <path d="M15 12 L20 9 L20 15 Z" fill="#1A7A3B"/>
         </svg>
       ) : (
-        <svg width="20" height="24" viewBox="0 0 20 24" aria-hidden>
+        <svg width={compact ? 16 : 20} height={compact ? 19 : 24} viewBox="0 0 20 24" aria-hidden>
           <path fill={fg} d="M14.3 12.7c0-2.4 2-3.6 2.1-3.6-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.15-2.9.9-3.7.9-.8 0-2-.9-3.2-.9-1.6 0-3.2 1-4 2.5-1.7 2.9-.4 7.3 1.3 9.7.8 1.2 1.8 2.5 3.1 2.4 1.2-.05 1.7-.8 3.2-.8 1.5 0 1.9.8 3.2.8 1.3-.02 2.2-1.2 3-2.4.95-1.4 1.3-2.7 1.35-2.8-.03-.01-2.6-1-2.6-3.9zM12 4.6c.7-.85 1.2-2 1.05-3.15-1 .04-2.3.7-3 1.55-.65.75-1.25 2-1.1 3.1 1.15.1 2.3-.6 3.05-1.5z"/>
         </svg>
       )}
       <div style={{ lineHeight: 1.1, textAlign: "left" }}>
-        <div style={{ fontSize: 10, color: sub, textTransform: "uppercase", letterSpacing: "0.08em" }}>
+        <div style={{ fontSize: compact ? 8.5 : 10, color: sub, textTransform: "uppercase", letterSpacing: "0.08em" }}>
           {store === "play" ? "Get it on" : "Download on the"}
         </div>
-        <div style={{ fontFamily: "var(--f-display)", fontWeight: 700, fontSize: 17 }}>
+        <div style={{ fontFamily: "var(--f-display)", fontWeight: 700, fontSize: compact ? 13 : 17 }}>
           {store === "play" ? "Google Play" : "App Store"}
         </div>
       </div>
@@ -334,9 +364,13 @@ function CyclingTagline({ size = 96, paused = false }) {
   }, [paused]);
   return (
     <div style={{ position: "relative" }}>
-      {/* Invisible "tallest" tagline keeps layout stable — English is usually widest */}
-      <h1 aria-hidden="true" style={{ margin: 0, fontFamily: "var(--f-display)", fontSize: size, lineHeight: 1.15, letterSpacing: "-0.025em", fontWeight: 800, visibility: "hidden", pointerEvents: "none", userSelect: "none" }}>
-        Farm equipment,<br/><span>in your language.</span>
+      {/* Invisible "tallest" tagline keeps layout stable.
+          We use Tamil here because Tamil glyphs have combining marks above
+          AND below the baseline (e.g. ெ ை ு ூ ்), which makes Tamil
+          consistently the tallest script in our set. Sizing the container
+          by Tamil guarantees every other language fits inside. */}
+      <h1 aria-hidden="true" style={{ margin: 0, fontFamily: "var(--f-display)", fontSize: size, lineHeight: 1.55, letterSpacing: "-0.025em", fontWeight: 800, visibility: "hidden", pointerEvents: "none", userSelect: "none" }}>
+        விவசாய கருவிகள்,<br/><span>உங்கள் மொழியில்.</span>
       </h1>
       {/* Animated taglines layered on top */}
       {TAGLINES.map((t, i) => (
@@ -352,7 +386,7 @@ function CyclingTagline({ size = 96, paused = false }) {
             margin: 0,
             fontFamily: t.font,
             fontSize: size,
-            lineHeight: 1.15,
+            lineHeight: 1.55,
             letterSpacing: "-0.025em",
             fontWeight: 800,
             color: "var(--ky-ink)",

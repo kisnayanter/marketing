@@ -1,4 +1,4 @@
-// KisanYantra — page sections (rewritten with real app screenshots)
+// Kisan Sadhan — page sections (rewritten with real app screenshots)
 
 const { useState: useS, useEffect: useE, useRef: useR, useMemo: useM } = React;
 
@@ -702,7 +702,7 @@ function Features() {
         <div style={{ textAlign: "center", marginBottom: 80 }}>
           <span style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 999, background: "var(--ky-saffron-tint)", color: "var(--ky-saffron-deep)", fontSize: 13, fontWeight: 600 }}>
             <Icon name="sealCheck" size={14} weight="fill"/>
-            Why Kisan Yantra
+            Why Kisan Sadhan
           </span>
           <h2 style={{ fontFamily: "var(--f-display)", fontSize: 56, lineHeight: 1.05, letterSpacing: "-0.025em", margin: "18px auto 14px", fontWeight: 700, maxWidth: 760, textWrap: "balance" }}>
             Built for how rural India actually works.
@@ -1311,15 +1311,15 @@ function Footer() {
     ]},
     { h: "Company", links: [
       { l: "About us",          href: "about.html" },
-      { l: "Careers",           href: "mailto:careers@kisanyantra.in" },
-      { l: "Press",             href: "mailto:press@kisanyantra.in" },
+      { l: "Careers",           href: "mailto:careers@kisansadhan.in" },
+      { l: "Press",             href: "mailto:press@kisansadhan.in" },
       { l: "Villages we serve", href: "about.html#coverage" },
     ]},
     { h: "Support", links: [
       { l: "Help center",       href: "contact.html" },
       { l: "Contact us",        href: "contact.html" },
       { l: "Dispute resolution",href: "contact.html#faq" },
-      { l: "hello@kisanyantra.in", href: "mailto:hello@kisanyantra.in" },
+      { l: "hello@kisansadhan.in", href: "mailto:hello@kisansadhan.in" },
     ]},
   ];
   return (
@@ -1333,10 +1333,10 @@ function Footer() {
             </p>
             <div style={{ display: "flex", gap: 10, marginTop: 22 }}>
               {[
-                { l: "X",  href: "https://x.com/kisanyantra" },
-                { l: "IG", href: "https://instagram.com/kisanyantra" },
-                { l: "YT", href: "https://youtube.com/@kisanyantra" },
-                { l: "LI", href: "https://linkedin.com/company/kisanyantra" },
+                { l: "X",  href: "https://x.com/kisansadhan" },
+                { l: "IG", href: "https://instagram.com/kisansadhan" },
+                { l: "YT", href: "https://youtube.com/@kisansadhan" },
+                { l: "LI", href: "https://linkedin.com/company/kisansadhan" },
               ].map(s => (
                 <a key={s.l} href={s.href} style={{ width: 36, height: 36, borderRadius: 999, background: "rgba(253,250,245,0.08)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: "rgba(253,250,245,0.7)", textDecoration: "none", transition: "background .15s" }}
                   onMouseEnter={e => e.currentTarget.style.background = "rgba(253,250,245,0.15)"}
@@ -1376,7 +1376,7 @@ function Footer() {
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: 24, fontSize: 13, color: "rgba(253,250,245,0.5)", flexWrap: "wrap", gap: 20 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-            <span>© 2025–2026 KisanYantra Technologies Pvt. Ltd.</span>
+            <span>© 2025–2026 Kisan Sadhan</span>
             <span style={{ width: 4, height: 4, borderRadius: 999, background: "rgba(253,250,245,0.3)" }}/>
             <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontFamily: "var(--f-display)", fontWeight: 600 }}>
               <span style={{ display: "inline-block", width: 14, height: 10, background: "linear-gradient(180deg, #FF6B00 0 33%, #FFFFFF 33% 67%, #1A7A3B 67% 100%)", borderRadius: 1.5 }}/>
@@ -1398,19 +1398,26 @@ function Footer() {
 // COVERAGE MAP — live states + coming soon
 // ============================================================
 function CoverageMap() {
+  // Pin coordinates are derived from real lat/lng using a linear projection
+  // mapped into the SVG viewBox below (60..420 horizontal, 30..510 vertical):
+  //   x = 60 + (lng - 68) * 12.4
+  //   y = 30 + (37 - lat) * 16.5
+  // Reference points: Kashmir top (lat≈37, y≈30), Kanyakumari (lat≈8, y≈510),
+  // Gujarat west coast (lng≈68, x≈60), Arunachal east (lng≈97, x≈420).
   const live = [
-    { name: "Maharashtra", hi: "महाराष्ट्र", villages: 280, bookings: 14200, x: 178, y: 268, accent: "var(--ky-saffron)" },
-    { name: "Uttar Pradesh", hi: "उत्तर प्रदेश", villages: 310, bookings: 18600, x: 242, y: 168, accent: "var(--ky-forest)" },
-    { name: "Karnataka", hi: "कर्नाटक", villages: 96, bookings: 5800, x: 196, y: 348, accent: "var(--ky-op-blue)" },
-    { name: "Tamil Nadu", hi: "தமிழ்நாடு", villages: 88, bookings: 4900, x: 230, y: 400, accent: "var(--ky-saffron)" },
-    { name: "Punjab", hi: "ਪੰਜਾਬੀ", villages: 68, bookings: 4700, x: 174, y: 110, accent: "var(--ky-forest)" },
+    { name: "Punjab",        hi: "ਪੰਜਾਬੀ",        villages: 68,  bookings: 4700,  x: 153, y: 129, accent: "var(--ky-forest)"  }, // 31.0°N, 75.5°E
+    { name: "Uttar Pradesh", hi: "उत्तर प्रदेश", villages: 310, bookings: 18600, x: 215, y: 195, accent: "var(--ky-forest)"  }, // 27.0°N, 80.5°E
+    { name: "Maharashtra",   hi: "महाराष्ट्र",     villages: 280, bookings: 14200, x: 147, y: 319, accent: "var(--ky-saffron)" }, // 19.5°N, 75.5°E
+    { name: "Karnataka",     hi: "कर्नाटक",       villages: 96,  bookings: 5800,  x: 156, y: 401, accent: "var(--ky-op-blue)" }, // 14.5°N, 75.7°E
+    { name: "Tamil Nadu",    hi: "தமிழ்நாடு",     villages: 88,  bookings: 4900,  x: 190, y: 459, accent: "var(--ky-saffron)" }, // 11.0°N, 78.5°E
   ];
+  // Coming-soon states are listed in the chips below (not pinned on the map).
   const soon = [
-    { name: "Rajasthan", x: 148, y: 192 },
-    { name: "Madhya Pradesh", x: 216, y: 222 },
-    { name: "Bihar", x: 286, y: 188 },
-    { name: "Gujarat", x: 128, y: 240 },
-    { name: "Andhra Pradesh", x: 252, y: 332 },
+    { name: "Rajasthan" },
+    { name: "Madhya Pradesh" },
+    { name: "Bihar" },
+    { name: "Gujarat" },
+    { name: "Andhra Pradesh" },
   ];
   const [hovered, setHovered] = useS(null);
 
@@ -1492,89 +1499,83 @@ function CoverageMap() {
             </div>
           </div>
 
-          {/* RIGHT — stylised India map */}
+          {/* RIGHT — India map with live pins only */}
           <div style={{ position: "relative", display: "flex", justifyContent: "center" }}>
-            <svg viewBox="60 70 300 420" style={{ width: "100%", maxWidth: 460, filter: "drop-shadow(0 20px 40px rgba(30,26,18,0.08))" }}>
-              {/* India outline — simplified */}
+            <svg viewBox="0 0 480 540" style={{ width: "100%", maxWidth: 480, filter: "drop-shadow(0 20px 40px rgba(30,26,18,0.08))" }}>
+              {/*
+                India outline — simplified but geographically accurate.
+                Traced clockwise from Kashmir → NE finger → Bangladesh notch →
+                East coast → Kanyakumari → West coast → Kutch → Pakistan border.
+              */}
               <path
                 d="
-                  M174 76 L196 74 L220 78 L248 82 L270 90 L290 106 L304 124 L308 144
-                  L298 158 L310 172 L316 190 L308 208 L316 226 L312 246
-                  L302 264 L290 280 L284 298 L278 318 L268 338 L252 358
-                  L240 376 L228 392 L220 410 L216 428 L220 444 L228 456
-                  L220 462 L210 458 L202 448 L196 432 L188 416 L178 400
-                  L166 384 L154 368 L144 352 L136 334 L130 316 L128 298
-                  L132 278 L138 260 L132 244 L122 228 L118 210 L122 192
-                  L130 176 L136 158 L132 140 L136 122 L148 106 L162 94 Z
+                  M 165 28
+                  L 195 22 L 225 26 L 252 32 L 278 42 L 298 58 L 312 78
+                  L 305 96 L 318 108 L 340 110 L 358 102 L 380 100
+                  L 402 108 L 420 122 L 412 138 L 390 138 L 372 130
+                  L 360 142 L 348 158 L 332 162 L 318 178 L 322 198
+                  L 340 208 L 348 226 L 342 248 L 332 270 L 322 292
+                  L 308 314 L 290 336 L 270 360 L 252 384 L 232 408
+                  L 218 432 L 206 460 L 198 488 L 192 510 L 188 522
+                  L 182 524 L 178 514 L 172 492 L 162 462 L 152 432
+                  L 144 402 L 138 372 L 134 342 L 132 312 L 138 286
+                  L 130 262 L 118 240 L 110 220 L 104 200 L 98 188
+                  L 88 196 L 78 210 L 64 218 L 56 212 L 60 198
+                  L 72 188 L 86 178 L 96 162 L 90 144 L 82 132
+                  L 88 118 L 102 110 L 110 94 L 108 78 L 116 62
+                  L 132 48 L 148 38 Z
                 "
                 fill="var(--ky-cream)"
                 stroke="var(--ky-cream-line)"
-                strokeWidth="2"
+                strokeWidth="1.8"
+                strokeLinejoin="round"
               />
 
-              {/* subtle grid dots */}
-              {Array.from({ length: 200 }).map((_, i) => {
-                const x = 80 + (i % 20) * 14;
-                const y = 80 + Math.floor(i / 20) * 20;
-                return <circle key={i} cx={x} cy={y} r="1" fill="var(--ky-cream-line)"/>;
-              })}
-
-              {/* coming soon states — faint rings */}
-              {soon.map((s, i) => (
-                <circle key={i} cx={s.x} cy={s.y} r="18" fill="var(--ky-cream-deep)" stroke="var(--ky-cream-line)" strokeWidth="1.5" strokeDasharray="4 3"/>
-              ))}
-
-              {/* live state pings */}
+              {/* Live state pins — supported states only */}
               {live.map((s, i) => {
-                const color = s.accent.replace("var(--ky-saffron)", "#FF6B00").replace("var(--ky-forest)", "#1A7A3B").replace("var(--ky-op-blue)", "#2563EB");
+                const color = s.accent
+                  .replace("var(--ky-saffron)", "#FF6B00")
+                  .replace("var(--ky-forest)", "#1A7A3B")
+                  .replace("var(--ky-op-blue)", "#2563EB");
                 const isHov = hovered === s.name;
+                // Push the label outward from the state centroid; right side
+                // for east-of-center states, left for west, so labels never
+                // collide with the coastline.
+                const labelLeft = s.x < 200;
                 return (
                   <g key={i}>
-                    {/* pulse ring */}
-                    <circle cx={s.x} cy={s.y} r={isHov ? 28 : 22} fill={color} opacity="0.1"/>
-                    <circle cx={s.x} cy={s.y} r={isHov ? 18 : 14} fill={color} opacity="0.18"/>
-                    {/* dot */}
+                    <circle cx={s.x} cy={s.y} r={isHov ? 30 : 24} fill={color} opacity="0.10"/>
+                    <circle cx={s.x} cy={s.y} r={isHov ? 18 : 14} fill={color} opacity="0.20"/>
                     <circle cx={s.x} cy={s.y} r="7" fill={color}/>
-                    <circle cx={s.x} cy={s.y} r="3.5" fill="white" opacity="0.9"/>
-                    {/* label */}
+                    <circle cx={s.x} cy={s.y} r="3.2" fill="white" opacity="0.95"/>
                     <text
-                      x={s.x + (s.x > 220 ? 14 : -14)} y={s.y + 4}
-                      textAnchor={s.x > 220 ? "start" : "end"}
+                      x={s.x + (labelLeft ? -14 : 14)}
+                      y={s.y + 4}
+                      textAnchor={labelLeft ? "end" : "start"}
                       fontFamily="DM Sans, sans-serif"
-                      fontSize="10" fontWeight="600"
-                      fill="#3A342A"
+                      fontSize="11"
+                      fontWeight="700"
+                      fill="#1E1A12"
                       style={{ pointerEvents: "none" }}
                     >{s.name}</text>
                   </g>
                 );
               })}
-
-              {/* coming soon labels */}
-              {soon.map((s, i) => (
-                <text key={i} x={s.x} y={s.y + 4} textAnchor="middle" fontFamily="DM Sans, sans-serif" fontSize="8" fill="#9A9081" style={{ pointerEvents: "none" }}>{s.name.split(" ")[0]}</text>
-              ))}
             </svg>
 
             {/* stat pill */}
             <div style={{
-              position: "absolute", bottom: 24, left: "50%", transform: "translateX(-50%)",
+              position: "absolute", bottom: 12, left: "50%", transform: "translateX(-50%)",
               padding: "12px 20px",
               background: "var(--ky-ink)", color: "var(--ky-cream)",
               borderRadius: 999,
-              display: "flex", alignItems: "center", gap: 18,
+              display: "flex", alignItems: "center", gap: 10,
               fontSize: 13, fontWeight: 600,
               whiteSpace: "nowrap",
               boxShadow: "var(--sh-lg)",
             }}>
-              <span style={{ display: "inline-flex", alignItems: "center", gap: 7 }}>
-                <span style={{ width: 8, height: 8, borderRadius: 999, background: "var(--ky-forest)" }}/>
-                5 states live
-              </span>
-              <span style={{ opacity: 0.4 }}>·</span>
-              <span style={{ display: "inline-flex", alignItems: "center", gap: 7 }}>
-                <span style={{ width: 8, height: 8, borderRadius: 999, background: "rgba(255,255,255,0.3)", border: "1.5px dashed rgba(255,255,255,0.5)" }}/>
-                5 coming Q3 2026
-              </span>
+              <span style={{ width: 8, height: 8, borderRadius: 999, background: "var(--ky-forest)" }}/>
+              5 states live · 120+ villages
             </div>
           </div>
         </div>

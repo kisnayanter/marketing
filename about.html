@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>About KisanYantra — Built for Bharat</title>
+  <title>About Kisan Sadhan — Built for Bharat</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@500;600;700;800&display=swap" rel="stylesheet"/>
@@ -32,7 +32,7 @@ function PageNav() {
         <a href="about.html" style={{ padding:"7px 14px", borderRadius:8, textDecoration:"none", fontWeight:700, fontSize:14, color:"var(--ky-ink-3)", background:"color-mix(in srgb, var(--ky-ink-3) 10%, transparent)" }}>About</a>
         <a href="contact.html" style={{ padding:"7px 14px", borderRadius:8, textDecoration:"none", fontWeight:500, fontSize:14, color:"var(--ky-ink-3)" }}>Contact</a>
       </div>
-      <div style={{ flexShrink:0 }}><StoreBadge store="play"/></div>
+      <div style={{ flexShrink:0, display:"flex", gap:8 }}><StoreBadge store="apple" compact/><StoreBadge store="play" compact/></div>
     </nav>
   );
 }
@@ -55,7 +55,7 @@ function MissionHero() {
             India has 150 million farming households and fewer than 5 million tractors. Most small farmers wait days — sometimes weeks — to borrow a tractor from a neighbour or go through a broker who takes 20%.
           </p>
           <p style={{ fontSize:19, color:"rgba(253,250,245,0.78)", lineHeight:1.65, maxWidth:520, marginTop:18 }}>
-            KisanYantra exists to close that gap — in Hindi, Tamil, Marathi, Bengali and 6 more languages, so no farmer is left out because of the language on the screen.
+            Kisan Sadhan exists to close that gap — in Hindi, Tamil, Marathi, Bengali and 6 more languages, so no farmer is left out because of the language on the screen.
           </p>
         </div>
         <div style={{ display:"grid", gap:14 }}>
@@ -126,9 +126,9 @@ function TheProblem() {
 
 function Team() {
   const members = [
-    { name:"Pradeep Kumar", role:"CEO & Co-Founder", bio:"Visionary behind KisanYantra's mission to put farm equipment in every farmer's hands — in their own language, on their own terms.", initials:"PK", color:"var(--ky-saffron)", linkedin:"https://www.linkedin.com/in/pradeep-kumar-98a52220/", photo:"uploads/pradeep.png" },
-    { name:"Amit Dalal", role:"CMO & Co-Founder", bio:"Leads growth and brand strategy, connecting KisanYantra with farmers, owners and operators across rural India.", initials:"AD", color:"var(--ky-forest)", linkedin:"https://www.linkedin.com/in/amit-dalal-13045b34/", photo:"uploads/Amit Dalal.png" },
-    { name:"Shikha Jakhar", role:"CSO & Co-Founder", bio:"Drives KisanYantra's sales and partnerships, building the ground network of equipment owners and district-level alliances.", initials:"SJ", color:"var(--ky-op-blue)", linkedin:"https://www.linkedin.com/in/shikha-jakhar/", photo:"uploads/Shikha.png" },
+    { name:"Pradeep Kumar", role:"CEO & Co-Founder", bio:"Visionary behind Kisan Sadhan's mission to put farm equipment in every farmer's hands — in their own language, on their own terms.", initials:"PK", color:"var(--ky-saffron)", linkedin:"https://www.linkedin.com/in/pradeep-kumar-98a52220/", photo:"uploads/pradeep.png" },
+    { name:"Amit Dalal", role:"CMO & Co-Founder", bio:"Leads growth and brand strategy, connecting Kisan Sadhan with farmers, owners and operators across rural India.", initials:"AD", color:"var(--ky-forest)", linkedin:"https://www.linkedin.com/in/amit-dalal-13045b34/", photo:"uploads/Amit Dalal.png" },
+    { name:"Shikha Jakhar", role:"CSO & Co-Founder", bio:"Drives Kisan Sadhan's sales and partnerships, building the ground network of equipment owners and district-level alliances.", initials:"SJ", color:"var(--ky-op-blue)", linkedin:"https://www.linkedin.com/in/shikha-jakhar/", photo:"uploads/Shikha.png" },
   ];
   return (
     <section style={{ padding:"100px 64px", background:"var(--ky-cream-deep)", borderTop:"1px solid var(--ky-cream-line)" }}>
@@ -167,7 +167,7 @@ function Team() {
         </div>
         <div style={{ marginTop:24, padding:"20px 24px", background:"var(--ky-cream)", borderRadius:14, border:"1px dashed var(--ky-cream-line)", textAlign:"center" }}>
           <div style={{ fontFamily:"var(--f-display)", fontSize:17, fontWeight:700, color:"var(--ky-ink-3)" }}>We're hiring across engineering, operations and agri-partnerships.</div>
-          <div style={{ fontSize:14, color:"var(--ky-ink-4)", marginTop:6 }}>Reach us at <strong>careers@kisanyantra.in</strong></div>
+          <div style={{ fontSize:14, color:"var(--ky-ink-4)", marginTop:6 }}>Reach us at <strong>careers@kisansadhan.in</strong></div>
         </div>
       </div>
     </section>
@@ -326,7 +326,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
   body.menu-open { overflow: hidden; }
   @media (max-width: 768px) {
     .mob-menu-btn { display: flex !important; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1px solid var(--ky-cream-line); border-radius: 10px; background: var(--ky-cream-deep); cursor: pointer; }
-    /* Hide the in-nav Play badge on mobile — crowds the hamburger and is already shown inside the page */
+    /* Hide the in-nav store badges on mobile — crowds the hamburger and is already shown inside the page */
     nav > div:last-of-type { display: none !important; }
     .mob-nav-open { position: fixed; inset: 0; top: 64px; z-index: 40; flex-direction: column; background: var(--ky-cream); padding: 24px 24px; gap: 4px; border-top: 1px solid var(--ky-cream-line); box-shadow: 0 20px 40px rgba(30,26,18,0.12); overflow-y: auto; }
     .mob-nav-open.is-open { display: flex; }
@@ -382,5 +382,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
   }, 400);
 })();
 </script>
-<footer style="padding:40px 64px; background:var(--ky-ink); color:rgba(253,250,245,0.65); font-size:13px;"><div style="max-width:1312px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;"><span>© 2026 KisanYantra Technologies Pvt. Ltd. · Made for Indian farmers 🇮🇳</span><div style="display:flex; gap:24px;"><a href="privacy.html" style="color:rgba(253,250,245,0.7); text-decoration:none;">Privacy</a><a href="terms.html" style="color:rgba(253,250,245,0.7); text-decoration:none;">Terms</a><a href="contact.html" style="color:rgba(253,250,245,0.7); text-decoration:none;">Contact</a></div></div></footer></body>
+<footer style="padding:40px 64px; background:var(--ky-ink); color:rgba(253,250,245,0.65); font-size:13px;"><div style="max-width:1312px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;"><span>© 2026 Kisan Sadhan · Made for Indian farmers 🇮🇳</span><div style="display:flex; gap:24px;"><a href="privacy.html" style="color:rgba(253,250,245,0.7); text-decoration:none;">Privacy</a><a href="terms.html" style="color:rgba(253,250,245,0.7); text-decoration:none;">Terms</a><a href="contact.html" style="color:rgba(253,250,245,0.7); text-decoration:none;">Contact</a></div></div></footer></body>
 </html>

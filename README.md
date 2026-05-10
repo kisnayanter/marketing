@@ -1,6 +1,6 @@
-# KisanYantra — Marketing Site
+# Kisan Sadhan — Marketing Site
 
-Marketing site for **KisanYantra**, a 0%-commission farm-equipment rental platform for rural India. Built from a Claude Design (claude.ai/design) handoff bundle.
+Marketing site for **Kisan Sadhan**, a 0%-commission farm-equipment rental platform for rural India. Built from a Claude Design (claude.ai/design) handoff bundle.
 
 > **Hosted as a static site.** Drop the folder on any static host (GitHub Pages, Netlify, Vercel, S3 + CloudFront, your own nginx) and it's live.
 
@@ -141,8 +141,8 @@ That removes the ~3 MB Babel runtime entirely, leaving just React/ReactDOM (~140
 ## What's intentionally NOT in the site
 
 - **Voice / audio interfaces** — feature isn't shipped yet. Earlier copy mentioned voice; it's been scrubbed throughout.
-- **Native UPI / payment processing** — KisanYantra does **not** handle money. Payments are settled directly between renter and owner via cash or UPI, outside the platform. The terms reflect this.
-- **Commission / fair-pricing weasel words** — KisanYantra is 0% commission, full stop.
+- **Native UPI / payment processing** — Kisan Sadhan does **not** handle money. Payments are settled directly between renter and owner via cash or UPI, outside the platform. The terms reflect this.
+- **Commission / fair-pricing weasel words** — Kisan Sadhan is 0% commission, full stop.
 
 ## License
 

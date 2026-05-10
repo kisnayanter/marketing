@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>KisanYantra Pricing — Free for everyone</title>
+  <title>Kisan Sadhan Pricing — Free for everyone</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@500;600;700;800&display=swap" rel="stylesheet"/>
@@ -32,7 +32,7 @@ function PageNav() {
         <a href="about.html" style={{ padding:"7px 14px", borderRadius:8, textDecoration:"none", fontWeight:500, fontSize:14, color:"var(--ky-ink-3)" }}>About</a>
         <a href="contact.html" style={{ padding:"7px 14px", borderRadius:8, textDecoration:"none", fontWeight:500, fontSize:14, color:"var(--ky-ink-3)" }}>Contact</a>
       </div>
-      <div style={{ flexShrink:0 }}><StoreBadge store="play"/></div>
+      <div style={{ flexShrink:0, display:"flex", gap:8 }}><StoreBadge store="apple" compact/><StoreBadge store="play" compact/></div>
     </nav>
   );
 }
@@ -55,7 +55,7 @@ function Hero() {
           हमेशा के लिए मुफ़्त।
         </div>
         <p style={{ fontSize:20, color:"rgba(253,250,245,0.78)", lineHeight:1.6, maxWidth:580, margin:"0 auto 48px" }}>
-          KisanYantra is free for farmers, free for owners, free for operators. No booking fee, no commission, no subscription. Download and use.
+          Kisan Sadhan is free for farmers, free for owners, free for operators. No booking fee, no commission, no subscription. Download and use.
         </p>
         <div style={{ display:"inline-flex", alignItems:"center", gap:12, padding:"16px 28px", borderRadius:999, background:"rgba(255,107,0,0.12)", border:"1px solid rgba(255,107,0,0.25)" }}>
           <Icon name="rupee" size={24} color="var(--ky-saffron)"/>
@@ -185,15 +185,8 @@ function WhyFree() {
             Most platforms charge farmers a booking fee, owners a listing fee, or take 15–25% from every transaction. We think that's wrong.
           </p>
           <p style={{ fontSize:18, color:"var(--ky-ink-2)", lineHeight:1.65, maxWidth:480, marginTop:16 }}>
-            KisanYantra is building the infrastructure layer for farm equipment in India. Our goal is access, not margin extraction.
+            Kisan Sadhan is building the infrastructure layer for farm equipment in India. Our goal is access, not margin extraction.
           </p>
-          <div style={{ marginTop:36, padding:"20px 24px", background:"var(--ky-cream)", borderRadius:14, border:"1px solid var(--ky-cream-line)", display:"flex", gap:14, alignItems:"flex-start" }}>
-            <Icon name="lightning" size={24} color="var(--ky-saffron)" weight="fill"/>
-            <div>
-              <div style={{ fontFamily:"var(--f-display)", fontSize:17, fontWeight:700 }}>Premium features coming soon</div>
-              <div style={{ fontSize:14, color:"var(--ky-ink-3)", marginTop:4, lineHeight:1.55 }}>We're building voice-first access so farmers who can't type can book equipment by speaking — in their language. Core app stays free, always.</div>
-            </div>
-          </div>
         </div>
 
         <div style={{ display:"grid", gap:14 }}>
@@ -361,7 +354,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
   body.menu-open { overflow: hidden; }
   @media (max-width: 768px) {
     .mob-menu-btn { display: flex !important; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1px solid var(--ky-cream-line); border-radius: 10px; background: var(--ky-cream-deep); cursor: pointer; }
-    /* Hide the in-nav Play badge on mobile — crowds the hamburger and is already shown inside the page */
+    /* Hide the in-nav store badges on mobile — crowds the hamburger and is already shown inside the page */
     nav > div:last-of-type { display: none !important; }
     .mob-nav-open { position: fixed; inset: 0; top: 64px; z-index: 40; flex-direction: column; background: var(--ky-cream); padding: 24px 24px; gap: 4px; border-top: 1px solid var(--ky-cream-line); box-shadow: 0 20px 40px rgba(30,26,18,0.12); overflow-y: auto; }
     .mob-nav-open.is-open { display: flex; }
@@ -417,5 +410,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
   }, 400);
 })();
 </script>
-<footer style="padding:40px 64px; background:var(--ky-ink); color:rgba(253,250,245,0.65); font-size:13px;"><div style="max-width:1312px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;"><span>© 2026 KisanYantra Technologies Pvt. Ltd. · Made for Indian farmers 🇮🇳</span><div style="display:flex; gap:24px;"><a href="privacy.html" style="color:rgba(253,250,245,0.7); text-decoration:none;">Privacy</a><a href="terms.html" style="color:rgba(253,250,245,0.7); text-decoration:none;">Terms</a><a href="contact.html" style="color:rgba(253,250,245,0.7); text-decoration:none;">Contact</a></div></div></footer></body>
+<footer style="padding:40px 64px; background:var(--ky-ink); color:rgba(253,250,245,0.65); font-size:13px;"><div style="max-width:1312px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;"><span>© 2026 Kisan Sadhan · Made for Indian farmers 🇮🇳</span><div style="display:flex; gap:24px;"><a href="privacy.html" style="color:rgba(253,250,245,0.7); text-decoration:none;">Privacy</a><a href="terms.html" style="color:rgba(253,250,245,0.7); text-decoration:none;">Terms</a><a href="contact.html" style="color:rgba(253,250,245,0.7); text-decoration:none;">Contact</a></div></div></footer></body>
 </html>

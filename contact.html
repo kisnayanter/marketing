@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Contact KisanYantra — Support in 10 languages</title>
+  <title>Contact Kisan Sadhan — Support in 10 languages</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@500;600;700;800&display=swap" rel="stylesheet"/>
@@ -32,7 +32,7 @@ function PageNav() {
         <a href="about.html" style={{ padding:"7px 14px", borderRadius:8, textDecoration:"none", fontWeight:500, fontSize:14, color:"var(--ky-ink-3)" }}>About</a>
         <a href="contact.html" style={{ padding:"7px 14px", borderRadius:8, textDecoration:"none", fontWeight:700, fontSize:14, color:"var(--ky-ink-3)", background:"color-mix(in srgb, var(--ky-ink-3) 10%, transparent)" }}>Contact</a>
       </div>
-      <div style={{ flexShrink:0 }}><StoreBadge store="play"/></div>
+      <div style={{ flexShrink:0, display:"flex", gap:8 }}><StoreBadge store="apple" compact/><StoreBadge store="play" compact/></div>
     </nav>
   );
 }
@@ -83,7 +83,7 @@ function ContactChannels() {
     {
       icon:"star", color:"var(--ky-ink)", soft:"var(--ky-cream-deep)",
       t:"Email us", hi:"ईमेल करें",
-      main:"hello@kisanyantra.in",
+      main:"hello@kisansadhan.in",
       sub:"For partnerships, press, and non-urgent queries",
       cta:"Send email", ctaColor:"var(--ky-ink)",
     },
@@ -167,7 +167,7 @@ function ContactFAQ() {
     { q:"I placed a booking and the equipment didn't arrive. What do I do?", a:"Open the booking in the app and tap 'Report issue'. A support agent will call you within 30 minutes and help you find an alternative. You'll be fully refunded any advance paid." },
     { q:"I'm an owner and a farmer is disputing my payment. What happens?", a:"Tap 'Dispute' on the booking. We review the chat, photos and GPS log from both sides within 24 hours. Resolution is binding for both parties." },
     { q:"Can I change my registered language?", a:"Yes — go to Settings in the app and select your language. The change takes effect immediately across all screens, notifications and receipts." },
-    { q:"I want to partner with KisanYantra for my district cooperative.", a:"Write to us at partnerships@kisanyantra.in with your cooperative name, district and number of member farmers. We'll respond within 3 working days." },
+    { q:"I want to partner with Kisan Sadhan for my district cooperative.", a:"Write to us at partnerships@kisansadhan.in with your cooperative name, district and number of member farmers. We'll respond within 3 working days." },
   ];
   return (
     <section style={{ padding:"80px 64px 100px", background:"var(--ky-cream)" }}>
@@ -315,7 +315,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
   body.menu-open { overflow: hidden; }
   @media (max-width: 768px) {
     .mob-menu-btn { display: flex !important; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1px solid var(--ky-cream-line); border-radius: 10px; background: var(--ky-cream-deep); cursor: pointer; }
-    /* Hide the in-nav Play badge on mobile — crowds the hamburger and is already shown inside the page */
+    /* Hide the in-nav store badges on mobile — crowds the hamburger and is already shown inside the page */
     nav > div:last-of-type { display: none !important; }
     .mob-nav-open { position: fixed; inset: 0; top: 64px; z-index: 40; flex-direction: column; background: var(--ky-cream); padding: 24px 24px; gap: 4px; border-top: 1px solid var(--ky-cream-line); box-shadow: 0 20px 40px rgba(30,26,18,0.12); overflow-y: auto; }
     .mob-nav-open.is-open { display: flex; }
@@ -371,5 +371,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
   }, 400);
 })();
 </script>
-<footer style="padding:40px 64px; background:var(--ky-ink); color:rgba(253,250,245,0.65); font-size:13px;"><div style="max-width:1312px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;"><span>© 2026 KisanYantra Technologies Pvt. Ltd. · Made for Indian farmers 🇮🇳</span><div style="display:flex; gap:24px;"><a href="privacy.html" style="color:rgba(253,250,245,0.7); text-decoration:none;">Privacy</a><a href="terms.html" style="color:rgba(253,250,245,0.7); text-decoration:none;">Terms</a><a href="contact.html" style="color:rgba(253,250,245,0.7); text-decoration:none;">Contact</a></div></div></footer></body>
+<footer style="padding:40px 64px; background:var(--ky-ink); color:rgba(253,250,245,0.65); font-size:13px;"><div style="max-width:1312px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;"><span>© 2026 Kisan Sadhan · Made for Indian farmers 🇮🇳</span><div style="display:flex; gap:24px;"><a href="privacy.html" style="color:rgba(253,250,245,0.7); text-decoration:none;">Privacy</a><a href="terms.html" style="color:rgba(253,250,245,0.7); text-decoration:none;">Terms</a><a href="contact.html" style="color:rgba(253,250,245,0.7); text-decoration:none;">Contact</a></div></div></footer></body>
 </html>
